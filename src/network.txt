@@ -1,0 +1,79 @@
+MODULE: network
+FILES:  network.h, network.cpp
+================================================================================
+
+PURPOSE
+-------
+Connects the device to the home WiFi network and runs a small HTTP server that
+lets you manage books from any browser on the same network. Entered only on
+demand (hold SET at boot) and blocks forever until the device is reset (or
+returns on WiFi connection failure).
+
+
+WiFi MODE
+---------
+Station mode: the ESP32 joins your existing home network rather than creating
+its own access point. Credentials are stored in secrets.h (not in this file).
+After connecting, the device IP is shown on the e-paper display and printed to
+Serial. Browse to http://<ip> from any device on the same network.
+
+Connection timeout: 30 attempts × 500 ms = 15 seconds max.
+On timeout: shows "Connect failed" on screen and returns to the caller.
+
+
+HTTP API
+--------
+GET    /               Serves the web file manager UI (HTML from web_ui.h)
+GET    /api/files      Returns JSON array of .txt files on the SD card root:
+                         [{"name": "book.txt", "size": 12345}, ...]
+POST   /api/upload     Multipart upload; saves file to SD card root as .txt
+DELETE /api/file       Deletes a file by name. Query param: ?name=filename.txt
+
+Notes:
+  - Only .txt files (case-insensitive) are listed by /api/files.
+  - /api/upload strips any directory prefix from the browser-supplied filename
+    and appends ".txt" if the extension is missing or wrong case.
+  - All file operations target the SD card root ("/").
+
+
+ENTERING WiFi MODE
+------------------
+Hold the SET button (GPIO 41) while pressing RESET. The joystick SET pin is
+checked in setup() before the Library screen loads. If LOW, runWifiMode() is
+called immediately and does not return on success.
+
+From the running reader: navigate Library → Settings → "WiFi Upload".
+
+
+DIAGNOSTICS (Serial output)
+---------------------------
+Open Serial Monitor at 115200 baud to see:
+  "Connecting to WiFi..."       — WiFi.begin() called
+  "Connected. IP: 192.168.x.x" — station joined
+  "Upload start: /book.txt"     — SD.open() called for the incoming file
+  "ERROR: SD.open failed ..."   — SD not mounted or card not present
+  "Upload done: 12345 bytes"    — file closed successfully
+  "Browse to http://..."        — server ready
+
+If you see "Upload start" but NOT "Upload done", the SD write failed mid-
+transfer. If you see "ERROR: SD.open failed", check that the SD card is
+inserted and initSD() printed "SD card OK" on boot.
+
+
+PUBLIC API
+----------
+void runWifiMode()
+  - Shows "Connecting..." on screen.
+  - Calls WiFi.begin(WIFI_SSID, WIFI_PASS) and waits up to 15 seconds.
+  - On success: registers HTTP routes, starts WebServer, shows IP on screen,
+    then loops forever calling server.handleClient().
+  - On failure: shows "Connect failed" on screen and returns.
+
+
+DEPENDENCIES
+------------
+  - WiFi.h, WebServer.h (Arduino ESP32 core)
+  - SD.h (for file operations inside HTTP handlers)
+  - display.h (calls showWifiScreen())
+  - secrets.h (WIFI_SSID, WIFI_PASS)
+  - web_ui.h (embedded HTML string HTML_PAGE)

@@ -1,0 +1,92 @@
+MODULE: sd_manager
+FILES:  sd_manager.h, sd_manager.cpp
+================================================================================
+
+PURPOSE
+-------
+Owns the SD card hardware, the currently open book file, and all text-reading
+logic. Provides a clean API so no other module touches SD.h directly. Also
+holds the built-in fallback text used when no SD card or book is available.
+
+
+HARDWARE
+--------
+HiLetgo microSD module via HSPI (SPI3).
+
+  SD_CS   = GPIO 18
+  SD_SCK  = GPIO 17
+  SD_MOSI = GPIO 16
+  SD_MISO = GPIO 15
+
+
+PUBLIC API
+----------
+bool initSD()
+  - Initialises HSPI and mounts the SD card (FAT filesystem).
+  - Does NOT open any book — book selection now happens via the Library UI.
+  - Returns true on success. On failure the module silently falls back to
+    built-in sample text for any subsequent read operations.
+
+int listBooks(char names[][MAX_NAME_LEN], int maxBooks)
+  - Iterates the SD root directory and collects .txt filenames.
+  - Case-insensitive: matches .txt, .TXT, .Txt, etc.
+  - Closes every file handle after reading metadata (no handle leaks).
+  - Returns the number of books found (0 if SD is empty or unmounted).
+  - Called by enterLibrary() in main.cpp each time the Library screen opens.
+
+bool openBook(const char* filename)
+  - Closes any previously open book file, then opens `filename` for reading.
+  - `filename` may or may not include a leading '/'; both forms are accepted.
+  - Returns true on success. On failure usingSD is set to false so subsequent
+    calls to getLine() fall back to the built-in sample text.
+
+void scanPages()
+  - Walks the open book from byte 0 and records the byte offset of every
+    page boundary in an internal array (max MAX_PAGES = 512 entries).
+  - Page size = CHARS_PER_LINE × LINES_PER_PAGE characters.
+  - Must be called after openBook() and before showPage().
+  - Prints the page count to Serial.
+
+int getLine(int pageNum, int lineNum, char* buf, int maxLen)
+  - Fills buf with up to maxLen characters for the requested line.
+  - Always null-terminates buf.
+  - Returns number of characters written; 0 means end of text.
+  - Called by display.cpp inside showPage().
+
+extern int totalPages
+  - Set by scanPages(). Read by display.cpp (page counter) and main.cpp
+    (navigation bounds check).
+
+
+CONSTANTS
+---------
+  MAX_PAGES    512   maximum number of pages per book
+  MAX_BOOKS     32   maximum books listed in the Library screen
+  MAX_NAME_LEN  32   maximum filename length (including null terminator)
+
+
+FALLBACK TEXT
+-------------
+A short excerpt from "A Tale of Two Cities" is embedded in sd_manager.cpp.
+It is used automatically whenever:
+  - initSD() fails (no card / init error), OR
+  - openBook() fails (file not found / SD error)
+This ensures the device is always usable for demo purposes, even without
+an SD card present.
+
+
+BOOK FORMAT
+-----------
+Plain ASCII .txt files, uploaded via the web UI or copied directly to the SD
+card root (/). The paginator treats exactly CHARS_PER_LINE characters as one
+line and LINES_PER_PAGE lines as one page. There is no word-wrap; long words
+are split at the column boundary. UTF-8 multi-byte characters will cause
+mis-pagination — keep books to ASCII for now.
+
+
+DEPENDENCIES
+------------
+  - SD.h (Arduino ESP32 core)
+  - display.h (for CHARS_PER_LINE / LINES_PER_PAGE constants)
+    Note: display.h includes sd_manager.h for MAX_NAME_LEN, so sd_manager.cpp
+    can safely include display.h without creating a circular dependency.

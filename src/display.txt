@@ -1,0 +1,89 @@
+MODULE: display
+FILES:  display.h, display.cpp
+================================================================================
+
+PURPOSE
+-------
+Owns everything related to the e-paper display: hardware init and all screen
+rendering. Nothing outside this module touches GxEPD2 directly. All screens
+use FreeMonoBold9pt7b (monospace 9pt) — the only font currently loaded.
+
+
+HARDWARE
+--------
+Waveshare 2.9" V2 (296×128, GxEPD2_290_T94_V2) via FSPI (SPI2).
+
+  EPD_BUSY = GPIO 13
+  EPD_RST  = GPIO 12
+  EPD_DC   = GPIO 11
+  EPD_CS   = GPIO 10
+  EPD_CLK  = GPIO  9
+  EPD_DIN  = GPIO 46  (MOSI)
+
+When upgrading to the 7.5" display, swap GxEPD2_290_T94_V2 → GxEPD2_750_T7
+in display.cpp and update DISPLAY_W / DISPLAY_H in display.h.
+
+
+PUBLIC API
+----------
+void initDisplay()
+  - Starts FSPI, initialises the GxEPD2 driver, sets landscape rotation.
+  - Call once in setup() after initSD().
+
+void showBootScreen()
+  - Splash screen shown on power-on: "e-Reader" + "Loading...".
+  - Takes ~2 s (full e-paper refresh). main.cpp then delays 1 s before
+    transitioning to the Library screen.
+
+void showLibraryScreen(char names[][MAX_NAME_LEN], int count,
+                       int selected, int scroll)
+  - Renders the library navigation screen.
+  - Shows up to LIBRARY_VISIBLE (4) items from the scrolled window.
+  - Items 0..count-1 are SD book filenames; item `count` is always
+    "Settings".
+  - The selected item is drawn with a filled black highlight bar (white text).
+  - `scroll` is the index of the topmost visible item; call clampScroll()
+    in main.cpp to keep `selected` in view before calling this function.
+
+void showSettingsScreen(const char** items, int count, int selected)
+  - Same visual style as showLibraryScreen but with "Settings" as the header.
+  - No scrolling (settings list is short).
+  - items[] and count are passed from main.cpp.
+
+void showPage(int pageNum)
+  - Renders one page of the current book.
+  - Calls getLine() from sd_manager to fetch each text line.
+  - Draws a "page / total" counter in the bottom-right corner.
+  - No-ops if pageNum is out of range.
+
+void showWifiScreen(const char* ip)
+  - Renders the WiFi status screen.
+  - Pass "Connecting..." while connecting, then the real IP once ready,
+    or "Connect failed" on timeout.
+
+
+LAYOUT CONSTANTS (defined in display.h, used by sd_manager and main)
+---------------------------------------------------------------------
+  DISPLAY_W       296   display width in pixels
+  DISPLAY_H       128   display height in pixels
+  MARGIN            8   left/top margin in pixels
+  LINE_HEIGHT      18   pixels per text line (font + leading)
+  CHARS_PER_LINE   38   characters per line (monospace 9pt, landscape)
+  LINES_PER_PAGE    5   text lines per full-screen page
+  LIBRARY_VISIBLE   4   list rows visible at once (1 line used for header)
+
+
+HIGHLIGHT GEOMETRY
+------------------
+The selected-item highlight rect is:
+  y      = MARGIN + LINE_HEIGHT * (row + 2) - 13   (13 px above baseline)
+  height = LINE_HEIGHT (18 px)
+This covers the full ascent + descenders of FreeMonoBold9pt7b.
+Tweak the -13 offset if switching to a different font.
+
+
+DEPENDENCIES
+------------
+  - GxEPD2_BW.h + Adafruit GFX (via PlatformIO lib_deps)
+  - sd_manager.h (calls getLine(), reads totalPages; also provides MAX_NAME_LEN
+    which display.h includes for the showLibraryScreen signature)

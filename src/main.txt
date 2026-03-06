@@ -1,0 +1,86 @@
+FILE: main.cpp  (no header — Arduino entry point)
+================================================================================
+
+PURPOSE
+-------
+Thin orchestration layer. Owns the joystick GPIO setup, the app state machine,
+and navigation logic. All rendering, storage, and networking are delegated to
+their respective modules.
+
+
+BOOT SEQUENCE
+-------------
+1. Serial.begin(115200)
+2. Configure joystick pins (COM = OUTPUT LOW, direction pins = INPUT_PULLUP)
+3. initSD()       — mount SD card (sd_manager)
+4. initDisplay()  — start e-paper driver (display)
+5. If SET held LOW → runWifiMode() [blocks; reset to exit]
+6. showBootScreen() + delay(1000)
+7. enterLibrary() — scan SD for books, show Library screen
+
+
+APP STATES
+----------
+  LIBRARY    Home screen. Lists all .txt books on SD + a "Settings" entry.
+  READING    Full-screen page of text. Navigate pages, or go back to Library.
+  SETTINGS   Small menu: "WiFi Upload" and "Back".
+
+State is stored in the `appState` variable (enum AppState).
+
+
+INPUT MAP
+---------
+  Button    LIBRARY              READING              SETTINGS
+  --------  -------------------  -------------------  -------------------
+  UP        cursor up            previous page        cursor up
+  DOWN      cursor down          next page            cursor down
+  RIGHT     —                   next page            —
+  MID       open book/Settings   → Library            activate item
+  LEFT      —                   → Library            → Library
+  SET*      (boot-time only: enter WiFi upload mode)
+
+  *SET is only checked at startup, not in the loop.
+
+Debounce: 300 ms delay after any button press is detected.
+
+
+LIBRARY NAVIGATION
+------------------
+Total items = bookCount + 1 (the last item is always "Settings").
+The selected index is clamped with clampScroll() to keep it within the
+LIBRARY_VISIBLE window as the user scrolls.
+
+Selecting a book calls openBook() → scanPages() → showPage(0).
+Selecting "Settings" transitions to SETTINGS state.
+
+
+SETTINGS ITEMS
+--------------
+  Index 0 → "WiFi Upload"  Calls runWifiMode() (blocks until device reset or
+                            WiFi connection failure).
+  Index 1 → "Back"         Returns to Library (same as pressing LEFT).
+
+
+JOYSTICK WIRING
+---------------
+The 5-way joystick module's COM pin is wired to GPIO 35, configured as
+OUTPUT LOW (virtual GND). Direction pins use INPUT_PULLUP and read LOW when
+the switch closes.
+
+  JOY_COM = GPIO 35  (OUTPUT LOW)
+  JOY_UP  = GPIO 36
+  JOY_DWN = GPIO 37
+  JOY_LFT = GPIO 38
+  JOY_RHT = GPIO 39
+  JOY_MID = GPIO 40
+  JOY_SET = GPIO 41  ← hold at power-on for WiFi upload mode
+  JOY_RST = GPIO 42
+
+
+DEPENDENCIES
+------------
+  display.h     (initDisplay, showBootScreen, showLibraryScreen,
+                 showSettingsScreen, showPage, LIBRARY_VISIBLE)
+  sd_manager.h  (initSD, listBooks, openBook, scanPages, totalPages,
+                 MAX_BOOKS, MAX_NAME_LEN)
+  network.h     (runWifiMode)
