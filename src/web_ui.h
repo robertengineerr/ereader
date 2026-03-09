@@ -7,6 +7,8 @@ const char* HTML_PAGE = R"rawhtml(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>e-Reader</title>
+  <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.min.mjs" type="module" id="pdfjs"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -88,11 +90,12 @@ const char* HTML_PAGE = R"rawhtml(
 <body>
   <h1>e-Reader</h1>
   <p class="subtitle">Drop .txt files below to add books to the device.</p>
+  <button class="pick-btn" style="margin-bottom:18px;background:#555" onclick="exitWifi()">Exit WiFi Mode</button>
 
   <div class="drop-zone" id="dropZone">
-    <p>Drag &amp; drop .txt files here</p>
+    <p>Drag &amp; drop books here — .txt .epub .pdf .html .docx .fb2</p>
     <label class="pick-btn" for="fileInput">Choose files</label>
-    <input type="file" id="fileInput" accept=".txt" multiple>
+    <input type="file" id="fileInput" accept=".txt,.epub,.pdf,.html,.htm,.docx,.fb2,.mobi" multiple>
     <div class="progress-wrap" id="progWrap">
       <div class="progress-bar" id="progBar"></div>
     </div>
@@ -145,34 +148,137 @@ const char* HTML_PAGE = R"rawhtml(
       loadFiles();
     }
 
-    function uploadFiles(files) {
-      const txt = [...files].filter(f => f.name.endsWith('.txt'));
-      if (!txt.length) { showStatus('Only .txt files are supported.', false); return; }
+    // PDF → text via PDF.js
+    async function pdfToText(file) {
+      const pdfjsLib = await import('https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.min.mjs');
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs';
+      const buf = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+      let text = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(s => s.str).join(' ') + '\n';
+      }
+      return text;
+    }
 
-      let i = 0;
+    // HTML/HTM → text
+    function htmlToText(str) {
+      const doc = new DOMParser().parseFromString(str, 'text/html');
+      doc.querySelectorAll('script, style').forEach(el => el.remove());
+      return doc.body.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    // DOCX → text (word/document.xml inside ZIP)
+    async function docxToText(file) {
+      const zip = await JSZip.loadAsync(file);
+      const xml = await zip.file('word/document.xml').async('text');
+      const doc = new DOMParser().parseFromString(xml, 'application/xml');
+      return [...doc.querySelectorAll('w\\:t, t')].map(n => n.textContent).join(' ');
+    }
+
+    // FB2 → text (XML ebook format)
+    async function fb2ToText(file) {
+      const str = await file.text();
+      const doc = new DOMParser().parseFromString(str, 'application/xml');
+      doc.querySelectorAll('description, binary').forEach(el => el.remove());
+      return doc.documentElement.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    async function epubToText(file) {
+      const zip  = await JSZip.loadAsync(file);
+      const parser = new DOMParser();
+
+      // Locate OPF via META-INF/container.xml
+      const containerXml = await zip.file('META-INF/container.xml').async('text');
+      const container    = parser.parseFromString(containerXml, 'application/xml');
+      const opfPath      = container.querySelector('rootfile').getAttribute('full-path');
+      const opfDir       = opfPath.includes('/') ? opfPath.slice(0, opfPath.lastIndexOf('/') + 1) : '';
+
+      // Parse OPF for spine order
+      const opfText = await zip.file(opfPath).async('text');
+      const opf     = parser.parseFromString(opfText, 'application/xml');
+      const manifest = {};
+      opf.querySelectorAll('manifest item').forEach(item => {
+        manifest[item.getAttribute('id')] = item.getAttribute('href');
+      });
+      const spineIds = [...opf.querySelectorAll('spine itemref')].map(r => r.getAttribute('idref'));
+
+      // Extract plain text from each spine item in order
+      let text = '';
+      for (const id of spineIds) {
+        const href = manifest[id];
+        if (!href) continue;
+        const f = zip.file(opfDir + href) || zip.file(href);
+        if (!f) continue;
+        const html = await f.async('text');
+        const doc  = parser.parseFromString(html, 'text/html');
+        doc.querySelectorAll('script, style').forEach(el => el.remove());
+        const chunk = doc.body.textContent.replace(/\s+/g, ' ').trim();
+        if (chunk) text += chunk + '\n\n';
+      }
+      return text;
+    }
+
+    const SUPPORTED = ['.txt','.epub','.pdf','.html','.htm','.docx','.fb2'];
+    function ext(name) { return name.slice(name.lastIndexOf('.')).toLowerCase(); }
+
+    async function convertToText(file) {
+      const e = ext(file.name);
+      if (e === '.txt')              return file.text();
+      if (e === '.epub')             return epubToText(file);
+      if (e === '.pdf')              return pdfToText(file);
+      if (e === '.html'||e==='.htm') return file.text().then(htmlToText);
+      if (e === '.docx')             return docxToText(file);
+      if (e === '.fb2')              return fb2ToText(file);
+      throw new Error('Unsupported format');
+    }
+
+    async function uploadFiles(files) {
+      const allowed = [...files].filter(f => SUPPORTED.includes(ext(f.name)));
+      if (!allowed.length) { showStatus('Supported: ' + SUPPORTED.join(' '), false); return; }
+
       const prog = document.getElementById('progWrap');
       const bar  = document.getElementById('progBar');
+      prog.style.display = 'block';
+      bar.style.width = '0%';
 
-      function next() {
-        if (i >= txt.length) { prog.style.display = 'none'; loadFiles(); return; }
-        const file = txt[i++];
-        const fd = new FormData();
-        fd.append('file', file, file.name);
-        prog.style.display = 'block';
-        bar.style.width = '0%';
-        const xhr = new XMLHttpRequest();
-        xhr.upload.onprogress = e => {
-          if (e.lengthComputable) bar.style.width = (e.loaded / e.total * 100) + '%';
-        };
-        xhr.onload = () => {
-          showStatus(xhr.status === 200 ? 'Uploaded ' + file.name : 'Failed: ' + file.name, xhr.status === 200);
-          next();
-        };
-        xhr.onerror = () => { showStatus('Upload error', false); next(); };
-        xhr.open('POST', '/api/upload');
-        xhr.send(fd);
+      for (let i = 0; i < allowed.length; i++) {
+        let file = allowed[i];
+        let uploadName = file.name.replace(/\.[^.]+$/, '.txt');
+
+        if (ext(file.name) !== '.txt') {
+          showStatus('Converting ' + file.name + '...', true);
+          try {
+            const text = await convertToText(file);
+            file = new File([text], uploadName, { type: 'text/plain' });
+          } catch(e) {
+            showStatus('Failed to convert ' + file.name + ': ' + e.message, false);
+            continue;
+          }
+        }
+
+        await new Promise(resolve => {
+          const fd  = new FormData();
+          fd.append('file', file, uploadName);
+          bar.style.width = '0%';
+          const xhr = new XMLHttpRequest();
+          xhr.upload.onprogress = e => {
+            if (e.lengthComputable) bar.style.width = (e.loaded / e.total * 100) + '%';
+          };
+          xhr.onload = () => {
+            showStatus(xhr.status === 200 ? 'Uploaded ' + uploadName : 'Failed: ' + uploadName, xhr.status === 200);
+            resolve();
+          };
+          xhr.onerror = () => { showStatus('Upload error', false); resolve(); };
+          xhr.open('POST', '/api/upload');
+          xhr.send(fd);
+        });
       }
-      next();
+
+      prog.style.display = 'none';
+      loadFiles();
     }
 
     const zone = document.getElementById('dropZone');
@@ -187,6 +293,11 @@ const char* HTML_PAGE = R"rawhtml(
       uploadFiles(e.target.files);
       e.target.value = '';
     });
+
+    async function exitWifi() {
+      try { await fetch('/api/exit'); } catch(_) {}
+      document.body.innerHTML = '<p style="margin:40px;font-family:system-ui">Device returning to library...</p>';
+    }
 
     loadFiles();
   </script>

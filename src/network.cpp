@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <WiFi.h>
+#include <ESPmDNS.h>
 #include <WebServer.h>
 #include <SD.h>
 #include "network.h"
@@ -53,9 +54,14 @@ static void handleFileUpload() {
     if (!lower.endsWith(".txt")) path += ".txt";
 
     Serial.printf("Upload start: %s\n", path.c_str());
+    if (SD.cardType() == CARD_NONE) {
+      Serial.println("ERROR: No SD card mounted");
+      server.send(500, "text/plain", "No SD card");
+      return;
+    }
     uploadFile = SD.open(path, FILE_WRITE);
     if (!uploadFile) {
-      Serial.printf("ERROR: SD.open failed for %s — SD mounted? Card present?\n", path.c_str());
+      Serial.printf("ERROR: SD.open failed for %s\n", path.c_str());
     }
   } else if (upload.status == UPLOAD_FILE_WRITE) {
     if (uploadFile) uploadFile.write(upload.buf, upload.currentSize);
@@ -101,6 +107,8 @@ void runWifiMode() {
 
   String ip = WiFi.localIP().toString();
   Serial.printf("Connected. IP: %s\n", ip.c_str());
+  MDNS.begin("ereader");
+  Serial.println("mDNS: http://ereader.local");
 
   server.on("/",           HTTP_GET,    handleRoot);
   server.on("/api/files",  HTTP_GET,    handleFileList);
@@ -111,11 +119,21 @@ void runWifiMode() {
   server.on("/api/file",   HTTP_DELETE, handleDelete);
   server.begin();
 
-  showWifiScreen(ip.c_str());
-  Serial.printf("Browse to http://%s\n", ip.c_str());
+  showWifiScreen("ereader.local");
+  Serial.printf("Browse to http://ereader.local\n");
 
-  while (true) {
+  bool exitRequested = false;
+  server.on("/api/exit", HTTP_GET, [&exitRequested]() {
+    server.send(200, "text/plain", "Exiting WiFi mode...");
+    exitRequested = true;
+  });
+
+  while (!exitRequested && digitalRead(40) != LOW) {
     server.handleClient();
     delay(1);
   }
+
+  server.stop();
+  WiFi.disconnect(true);
+  Serial.println("WiFi mode exited");
 }

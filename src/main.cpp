@@ -59,8 +59,23 @@ static void clampScroll(int selected, int& scroll, int visible, int total) {
   if (selected >= scroll + visible) scroll = selected - visible + 1;
 }
 
+static void enterLibrary();  // forward declaration
+
+static void returnToLibrary() {
+  showPressAnyButton();
+  ev_up = ev_down = ev_left = ev_right = ev_mid = false;  // clear stale presses
+  while (!ev_up && !ev_down && !ev_left && !ev_right && !ev_mid) delay(10);
+  ev_up = ev_down = ev_left = ev_right = ev_mid = false;
+  enterLibrary();
+}
+
 static void enterLibrary() {
-  bookCount    = listBooks(bookNames, MAX_BOOKS);
+  bookCount = listBooks(bookNames, MAX_BOOKS - 1);
+  if (bookCount == 0) {
+    strncpy(bookNames[0], "Sample: The Iliad", MAX_NAME_LEN - 1);
+    bookNames[0][MAX_NAME_LEN - 1] = '\0';
+    bookCount = 1;
+  }
   selectedItem = 0;
   listScroll   = 0;
   appState     = LIBRARY;
@@ -94,9 +109,11 @@ void setup() {
   initSD();
   initDisplay();
 
-  // Hold SET at boot → WiFi upload mode (never returns on success)
+  // Hold SET at boot → WiFi upload mode
   if (digitalRead(JOY_SET) == LOW) {
     runWifiMode();
+    returnToLibrary();
+    return;
   }
 
   showBootScreen();
@@ -135,12 +152,11 @@ void loop() {
         showLibraryScreen(bookNames, bookCount, selectedItem, listScroll);
       } else if (mid) {
         if (selectedItem < bookCount) {
-          if (openBook(bookNames[selectedItem])) {
-            scanPages();
-            currentPage = 0;
-            appState    = READING;
-            showPage(currentPage);
-          }
+          openBook(bookNames[selectedItem]);  // failure falls back to sample text
+          scanPages();
+          currentPage = 0;
+          appState    = READING;
+          showPage(currentPage);
         } else {
           selectedItem = 0;
           listScroll   = 0;
@@ -173,7 +189,8 @@ void loop() {
         showSettingsScreen(settingsItems, SETTINGS_COUNT, selectedItem);
       } else if (mid) {
         if (selectedItem == 0) {
-          runWifiMode();  // blocks forever (or returns on connect failure)
+          runWifiMode();
+          returnToLibrary();
         } else {
           enterLibrary();
         }

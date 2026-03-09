@@ -4,7 +4,7 @@
 
 #define MAX_PAGES    512
 #define MAX_BOOKS     32
-#define MAX_NAME_LEN  32
+#define MAX_NAME_LEN  128
 
 // Total pages computed by scanPages(); read by display and main.
 extern int totalPages;

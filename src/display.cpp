@@ -1,11 +1,12 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <GxEPD2_BW.h>
-#include <Fonts/FreeMonoBold9pt7b.h>
+#include <Fonts/FreeMonoBold12pt7b.h>
 #include "display.h"
 #include "sd_manager.h"
 
 // --- e-Paper pins (FSPI / SPI2) ---
+#define EPD_PWR    3
 #define EPD_BUSY  13
 #define EPD_RST   12
 #define EPD_DC    11
@@ -15,15 +16,17 @@
 
 static SPIClass epdSPI(FSPI);
 
-// Waveshare 2.9" V2, 296x128. Swap to GxEPD2_750_T7 when 7.5" arrives.
-static GxEPD2_BW<GxEPD2_290_T94_V2, GxEPD2_290_T94_V2::HEIGHT> display(
-  GxEPD2_290_T94_V2(EPD_CS, EPD_DC, EPD_RST, EPD_BUSY)
+// Waveshare 7.5" V2, 800x480
+static GxEPD2_BW<GxEPD2_750_T7, GxEPD2_750_T7::HEIGHT> display(
+  GxEPD2_750_T7(EPD_CS, EPD_DC, EPD_RST, EPD_BUSY)
 );
 
 void initDisplay() {
+  pinMode(EPD_PWR, OUTPUT);
+  digitalWrite(EPD_PWR, HIGH);
   epdSPI.begin(EPD_CLK, -1, EPD_DIN, EPD_CS);
   display.init(115200, true, 2, false, epdSPI, SPISettings(4000000, MSBFIRST, SPI_MODE0));
-  display.setRotation(1);
+  display.setRotation(1);  // portrait: 480 wide x 800 tall
 }
 
 // ---------------------------------------------------------------------------
@@ -33,11 +36,11 @@ void initDisplay() {
 void showPage(int pageNum) {
   if (pageNum < 0 || pageNum >= totalPages) return;
 
-  display.setFullWindow();
+  display.setPartialWindow(0, 0, DISPLAY_W, DISPLAY_H);
   display.firstPage();
   do {
     display.fillScreen(GxEPD_WHITE);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeMonoBold12pt7b);
     display.setTextColor(GxEPD_BLACK);
 
     for (int line = 0; line < LINES_PER_PAGE; line++) {
@@ -48,7 +51,7 @@ void showPage(int pageNum) {
       display.print(lineBuf);
     }
 
-    display.setCursor(DISPLAY_W - 40, DISPLAY_H - 8);
+    display.setCursor(DISPLAY_W - 60, DISPLAY_H - 8);
     display.printf("%d/%d", pageNum + 1, totalPages);
   } while (display.nextPage());
 }
@@ -62,7 +65,7 @@ void showBootScreen() {
   display.firstPage();
   do {
     display.fillScreen(GxEPD_WHITE);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeMonoBold12pt7b);
     display.setTextColor(GxEPD_BLACK);
     display.setCursor(MARGIN, MARGIN + LINE_HEIGHT);
     display.print("e-Reader");
@@ -74,7 +77,7 @@ void showBootScreen() {
 // ---------------------------------------------------------------------------
 // Library screen
 // Items:  names[0..count-1]  (SD books)
-//         index count        → "Settings" (always last)
+//         index count        -> "Settings" (always last)
 // ---------------------------------------------------------------------------
 
 void showLibraryScreen(char names[][MAX_NAME_LEN], int count, int selected, int scroll) {
@@ -84,7 +87,7 @@ void showLibraryScreen(char names[][MAX_NAME_LEN], int count, int selected, int 
   display.firstPage();
   do {
     display.fillScreen(GxEPD_WHITE);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeMonoBold12pt7b);
 
     display.setTextColor(GxEPD_BLACK);
     display.setCursor(MARGIN, MARGIN + LINE_HEIGHT);
@@ -99,7 +102,7 @@ void showLibraryScreen(char names[][MAX_NAME_LEN], int count, int selected, int 
       int cursorY = MARGIN + LINE_HEIGHT * (i + 2);
 
       if (idx == selected) {
-        display.fillRect(0, cursorY - 13, DISPLAY_W, LINE_HEIGHT, GxEPD_BLACK);
+        display.fillRect(0, cursorY - LINE_HEIGHT + 2, DISPLAY_W, LINE_HEIGHT, GxEPD_BLACK);
         display.setTextColor(GxEPD_WHITE);
       } else {
         display.setTextColor(GxEPD_BLACK);
@@ -121,7 +124,7 @@ void showSettingsScreen(const char** items, int count, int selected) {
   display.firstPage();
   do {
     display.fillScreen(GxEPD_WHITE);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeMonoBold12pt7b);
 
     display.setTextColor(GxEPD_BLACK);
     display.setCursor(MARGIN, MARGIN + LINE_HEIGHT);
@@ -131,7 +134,7 @@ void showSettingsScreen(const char** items, int count, int selected) {
     for (int i = 0; i < count && i < LIBRARY_VISIBLE; i++) {
       int cursorY = MARGIN + LINE_HEIGHT * (i + 2);
       if (i == selected) {
-        display.fillRect(0, cursorY - 13, DISPLAY_W, LINE_HEIGHT, GxEPD_BLACK);
+        display.fillRect(0, cursorY - LINE_HEIGHT + 2, DISPLAY_W, LINE_HEIGHT, GxEPD_BLACK);
         display.setTextColor(GxEPD_WHITE);
       } else {
         display.setTextColor(GxEPD_BLACK);
@@ -148,12 +151,26 @@ void showSettingsScreen(const char** items, int count, int selected) {
 // WiFi upload screen
 // ---------------------------------------------------------------------------
 
+void showPressAnyButton() {
+  display.setFullWindow();
+  display.firstPage();
+  do {
+    display.fillScreen(GxEPD_WHITE);
+    display.setFont(&FreeMonoBold12pt7b);
+    display.setTextColor(GxEPD_BLACK);
+    display.setCursor(MARGIN, MARGIN + LINE_HEIGHT);
+    display.print("WiFi mode exited.");
+    display.setCursor(MARGIN, MARGIN + LINE_HEIGHT * 2 + 4);
+    display.print("Press any button to continue.");
+  } while (display.nextPage());
+}
+
 void showWifiScreen(const char* ip) {
   display.setFullWindow();
   display.firstPage();
   do {
     display.fillScreen(GxEPD_WHITE);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeMonoBold12pt7b);
     display.setTextColor(GxEPD_BLACK);
 
     display.setCursor(MARGIN, MARGIN + LINE_HEIGHT);
