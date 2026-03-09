@@ -15,7 +15,9 @@ The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/
 | MCU | ESP32-S3-DevKitC-1 (N16R8, 16MB flash, 8MB PSRAM) |
 | Display | Waveshare 7.5" V2 e-ink (800×480) |
 | Storage | MicroSD socket, SPI, FAT32 |
-| Input | 5-way joystick |
+| Input | 7× tactile buttons |
+| Battery | 3.7V LiPo via JST-PH, MCP73831 charger |
+| Power | USB-C (charging + programming), AP2112 3.3V LDO |
 
 ### Wiring
 
@@ -40,10 +42,9 @@ The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/
 
 > Use a 3.3V-native SD socket (no onboard LDO). DAT1 and DAT2 must be pulled to 3.3V via 10k resistors.
 
-**Joystick**
-| Pin | GPIO | Notes |
+**Buttons**
+| Button | GPIO | Notes |
 |---|---|---|
-| COM | 35 | Driven LOW (virtual GND) |
 | UP | 36 | INPUT_PULLUP, FALLING interrupt |
 | DOWN | 37 | INPUT_PULLUP, FALLING interrupt |
 | LEFT | 38 | INPUT_PULLUP, FALLING interrupt |
@@ -117,9 +118,9 @@ hardware/
 - [x] State machine UI (Library / Reading / Settings)
 - [x] WiFi upload with multi-format support
 - [x] mDNS (`ereader.local`)
-- [x] Hardware schematic (in progress)
-- [ ] Custom PCB (ESP32-S3 module + SD socket + battery management)
-- [ ] LiPo battery + charging circuit
+- [x] Hardware schematic v0.1
+- [ ] PCB layout and fabrication (JLCPCB)
+- [ ] LiPo battery + charging circuit (MCP73831 + AP2112)
 - [ ] Persist reading position (LittleFS)
 - [ ] EPUB native rendering
 - [ ] 3D printed enclosure
