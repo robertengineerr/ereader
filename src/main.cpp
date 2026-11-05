@@ -98,11 +98,16 @@ void setup() {
   attachInterrupt(JOY_RHT, isr_right, FALLING);
   attachInterrupt(JOY_MID, isr_mid,   FALLING);
 
+  // Latch "SET held at boot" before the slow SD/display init. 10 ms covers
+  // the PCB's 5.1K x 1uF debounce RC (~5 ms) settling after power-up.
+  delay(10);
+  const bool wifiRequested = (digitalRead(JOY_SET) == LOW);
+
   initSD();
   initDisplay();
 
   // Hold SET at boot → WiFi upload mode
-  if (digitalRead(JOY_SET) == LOW) {
+  if (wifiRequested) {
     runWifiMode();
     returnToLibrary();
     return;
