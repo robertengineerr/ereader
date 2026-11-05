@@ -59,6 +59,7 @@ the MCP73831 abs-max under surge; about 10–15 µA off-state drain from the div
 ## Before ordering PCBs
 - [ ] During layout, confirm which SKRHABE010 direction (A/B/C/D) faces "up", and remap `pins.h` if needed.
 - [ ] Check the Molex 104031-0811 card-detect polarity (switch open or closed with a card in) on the first board.
+- [ ] Make the enclosure's microSD slot at the left edge (card mouth about 1.9 mm inside the board edge, J1 at x≈108).
 - [ ] Silkscreen every J2 pin name (it is wired for individual Dupont leads, not a ribbon) and mark "+" on X1.
 - [ ] Choose R4 for your cell (5.1K ≈ 200 mA, 2K ≈ 500 mA, max 1C).
 - [ ] Every part is SMD with a verified LCSC number (`e_reader_v0.1/e_reader_v0.1_bom.csv`), so JLCPCB can assemble the whole board.
@@ -93,3 +94,42 @@ with `fab/jlcpcb_bom.csv` and `fab/jlcpcb_cpl.csv`.
 - [ ] **Check each part's rotation in JLCPCB's placement preview.** The CPL uses KiCad rotations, and SOT-23, SMA, USB-C,
       JST, microSD, the slide switch and the ESP32 often need an offset in JLCPCB's library. Adjust them in the preview before you confirm.
 - [ ] Open the board in KiCad and look it over, especially the USB lines and the area around the antenna.
+
+## Ten-reviewer evaluation
+
+| # | Specialty | Model | Score |
+|---|---|---|---|
+| 1 | Power path & battery | Sonnet | 8 |
+| 2 | ESP32 core / boot / flashing | Sonnet | 8 |
+| 3 | USB-C & ESD | Sonnet | 7 |
+| 4 | RF, antenna & grounding | Sonnet | 8 |
+| 5 | Decoupling & power distribution | Sonnet | 8 |
+| 6 | JLCPCB fabrication (DFM) | Haiku | 7 |
+| 7 | BOM / CPL / assembly | Haiku | 7 |
+| 8 | Mechanical & enclosure | Haiku | 3 |
+| 9 | Firmware ↔ hardware | Haiku | 6 |
+| 10 | Skeptical red-team | Sonnet | 7 |
+| | **Average** | | **6.9** |
+
+**Fixed:**
+- **microSD slot faced into the board** (#8, critical). The Molex 104031 card mouth is on the signal-pad side. J1 is now rotated
+  +90° so the card inserts from the left edge, checked against the footprint's card outline (it extends past x = 100).
+- `pio run` built and uploaded both targets because `default_envs` was missing (#9).
+- The first-flash procedure is now documented (SW10 ON, hold BOOT, tap RESET) (#2, #9, #10).
+- `network.cpp` hard-coded GPIO40; it now uses `JOY_MID` (#9).
+- The docs no longer claim card detect and battery sense work; they are hardware-only for now (#9).
+- The VBUS TVS D3 moved next to the USB-C VBUS pins (#3), and no vias remain at the ESP32 antenna-side rim (#4).
+
+**Rejected, after checking:**
+- "SW10 pin 1 is the common" (#9). KiCad's `SW_SPDT_321` has pin 2 as the common, and the netlist shows pin 2 on EN.
+- "`BOARD_HAS_PSRAM` does nothing" (#9). The Arduino-ESP32 core uses this flag to initialise PSRAM.
+- "SW3/SW10 mounting pins are unsoldered PTH" (#7). They are NPTH locating-peg holes for plastic pegs.
+- "Mounting holes are plated" (#8). `MountingHole_2.7mm_M2.5` is NPTH.
+- "Use SMAJ6.0A for a lower clamp" (#1). The 6.0 V part clamps higher, not lower.
+
+**Known v0.1 limits (accepted):**
+- The SMAJ5.0A clamps at about 9 V under a full surge, above the MCP73831's 7 V and Q3's ±8 V gate abs-max. This is a hot-plug-surge risk only.
+- The RT9080 (600 mA) has thin margin with Wi-Fi TX + e-paper refresh + SD write on a low cell. Firmware should not run Wi-Fi during a display refresh.
+- The SMD display header J2 is weaker than through-hole. Add strain relief or glue if leads are swapped often.
+- USB D+/D- are not length-matched (fine at 12 Mbit/s). The ESP32 EPAD thermal vias are open (standard footprint).
+- JLCPCB should solder the USB-C shell tabs; confirm in the quote.

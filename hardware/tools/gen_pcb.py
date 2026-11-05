@@ -155,7 +155,7 @@ put('SW9', 163.4, 137.3, 90)                       # RST (right edge)
 put('X3', 134.0, 146.2, 0, overhang='bottom')      # USB-C, mouth on the bottom edge
 put('SW10', 149.0, 147.0, 0, overhang='bottom')    # power slider on the bottom edge
 put('X1', 120.5, 145.0, 0, overhang='bottom')      # battery JST
-put('J1', 108.4, 142.2, 270, overhang='left')      # microSD, slot facing the left edge
+put('J1', 108.0, 142.2, 90, overhang='left')      # card mouth (pad side) faces the left edge      # microSD, slot facing the left edge
 HOLES = ((164.5, 146.5), (140.0, 112.0), (103.6, 130.2))
 for hx, hy in HOLES: placed.append((hx - 3.0, hy - 3.0, hx + 3.0, hy + 3.0))
 
@@ -167,7 +167,7 @@ pack('U2', 140.0, 134.5, rots=(0, 90))
 pack('Q4', 120.5, 136.5, rots=(0, 90))
 pack('F1', 113.5, 133.0, rots=(90, 180))
 pack('D1', 134.0, 139.6, rots=(0, 90))
-pack('D3', 126.5, 140.0, rots=(0, 90))
+pack('D3', 129.0, 140.6, rots=(90, 0))
 pack('SW1', 128.0, 112.0, rots=(90, 180))
 pack('SW2', 128.0, 120.5, rots=(90, 180))
 
