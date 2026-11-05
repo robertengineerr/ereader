@@ -22,7 +22,8 @@ POWER_NETS = {'GND', '+3V3', 'VBUS', 'VBAT', '/VBAT_RAW', '/VHI', 'Net-(Q4-D)'}
 BASE = W_SIG / 2 + CLR                    # every copper item is inflated by this
 
 board = P.LoadBoard(SRC)
-mm, iu = P.ToMM, P.FromMM
+mm = P.ToMM
+def iu(v): return P.FromMM(float(v))
 bb = board.GetBoardEdgesBoundingBox()
 X0, Y0, X1, Y1 = mm(bb.GetLeft()), mm(bb.GetTop()), mm(bb.GetRight()), mm(bb.GetBottom())
 NX, NY = int(round((X1 - X0) / G)) + 1, int(round((Y1 - Y0) / G)) + 1
@@ -157,7 +158,7 @@ def masks_for(net, name):
 # ---------------------------------------------------------------- A* search
 SQ2 = math.sqrt(2)
 NB = [(0, 1, 1.0), (0, -1, 1.0), (1, 0, 1.0), (-1, 0, 1.0), (1, 1, SQ2), (1, -1, SQ2), (-1, 1, SQ2), (-1, -1, SQ2)]
-def astar(net, name, sources, targets, tgt_xy, maxexp=2_500_000):
+def astar(net, name, sources, targets, tgt_xy, maxexp=6_000_000):
     t0, t1, vok = masks_for(net, name)
     T = [t0.ravel().tolist(), t1.ravel().tolist()]
     V = vok.ravel().tolist()
@@ -266,8 +267,11 @@ def bbox_hp(pads):
     x = [mm(p.GetPosition().x) for p in pads]; y = [mm(p.GetPosition().y) for p in pads]
     return (max(x) - min(x)) + (max(y) - min(y))
 order = [n for n in pads_by_net if netname[n] not in PLANE_NETS and len(pads_by_net[n]) > 1]
+import os
+PRIO = [x for x in os.environ.get('ROUTE_PRIORITY', '').split('|') if x]
 order.sort(key=lambda n: (0 if netname[n] in POWER_NETS else 1, bbox_hp(pads_by_net[n])))
-routed = 0
+order.sort(key=lambda n: PRIO.index(netname[n]) if netname[n] in PRIO else len(PRIO))
+routed = 0; failnets = set()
 for net in order:
     name = netname[net]; pads = pads_by_net[net]
     # group pads that are already the same copper (e.g. duplicated pads) by footprint+number
@@ -283,11 +287,13 @@ for net in order:
         ti, tj = cell(mm(tgt.GetPosition().x), mm(tgt.GetPosition().y))
         path = astar(net, name, list(tree), tcells, (ti, tj))
         if not path:
-            fails.append(f'{name}: {tgt.GetParentFootprint().GetReference()}.{tgt.GetNumber()}'); continue
+            fails.append(f'{name}: {tgt.GetParentFootprint().GetReference()}.{tgt.GetNumber()}'); failnets.add(name); continue
         commit_path(path, net, name)
         tree |= set(path) | set(tcells); connected.append(tgt); routed += 1
 print(f'routed {routed} connections in {time.time() - t_start:.1f}s; tracks={len(tracks)} vias={len(vias)}')
 if fails: print('FAILED:', *fails, sep='\n  ')
+print('FAILNETS:' + '|'.join(sorted(failnets)))
+print('NFAIL:', len(fails))
 
 # ---------------------------------------------------------------- 3. GND pour on F.Cu / B.Cu, then fill all zones
 for L in (P.F_Cu, P.B_Cu):
