@@ -7,7 +7,7 @@ There are two hardware targets. The firmware picks the pin map from `src/pins.h`
 | Target | MCU | Build |
 |--------|-----|-------|
 | Breadboard | ESP32-S3-DevKitC-1 (N16R8), joystick module with COM on a GPIO | `pio run -e esp32-s3-devkitc-1` (default) |
-| PCB (rev 0.2.0) | ESP32-S3-WROOM-1-N16R8 on the custom board | `pio run -e pcb` (`-DBOARD_PCB`) |
+| PCB (rev 0.2.0) | ESP32-S3-WROOM-1-N16R8 on the custom board | `pio run -e pcb` (`-DBOARD_PCB`, 16 MB flash, octal PSRAM, Serial over native USB-CDC) |
 
 Pins that differ between the two are **bold**.
 
@@ -37,11 +37,11 @@ Interface: **HSPI (SPI3)**, 4 MHz. FAT32, `.txt` files in root.
 | SD signal | GPIO | Notes |
 |-----------|------|-------|
 | CS (DAT3) | GPIO15 | 10K pull-up (R20) on the PCB |
-| MOSI (CMD) | GPIO16 | |
+| MOSI (CMD) | GPIO16 | 10K pull-up (R21) on the PCB |
 | SCK (CLK) | GPIO17 | |
 | MISO (DAT0) | GPIO18 | 10K pull-up (R19) on the PCB |
 | DAT1 / DAT2 | — | 10K pull-ups (R2 / R1), unused in SPI mode |
-| Card detect | **GPIO6 (PCB only)** | Switch to GND when a card is inserted, so use INPUT_PULLUP |
+| Card detect | **GPIO6 (PCB only)** | DET_B → GPIO6 with 10K pull-up (R22), DET_A → GND. Check the switch polarity (open or closed with a card in) on the first board |
 
 ---
 
