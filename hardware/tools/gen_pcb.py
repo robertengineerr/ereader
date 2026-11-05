@@ -24,7 +24,7 @@ ns = ds.m_NetSettings
 dflt = ns.GetDefaultNetclass()
 dflt.SetClearance(MM(0.15)); dflt.SetTrackWidth(MM(0.2)); dflt.SetViaDiameter(MM(0.6)); dflt.SetViaDrill(MM(0.3))
 pwr = P.NETCLASS('Power')
-pwr.SetClearance(MM(0.2)); pwr.SetTrackWidth(MM(0.4)); pwr.SetViaDiameter(MM(0.8)); pwr.SetViaDrill(MM(0.4))
+pwr.SetClearance(MM(0.15)); pwr.SetTrackWidth(MM(0.3)); pwr.SetViaDiameter(MM(0.6)); pwr.SetViaDrill(MM(0.3))
 ns.SetNetclass('Power', pwr)
 POWER_NETS = ['GND', '+3V3', 'VBUS', 'VBAT', '/VBAT_RAW', '/VHI', 'Net-(Q4-D)']
 for n in POWER_NETS: ns.SetNetclassPatternAssignment(n, 'Power')

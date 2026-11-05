@@ -13,9 +13,9 @@ import pcbnew as P
 
 SRC, DST = sys.argv[1], sys.argv[2]
 G = 0.1                                   # grid pitch, mm
-CLR, CLR_PWR = 0.15, 0.20                 # clearances (must match board rules)
-W_SIG, W_PWR = 0.20, 0.40                 # track widths
-VIA_SIG, VIA_PWR = (0.6, 0.3), (0.8, 0.4) # (diameter, drill)
+CLR, CLR_PWR = 0.15, 0.15                 # clearances (must match board rules)
+W_SIG, W_PWR = 0.20, 0.30                 # track widths
+VIA_SIG, VIA_PWR = (0.6, 0.3), (0.6, 0.3) # (diameter, drill)
 VIA_COST, BOTTOM_COST = 18.0, 1.15        # cost of a via (in grid steps) / bottom-layer step multiplier
 PLANE_NETS = {'GND': 'In1', '+3V3': 'In2'}
 POWER_NETS = {'GND', '+3V3', 'VBUS', 'VBAT', '/VBAT_RAW', '/VHI', 'Net-(Q4-D)'}
@@ -160,7 +160,7 @@ def net_params(name):
 def masks_for(net, name):
     w, clr, via = net_params(name)
     ok0 = (own[0] == 0) | (own[0] == net); ok1 = (own[1] == 0) | (own[1] == net)
-    extra = (w / 2 + clr) - (W_SIG / 2 + CLR)        # extra margin beyond the BASE inflation
+    extra = (w / 2 + clr) - (W_SIG / 2 + CLR + MARG) # extra margin beyond the BASE inflation
     if extra > 0: extra += G
     t0, t1 = erode(ok0, extra), erode(ok1, extra)
     vr = (via[0] / 2 + clr) - (W_SIG / 2 + CLR) + G
