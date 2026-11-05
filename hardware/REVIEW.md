@@ -69,3 +69,27 @@ SW10 changed from the Nidec CAS-120A1 (not stocked at LCSC) to a **C&K PCM12SMTR
 `SW_SPDT_PCM12` footprint. Its pads match LCSC's land pattern, and the pinout is the same (pin 2 is the common).
 J2 changed from a through-hole header to an **SMD 1×9 2.54 mm male header** (INCP IPCP254M09PB08S, LCSC C22438433),
 with a footprint built from LCSC's land pattern. The pin order is unchanged, so individual Dupont leads still plug on.
+
+## PCB layout (rev 0.2.0)
+`hardware/e_reader_v0.1/e_reader_v0.1.kicad_pcb`: 4 layers, 68 × 50 mm. F.Cu and B.Cu carry signals plus a GND pour,
+In1 is a solid GND plane and In2 is a solid +3V3 plane. The board was placed with `hardware/tools/gen_pcb.py` and routed
+with `hardware/tools/route_pcb.py` (grid A* router with rip-up and reroute; GND/+3V3 pads drop to their plane through vias).
+
+**KiCad DRC with schematic parity:** 0 unconnected pads, 0 clearance, hole or edge errors, 0 footprint mismatches.
+There are 17 silkscreen-only warnings (footprint outline art at the board edge and overlapping labels).
+
+**Layout review round** (Sonnet electrical 7/10, Haiku DFM 7/10). These were fixed:
+- The ESP32 3V3 decoupling was about 20 mm from the pin. The module moved 3.5 mm so that C10 (100 nF) is 2.6 mm and C1 (10 µF) is 4.9 mm from pin 2.
+- D1 (USB ESD) moved to 2.8 mm from the USB-C D+/D- pads (it was about 10 mm). The battery input caps are now 5 mm from X1.
+- Three fiducials (FID1-3) added for SMT assembly, and the board revision is set to 0.2.0 in the Gerbers.
+- The router now keeps tracks out of the fiducial clearance and mask opening.
+
+**Accepted for v0.1:** USB D+/D- are routed as separate lines rather than a matched pair, which is fine for 12 Mbit/s Full Speed.
+The ESP32 footprint's own 0.2 mm thermal vias are within JLCPCB's multilayer capability. USB-C, SW10 and X1 sit flush with the board edge on purpose.
+
+### Ordering at JLCPCB
+Upload `fab/jlcpcb_gerbers.zip`: 4 layers, 1.6 mm, choose HASL lead-free or ENIG. Then add "PCB Assembly" (top side)
+with `fab/jlcpcb_bom.csv` and `fab/jlcpcb_cpl.csv`.
+- [ ] **Check each part's rotation in JLCPCB's placement preview.** The CPL uses KiCad rotations, and SOT-23, SMA, USB-C,
+      JST, microSD, the slide switch and the ESP32 often need an offset in JLCPCB's library. Adjust them in the preview before you confirm.
+- [ ] Open the board in KiCad and look it over, especially the USB lines and the area around the antenna.

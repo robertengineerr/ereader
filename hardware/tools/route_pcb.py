@@ -86,6 +86,7 @@ for fp in board.GetFootprints():
     for pad in fp.Pads():
         net = pad.GetNetCode(); npth = pad.GetAttribute() == P.PAD_ATTRIB_NPTH
         r = W_PWR / 2 + HOLE_CLR + MARG if npth else BASE
+        if net == 0 and not npth: r = 0.85   # fiducials etc.: 0.6 mm clearance + 2 mm mask opening
         pb = pad.GetBoundingBox()
         win = window(mm(pb.GetLeft()) - r - G, mm(pb.GetTop()) - r - G, mm(pb.GetRight()) + r + G, mm(pb.GetBottom()) + r + G)
         i0, i1, j0, j1 = win

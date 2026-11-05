@@ -5,13 +5,13 @@
       "Application": "Pcbnew",
       "Version": "9.0.9-9.0.9~ubuntu24.04.1"
     },
-    "CreationDate": "2026-11-05T18:39:28+00:00"
+    "CreationDate": "2026-11-05T18:48:21+00:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "e_reader_v0.1",
       "GUID": "655f7265-6164-4657-925f-76302e312e6b",
-      "Revision": "rev?"
+      "Revision": "0.2.0"
     },
     "Size": {
       "X": 68.1,

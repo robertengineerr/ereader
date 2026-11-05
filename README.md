@@ -106,7 +106,8 @@ hardware/
 - [x] mDNS (`ereader.local`)
 - [x] Hardware schematic v0.1
 - [x] Schematic rev 0.2.0: power fixes, 5-way joystick, BOM with LCSC numbers (3 review rounds)
-- [ ] PCB layout and fabrication (JLCPCB)
+- [x] PCB layout (4-layer, routed, DRC clean) and JLCPCB fab files in `hardware/e_reader_v0.1/fab/`
+- [ ] Fabrication and bring-up
 - [x] LiPo battery + charging circuit (MCP73831 + RT9080) in schematic
 - [ ] Persist reading position (LittleFS)
 - [ ] EPUB native rendering

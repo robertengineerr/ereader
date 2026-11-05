@@ -142,10 +142,13 @@ def near_net(ref, anchors):
 
 # ---------------------------------------------------------------- fixed placements
 # ESP32 module: antenna against the top edge; its keep-out rule area overhangs the board.
-put('U1', 110.0, 112.75, 0, force=True)
-placed[-1] = (100.6, 100.0, 120.5, 126.8)          # obstacle = module body only (keep-out handled below)
-placed.append((x1, y1, 136.0, 106.0))              # antenna keep-out band inside the board (from footprint zone)
-put('J2', 155.0, 104.6, 0)                         # display header, top-right
+put('U1', 113.5, 112.75, 0, force=True)
+placed[-1] = (104.1, 100.0, 124.0, 126.8)          # obstacle = module body only (keep-out handled below)
+placed.append((x1, y1, 139.5, 106.0))              # antenna keep-out band inside the board (from footprint zone)
+put('J2', 155.0, 104.6, 0)
+_p2 = pad_xy('U1', '2')
+put('C10', 102.2, _p2[1] + 0.2, 90)                 # 100nF beside pin 2
+put('C1', 102.4, _p2[1] + 3.4, 90)                  # 10uF just below it                         # display header, top-right
 put('SW8', 163.4, 113.5, 90)                       # SET (right edge)
 put('SW3', 162.6, 125.4, 0)                        # 5-way joystick (right edge)
 put('SW9', 163.4, 137.3, 90)                       # RST (right edge)
@@ -163,16 +166,16 @@ pack('D2', 140.5, 128.5, rots=(0, 90))
 pack('U2', 140.0, 134.5, rots=(0, 90))
 pack('Q4', 120.5, 136.5, rots=(0, 90))
 pack('F1', 113.5, 133.0, rots=(90, 180))
-pack('D1', 133.0, 136.6, rots=(0, 90))
+pack('D1', 134.0, 139.6, rots=(0, 90))
 pack('D3', 126.5, 140.0, rots=(0, 90))
-pack('SW1', 124.5, 112.0, rots=(90, 180))
-pack('SW2', 124.5, 120.5, rots=(90, 180))
+pack('SW1', 128.0, 112.0, rots=(90, 180))
+pack('SW2', 128.0, 120.5, rots=(90, 180))
 
 # ---------------------------------------------------------------- passives packed next to what they serve
 groups = [
-    ('C10', [('U1', '2')]), ('C1', [('U1', '2')]),
+    
     ('R6', [('U1', '3')]), ('C4', [('U1', '3')]),
-    ('F1', [('X1', '2'), ('Q4', '3')]), ('C20', [('X1', '2')]), ('C21', [('X1', '2')]),
+    ('C21', [('X1', '2')]), ('C20', [('X1', '2')]), ('F1', [('X1', '2'), ('Q4', '3')]),
     ('C22', [('U3', '4')]), ('C19', [('U3', '3')]), ('C3', [('U3', '3')]), ('R4', [('U3', '5')]),
     ('CHG0', [('U3', '1')]), ('R3', [('U3', '1')]),
     ('R12', [('Q3', '1')]), ('C6', [('U2', '1')]), ('R7', [('U2', '3')]),
@@ -205,6 +208,15 @@ for i, (hx, hy) in enumerate(HOLES):
     mh.SetAttributes(mh.GetAttributes() | P.FP_BOARD_ONLY | P.FP_EXCLUDE_FROM_BOM | P.FP_EXCLUDE_FROM_POS_FILES)
     board.Add(mh)
 
+# ---------------------------------------------------------------- fiducials (3, for SMT assembly)
+for i, (fx, fy) in enumerate(((143.0, 103.0), (103.0, 147.5), (166.0, 120.0))):
+    fid = P.FootprintLoad('/usr/share/kicad/footprints/Fiducial.pretty', 'Fiducial_1mm_Mask2mm')
+    fid.SetReference(f'FID{i + 1}'); fid.Reference().SetVisible(False); fid.Value().SetVisible(False)
+    fid.SetAttributes(fid.GetAttributes() | P.FP_BOARD_ONLY | P.FP_EXCLUDE_FROM_BOM | P.FP_EXCLUDE_FROM_POS_FILES)
+    board.Add(fid); fps[f'FID{i + 1}'] = fid
+    pack(f'FID{i + 1}', fx, fy, rots=(0,))
+tb = board.GetTitleBlock(); tb.SetTitle('EReader'); tb.SetRevision('0.2.0'); tb.SetDate('2026-11-05'); tb.SetCompany('robertengineer.com')
+
 # ---------------------------------------------------------------- planes: In1 = GND, In2 = +3V3, top/bottom GND pour
 def zone(layer, netname, prio=0):
     z = P.ZONE(board); z.SetLayer(layer); z.SetNet(net(netname)); z.SetAssignedPriority(prio)
@@ -227,6 +239,7 @@ for m in fps.values():
 texts, hidden = [], []
 order = sorted(fps.values(), key=lambda m: -abs(bbox_of(m)[2] - bbox_of(m)[0]) * abs(bbox_of(m)[3] - bbox_of(m)[1]))
 for m in order:
+    if m.GetReference().startswith('FID'): continue
     t = m.Reference(); t.SetLayer(P.F_SilkS); t.SetTextSize(P.VECTOR2I(MM(0.8), MM(0.8))); t.SetTextThickness(MM(0.12))
     t.SetKeepUpright(True); t.SetTextAngleDegrees(0)
     cb = bbox_of(m); cx, cy = (cb[0] + cb[2]) / 2, (cb[1] + cb[3]) / 2
