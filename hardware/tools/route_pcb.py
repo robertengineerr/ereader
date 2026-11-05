@@ -80,6 +80,14 @@ for fp in board.GetFootprints():
             i0, i1, j0, j1 = window(mm(zb.GetLeft()) - BASE, mm(zb.GetTop()) - BASE, mm(zb.GetRight()) + BASE, mm(zb.GetBottom()) + BASE)
             keep[i0:i1, j0:j1] = True
 for l in (0, 1): own[l][edge | keep] = -1
+# no vias along the antenna-side rim of the ESP32 module (Espressif keep-clear), even below the rule area
+for fp in board.GetFootprints():
+    if fp.GetReference() == 'U1':
+        _b = fp.GetBoundingBox(False, False)
+        _p1 = next(p for p in fp.Pads() if p.GetNumber() == '1')
+        _ry = mm(_p1.GetPosition().y) + 0.6
+        _rim = (YY < _ry) & (XX > mm(_b.GetLeft()) - 3.0) & (XX < mm(_b.GetRight()) + 3.0)
+RIM = _rim
 
 pads_by_net = {}
 for fp in board.GetFootprints():
@@ -331,6 +339,7 @@ def plane_stub(net, pad):
 
 # ---------------------------------------------------------------- 0. fine-pitch connectors first (USB-C, microSD), as normal rippable nets
 t_start = time.time()
+viablock |= RIM
 base0 = (own.copy(), core.copy(), viablock.copy())          # pads + static obstacles only
 EARLY = sorted({p.GetNetCode() for fp in board.GetFootprints() if fp.GetReference() in ('X3', 'D1') for p in fp.Pads()
                 if p.GetNetCode() in pads_by_net and netname[p.GetNetCode()] not in PLANE_NETS and len(pads_by_net[p.GetNetCode()]) > 1})

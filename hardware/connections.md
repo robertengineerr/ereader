@@ -13,6 +13,14 @@ Pins that differ between the two are **bold**.
 
 ---
 
+## Flashing the PCB (first time)
+The PCB has no USB-UART bridge and no auto-reset circuit, so the first flash is manual:
+1. Slide **SW10 to ON**. The ESP32 is only powered with the regulator enabled, even on USB.
+2. Plug in USB-C, then **hold BOOT (SW1), tap RESET (SW2) and release BOOT**. The ESP32 enters download mode.
+3. `pio run -e pcb --target upload`
+4. Tap RESET. Once the firmware is running, later uploads normally work over the native USB port without buttons.
+   If a sketch crashes or disables USB, repeat step 2.
+
 ## E-Paper Display — Waveshare 7.5" V2 (800×480) driver HAT
 Interface: **FSPI (SPI2)**, 4 MHz, MSBFIRST, SPI_MODE0. Portrait orientation (setRotation(1)).
 On the PCB the HAT plugs into the 9-pin 2.54 mm SMD header J2 with individual Dupont leads.
@@ -41,7 +49,7 @@ Interface: **HSPI (SPI3)**, 4 MHz. FAT32, `.txt` files in root.
 | SCK (CLK) | GPIO17 | |
 | MISO (DAT0) | GPIO18 | 10K pull-up (R19) on the PCB |
 | DAT1 / DAT2 | — | 10K pull-ups (R2 / R1), unused in SPI mode |
-| Card detect | **GPIO6 (PCB only)** | DET_B → GPIO6 with 10K pull-up (R22), DET_A → GND. Check the switch polarity (open or closed with a card in) on the first board |
+| Card detect | **GPIO6 (PCB only; not read by firmware yet)** | DET_B → GPIO6 with 10K pull-up (R22), DET_A → GND. Check the switch polarity (open or closed with a card in) on the first board |
 
 ---
 
@@ -85,7 +93,7 @@ They only work on the breadboard because the default PlatformIO board config lea
 - **Charging:** MCP73831, 200 mA (R4 = 5.1K; 2K gives 500 mA, so pick it for your cell). The orange LED (CHG0) is on while charging.
 - **Battery protection:** F1 sits between the cell and everything else, and Q4 blocks a reversed cell.
   Over-discharge cutoff is left to the cell's own protection PCB, so use a protected LiPo.
-- **Battery sense:** VBAT → 470K/470K → **GPIO1 (ADC1_CH0)**, with 100 nF filter.
+- **Battery sense (hardware only; firmware does not read it yet):** VBAT → 470K/470K → **GPIO1 (ADC1_CH0)**, with 100 nF filter.
   V_bat = 2 × V_adc. The divider draws about 4.5 µA permanently. Sample slowly: the 100 nF cap feeds the ADC.
 
 ---

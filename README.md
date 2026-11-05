@@ -49,7 +49,7 @@ The PCB pins that differ from the breadboard are:
 3. Build and flash:
 ```bash
 pio run --target upload            # breadboard (DevKitC-1)
-pio run -e pcb --target upload     # custom PCB
+pio run -e pcb --target upload     # custom PCB (first time: SW10 ON, hold BOOT, tap RESET; see hardware/connections.md)
 ```
 
 ## Usage
