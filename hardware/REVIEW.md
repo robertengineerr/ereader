@@ -91,7 +91,10 @@ The ESP32 footprint's own 0.2 mm thermal vias are within JLCPCB's multilayer cap
 ### Ordering at JLCPCB
 Upload `fab/jlcpcb_gerbers.zip`: 4 layers, 1.6 mm, choose HASL lead-free or ENIG. Then add "PCB Assembly" (top side)
 with `fab/jlcpcb_bom.csv` and `fab/jlcpcb_cpl.csv`.
-- [ ] **Check each part's rotation in JLCPCB's placement preview.** The CPL uses KiCad rotations, and SOT-23, SMA, USB-C,
+- [x] Placement corrections are computed, not guessed. `hardware/tools/jlc_cpl_fix.py` fits each part's own JLCPCB/EasyEDA
+      footprint onto the board pads, with the diode and LED pin mapping checked against JLCPCB's symbol pin names. It found:
+      U1 offset 3.56 mm, X3 offset 1.57 mm, J1 rotated 180°, and SOT-23/SOT-23-5/6 rotations of 180°/270°. They are applied in `fab/jlcpcb_cpl.csv`.
+- [ ] **Still glance at each part in JLCPCB's placement preview.** The CPL uses KiCad rotations, and SOT-23, SMA, USB-C,
       JST, microSD, the slide switch and the ESP32 often need an offset in JLCPCB's library. Adjust them in the preview before you confirm.
 - [ ] Open the board in KiCad and look it over, especially the USB lines and the area around the antenna.
 
