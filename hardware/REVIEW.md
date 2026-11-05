@@ -61,4 +61,11 @@ the MCP73831 abs-max under surge; about 10–15 µA off-state drain from the div
 - [ ] Check the Molex 104031-0811 card-detect polarity (switch open or closed with a card in) on the first board.
 - [ ] Silkscreen every J2 pin name (it is wired for individual Dupont leads, not a ribbon) and mark "+" on X1.
 - [ ] Choose R4 for your cell (5.1K ≈ 200 mA, 2K ≈ 500 mA, max 1C).
-- [ ] SW10 and J2 are hand-soldered; every other part has a verified LCSC number in `e_reader_v0.1/e_reader_v0.1_bom.csv`.
+- [ ] Every part is SMD with a verified LCSC number (`e_reader_v0.1/e_reader_v0.1_bom.csv`), so JLCPCB can assemble the whole board.
+      The USB-C connector (HRO TYPE-C-31-M-12) has through-hole shield tabs. JLCPCB normally places it in SMT assembly, but check the quote.
+
+## All-SMD follow-up
+SW10 changed from the Nidec CAS-120A1 (not stocked at LCSC) to a **C&K PCM12SMTR** (LCSC C221841), using KiCad's standard
+`SW_SPDT_PCM12` footprint. Its pads match LCSC's land pattern, and the pinout is the same (pin 2 is the common).
+J2 changed from a through-hole header to an **SMD 1×9 2.54 mm male header** (INCP IPCP254M09PB08S, LCSC C22438433),
+with a footprint built from LCSC's land pattern. The pin order is unchanged, so individual Dupont leads still plug on.

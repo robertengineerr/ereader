@@ -7307,6 +7307,183 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Switch:SW_SPDT_321"
+			(pin_names
+				(offset 1)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPDT_321"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Switch, single pole double throw"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch single-pole double-throw spdt ON-ON"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPDT_321_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.651 0.254)
+						(xy 1.651 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 2.54)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 -2.54)
+					(radius 0.4572)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPDT_321_1_1"
+				(rectangle
+					(start -3.175 3.81)
+					(end 3.175 -3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(rectangle
 		(start 367.03 149.86)
@@ -16224,7 +16401,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical"
+		(property "Footprint" "ereader:PinHeader_1x09_P2.54mm_Vertical_SMD_INCP_IPCP254M09PB08S"
 			(at 177.8 71.12 0)
 			(effects
 				(font
@@ -16251,7 +16428,7 @@
 				(hide yes)
 			)
 		)
-		(property "Assembly" "Hand-solder (THT 2.54mm header)"
+		(property "LCSC" "C22438433"
 			(at 176.53 49.53 0)
 			(effects
 				(font
@@ -16260,7 +16437,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "1x09 2.54mm pin header"
+		(property "MPN" "INCP IPCP254M09PB08S"
 			(at 176.53 49.53 0)
 			(effects
 				(font
@@ -19818,7 +19995,7 @@
 		(uuid "e4d3c25f-cf1d-4fc9-b302-569ee9aa50f2")
 	)
 	(symbol
-		(lib_id "Switch:SW_Nidec_CAS-120A1")
+		(lib_id "Switch:SW_SPDT_321")
 		(at 210.82 246.38 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19834,7 +20011,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_Nidec_CAS-120A1"
+		(property "Value" "PCM12SMTR"
 			(at 210.82 241.3 0)
 			(effects
 				(font
@@ -19842,7 +20019,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Button_Switch_SMD:Nidec_Copal_CAS-120A"
+		(property "Footprint" "Button_Switch_SMD:SW_SPDT_PCM12"
 			(at 210.82 246.38 0)
 			(effects
 				(font
@@ -19869,7 +20046,7 @@
 				(hide yes)
 			)
 		)
-		(property "Assembly" "Hand-solder; not stocked at LCSC (DigiKey/Mouser: Nidec CAS-120A1)"
+		(property "LCSC" "C221841"
 			(at 210.82 246.38 0)
 			(effects
 				(font
@@ -19878,7 +20055,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "Nidec CAS-120A1"
+		(property "MPN" "C&K PCM12SMTR"
 			(at 210.82 246.38 0)
 			(effects
 				(font
@@ -21959,7 +22136,7 @@
 			)
 		)
 	)
-	(text "SW10 = SW_SPDT_321: pin 2 (B) is the COMMON.\nPin 1 (C) and pin 3 (A) are the throws."
+	(text "SW10 = C&K PCM12SMTR (SW_SPDT_321): pin 2 (B) is the\nCOMMON. Pin 1 (C) and pin 3 (A) are the throws."
 		(exclude_from_sim no)
 		(at 188 274.5 0)
 		(effects

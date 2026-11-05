@@ -15,7 +15,7 @@ Pins that differ between the two are **bold**.
 
 ## E-Paper Display — Waveshare 7.5" V2 (800×480) driver HAT
 Interface: **FSPI (SPI2)**, 4 MHz, MSBFIRST, SPI_MODE0. Portrait orientation (setRotation(1)).
-On the PCB the HAT plugs into the 9-pin 2.54 mm header J2 with individual Dupont leads.
+On the PCB the HAT plugs into the 9-pin 2.54 mm SMD header J2 with individual Dupont leads.
 
 | Display pin | J2 pin | Breadboard GPIO | PCB GPIO | Notes |
 |-------------|--------|-----------------|----------|-------|
@@ -79,7 +79,7 @@ They only work on the breadboard because the default PlatformIO board config lea
 | VHI | VBUS via SS54, or VBAT via DMG3415U (Q3, gate pulled down by R12 10K) when USB is absent | RT9080-3.3 LDO input |
 | +3V3 | RT9080-33GJ5 (600 mA, ~2 µA Iq) | ESP32-S3, display, SD, pull-ups |
 
-- **Power switch SW10** (Nidec CAS-120A1) drives the LDO **EN**: ON = VHI, OFF = GND. R7 (1M) pulls EN down
+- **Power switch SW10** (C&K PCM12SMTR, SMD) drives the LDO **EN**: ON = VHI, OFF = GND. R7 (1M) pulls EN down
   while the slider is moving. Pin 2 is the switch common.
   When OFF the 3V3 rail is down, but the battery still charges from USB.
 - **Charging:** MCP73831, 200 mA (R4 = 5.1K; 2K gives 500 mA, so pick it for your cell). The orange LED (CHG0) is on while charging.
