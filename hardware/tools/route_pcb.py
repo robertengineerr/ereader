@@ -223,35 +223,6 @@ def astar(net, name, sources, targets, tgt, soft=False, maxexp=4_000_000):
             if ng < g.get(ns, 1e18): g[ns] = ng; came[ns] = s; heapq.heappush(openh, (ng + h(i, j), ng, ns))
     return None
 
-# ---------------------------------------------------------------- 1. plane stubs (fixed, part of the base)
-t_start = time.time(); stub_items = []; stub_fail = []
-for net, pads in pads_by_net.items():
-    name = netname[net]
-    if name not in PLANE_NETS: continue
-    for pad in pads:
-        if pad.HasHole() or not pad.IsOnLayer(P.F_Cu): continue
-        (t0, _), V, _ = masks(net, name, False)
-        V = np.array(V, bool).reshape(NY, NX); t0 = np.array(t0, bool).reshape(NY, NX)
-        src = [(c[1], c[2]) for c in pad_cells(pad, net) if c[0] == 0]
-        if not src: continue
-        q = deque(src); seen = {s: None for s in src}; hit = None
-        while q:
-            i, j = q.popleft()
-            if V[i, j]: hit = (i, j); break
-            for di, dj, _ in NB:
-                a, b = i + di, j + dj
-                if 0 <= a < NY and 0 <= b < NX and (a, b) not in seen and t0[a, b] and len(seen) < 40000:
-                    seen[(a, b)] = (i, j); q.append((a, b))
-        if not hit: stub_fail.append(f'{name}:{pad.GetParentFootprint().GetReference()}.{pad.GetNumber()}'); continue
-        path = []; c = hit
-        while c is not None: path.append((0, c[0], c[1])); c = seen[c]
-        items = (path_items(path[::-1], name) if len(path) > 1 else []) + [('v', float(xs[hit[1]]), float(ys[hit[0]]))]
-        for it in items: mark_item(net, it)
-        stub_items += [(net, it) for it in items]
-base_own, base_core, base_viablock = own.copy(), core.copy(), viablock.copy()
-netcells.clear()
-print(f'plane stubs: {len(stub_items)} items in {time.time() - t_start:.1f}s; failed: {stub_fail or "none"}')
-
 def rebuild():
     global own, core, viablock
     own, core, viablock = base_own.copy(), base_core.copy(), base_viablock.copy()
@@ -292,18 +263,99 @@ def blockers_for(net, pad):
     if not path: return None
     hit = set()
     cells = {(l, i * NX + j) for (l, i, j) in path}
+    vdisk = disk(VIA[0] / 2 - W_SIG / 2 + G)
     for k in range(len(path) - 1):
-        if path[k][0] != path[k + 1][0]: cells |= {(0, path[k][1] * NX + path[k][2]), (1, path[k][1] * NX + path[k][2])}
+        (l0, i0_, j0_), (l1, i1_, j1_) = path[k], path[k + 1]
+        if l0 != l1:   # via: its whole clearance disk on both layers
+            for dy, dx in vdisk:
+                a, b = i0_ + dy, j0_ + dx
+                if 0 <= a < NY and 0 <= b < NX: cells |= {(0, a * NX + b), (1, a * NX + b)}
+        elif i0_ != i1_ and j0_ != j1_:   # diagonal step: the two corner cells must be free too
+            cells |= {(l0, i0_ * NX + j1_), (l0, i1_ * NX + j0_)}
     for n, cs in netcells.items():
         if n != net and cs & cells: hit.add(n)
+    vpos = [(float(xs[path[k][2]]), float(ys[path[k][1]])) for k in range(len(path) - 1) if path[k][0] != path[k + 1][0]]
+    dmin = VIA[1] + HOLE2HOLE + G
+    for n, items in routes.items():
+        if n == net: continue
+        for it in items:
+            if it[0] == 'v' and any(math.hypot(it[1] - x, it[2] - y) <= dmin for x, y in vpos): hit.add(n); break
     return hit
 
 def bbox_hp(pads):
     x = [mm(p.GetPosition().x) for p in pads]; y = [mm(p.GetPosition().y) for p in pads]
     return (max(x) - min(x)) + (max(y) - min(y))
-order = [n for n in pads_by_net if netname[n] not in PLANE_NETS and len(pads_by_net[n]) > 1]
-order.sort(key=lambda n: (0 if netname[n] in POWER_NETS else 1, bbox_hp(pads_by_net[n])))
+
+def plane_stub(net, pad):
+    """short F.Cu stub from an SMD pad to the nearest spot a via fits; None if there is none."""
+    name = netname[net]
+    (t0, _), V, _ = masks(net, name, False)
+    V = np.array(V, bool).reshape(NY, NX); t0 = np.array(t0, bool).reshape(NY, NX)
+    src = [(c[1], c[2]) for c in pad_cells(pad, net) if c[0] == 0]
+    if not src: return []
+    q = deque(src); seen = {s_: None for s_ in src}; hit = None
+    while q:
+        i, j = q.popleft()
+        if V[i, j]: hit = (i, j); break
+        for di, dj, _ in NB:
+            a_, b_ = i + di, j + dj
+            if 0 <= a_ < NY and 0 <= b_ < NX and (a_, b_) not in seen and t0[a_, b_] and len(seen) < 40000:
+                seen[(a_, b_)] = (i, j); q.append((a_, b_))
+    if not hit: return None
+    path = []; c = hit
+    while c is not None: path.append((0, c[0], c[1])); c = seen[c]
+    return (path_items(path[::-1], name) if len(path) > 1 else []) + [('v', float(xs[hit[1]]), float(ys[hit[0]]))]
+
+# ---------------------------------------------------------------- 0. fine-pitch connectors first (USB-C, microSD), as normal rippable nets
+t_start = time.time()
+base0 = (own.copy(), core.copy(), viablock.copy())          # pads + static obstacles only
+EARLY = sorted({p.GetNetCode() for fp in board.GetFootprints() if fp.GetReference() in ('X3', 'D1') for p in fp.Pads()
+                if p.GetNetCode() in pads_by_net and netname[p.GetNetCode()] not in PLANE_NETS and len(pads_by_net[p.GetNetCode()]) > 1})
+_rank = lambda n: (0 if netname[n] in ('/D+', '/D-') else 1 if 'USB_D' in netname[n] else 3 if netname[n] in POWER_NETS else 2)
+EARLY.sort(key=_rank)
+_j1 = sorted([(int(p.GetNumber()), p.GetNetCode()) for p in next(f for f in board.GetFootprints() if f.GetReference() == 'J1').Pads()
+              if p.GetNumber().isdigit() and p.GetNetCode() in pads_by_net and netname[p.GetNetCode()] not in PLANE_NETS
+              and len(pads_by_net[p.GetNetCode()]) > 1])
+EARLY = [n for n in EARLY if netname[n] not in POWER_NETS] + [n for _, n in _j1 if n not in EARLY] + [n for n in EARLY if netname[n] in POWER_NETS]
 fails = {}
+for net in EARLY:
+    f = route_net(net)
+    if f: fails[net] = f
+print('early nets:', ', '.join(netname[n] for n in EARLY), '| unrouted:', sum(len(v) for v in fails.values()))
+
+# ---------------------------------------------------------------- 1. plane stubs; pads with no via room join their net's nearest copper instead
+stub_items, stub_fail = [], []
+for net, pads in pads_by_net.items():
+    if netname[net] not in PLANE_NETS: continue
+    for pad in pads:
+        if pad.HasHole() or not pad.IsOnLayer(P.F_Cu): continue
+        items = plane_stub(net, pad)
+        if items is None: stub_fail.append((net, pad)); continue
+        for it in items: mark_item(net, it)
+        stub_items += [(net, it) for it in items]
+still = []
+for net, pad in stub_fail:
+    name = netname[net]; tc = pad_cells(pad, net); tcs = set(tc)
+    others = [(l, int(i), int(j)) for l in (0, 1) for i, j in zip(*np.nonzero(core[l] == net)) if (l, int(i), int(j)) not in tcs]
+    px, py = cell(mm(pad.GetPosition().x), mm(pad.GetPosition().y))
+    near = min(others, key=lambda c: (c[1] - px) ** 2 + (c[2] - py) ** 2)
+    path = astar(net, name, tc, others, (near[1], near[2]))
+    if not path: still.append(f'{name}:{pad.GetParentFootprint().GetReference()}.{pad.GetNumber()}'); continue
+    for it in path_items(path, name): mark_item(net, it); stub_items.append((net, it))
+print(f'plane stubs: {len(stub_items)} items, {len(stub_fail)} pads joined via tracks, unresolved: {still or "none"} ({time.time() - t_start:.0f}s)')
+NFAIL_STUBS = len(still)
+
+# freeze the base = static obstacles + stubs; put the early routes back on top
+own, core, viablock = base0[0].copy(), base0[1].copy(), base0[2].copy()
+for net, it in stub_items: mark_item(net, it)
+base_own, base_core, base_viablock = own.copy(), core.copy(), viablock.copy()
+netcells.clear()
+for net, items in routes.items():
+    for it in items: mark_item(net, it)
+
+# ---------------------------------------------------------------- 2. everything else
+order = [n for n in pads_by_net if netname[n] not in PLANE_NETS and len(pads_by_net[n]) > 1 and n not in EARLY]
+order.sort(key=lambda n: (0 if netname[n] in POWER_NETS else 1, bbox_hp(pads_by_net[n])))
 for net in order:
     f = route_net(net)
     if f: fails[net] = f
@@ -313,12 +365,19 @@ print(f'first pass: {sum(len(v) for v in fails.values())} unrouted pads on {len(
 random.seed(1); history = {}
 for rnd in range(MAX_RIPUP_ROUNDS):
     if not fails: break
-    net = min(fails, key=lambda n: history.get(n, 0)); pad = fails[net][0]
+    cand = [n for n in fails if history.get(n, 0) < 100]
+    if not cand: break
+    net = min(cand, key=lambda n: history.get(n, 0)); pad = fails[net][0]
     history[net] = history.get(net, 0) + 1
     bl = blockers_for(net, pad)
     if bl is None:
-        print(f'  round {rnd}: {netname[net]} has no path even through other copper'); fails.pop(net); continue
+        print(f'  round {rnd}: {netname[net]} has no path even through other copper'); history[net] += 100; continue
     victims = sorted(bl, key=lambda n: random.random())
+    if history[net] > 2:   # same fix keeps failing: also rip the nets around the failing pad
+        px, py = mm(pad.GetPosition().x), mm(pad.GetPosition().y)
+        near = [n for n, items in routes.items() if n != net and n not in victims and any(
+            it[0] == 't' and min(math.hypot(it[2][0] - px, it[2][1] - py), math.hypot(it[3][0] - px, it[3][1] - py)) < 3.0 for it in items)]
+        random.shuffle(near); victims += near[:history[net]]
     for v in victims: routes.pop(v, None)
     routes.pop(net, None)
     rebuild()
@@ -334,7 +393,7 @@ print(f'rip-up done ({time.time() - t_start:.0f}s)')
 nfail = sum(len(v) for v in fails.values())
 for n, pl in fails.items():
     for p in pl: print(f'  UNROUTED {netname[n]}: {p.GetParentFootprint().GetReference()}.{p.GetNumber()}')
-print('NFAIL:', nfail)
+print('NFAIL:', nfail + NFAIL_STUBS)
 
 # ---------------------------------------------------------------- 4. write copper + GND pours, fill zones
 ntr = nvia = 0
