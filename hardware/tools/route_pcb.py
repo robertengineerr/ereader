@@ -231,8 +231,26 @@ def rebuild():
         for it in items: mark_item(net, it)
 
 # ---------------------------------------------------------------- 2. net routing
+orphans = {}
+def route_orphans(net):
+    """plane-net pads with no via room: connect each to the net's nearest existing copper."""
+    name = netname[net]; items = []; failed = []
+    for pad in orphans.get(net, []):
+        tc = pad_cells(pad, net); tcs = set(tc)
+        others = [(l, int(i), int(j)) for l in (0, 1) for i, j in zip(*np.nonzero(core[l] == net)) if (l, int(i), int(j)) not in tcs]
+        pi, pj = cell(mm(pad.GetPosition().x), mm(pad.GetPosition().y))
+        near = min(others, key=lambda c: (c[1] - pi) ** 2 + (c[2] - pj) ** 2)
+        path = astar(net, name, tc, others, (near[1], near[2]))
+        if not path: failed.append(pad); continue
+        new = path_items(path, name)
+        for it in new: mark_item(net, it)
+        items += new
+    routes[net] = items
+    return failed
+
 def route_net(net):
     """route all pads of net as a tree; returns list of unconnected pads."""
+    if netname[net] in PLANE_NETS: return route_orphans(net)
     name = netname[net]; pads = pads_by_net[net]
     items = []; connected = [pads[0]]; todo = pads[1:]; failed = []
     tree = set(pad_cells(pads[0], net))
@@ -254,8 +272,12 @@ def blockers_for(net, pad):
     """nets whose copper a soft-cost path from the net's tree to `pad` would cross."""
     name = netname[net]
     tree = set()
-    for p in pads_by_net[net]:
-        if p is not pad: tree |= set(pad_cells(p, net))
+    if name in PLANE_NETS:   # any copper of the plane net will do
+        tcs = set(pad_cells(pad, net))
+        tree = {(l, int(i), int(j)) for l in (0, 1) for i, j in zip(*np.nonzero(core[l] == net))} - tcs
+    else:
+        for p in pads_by_net[net]:
+            if p is not pad: tree |= set(pad_cells(p, net))
     for it in routes.get(net, []):
         pass
     tree |= {(l, i // NX, i % NX) for (l, i) in netcells.get(net, set()) if core[l].ravel()[i] == net}
@@ -333,17 +355,9 @@ for net, pads in pads_by_net.items():
         if items is None: stub_fail.append((net, pad)); continue
         for it in items: mark_item(net, it)
         stub_items += [(net, it) for it in items]
-still = []
-for net, pad in stub_fail:
-    name = netname[net]; tc = pad_cells(pad, net); tcs = set(tc)
-    others = [(l, int(i), int(j)) for l in (0, 1) for i, j in zip(*np.nonzero(core[l] == net)) if (l, int(i), int(j)) not in tcs]
-    px, py = cell(mm(pad.GetPosition().x), mm(pad.GetPosition().y))
-    near = min(others, key=lambda c: (c[1] - px) ** 2 + (c[2] - py) ** 2)
-    path = astar(net, name, tc, others, (near[1], near[2]))
-    if not path: still.append(f'{name}:{pad.GetParentFootprint().GetReference()}.{pad.GetNumber()}'); continue
-    for it in path_items(path, name): mark_item(net, it); stub_items.append((net, it))
-print(f'plane stubs: {len(stub_items)} items, {len(stub_fail)} pads joined via tracks, unresolved: {still or "none"} ({time.time() - t_start:.0f}s)')
-NFAIL_STUBS = len(still)
+for net, pad in stub_fail: orphans.setdefault(net, []).append(pad)
+print(f'plane stubs: {len(stub_items)} items; pads needing a track to their plane net: {len(stub_fail)} ({time.time() - t_start:.0f}s)')
+NFAIL_STUBS = 0
 
 # freeze the base = static obstacles + stubs; put the early routes back on top
 own, core, viablock = base0[0].copy(), base0[1].copy(), base0[2].copy()
@@ -356,7 +370,7 @@ for net, items in routes.items():
 # ---------------------------------------------------------------- 2. everything else
 order = [n for n in pads_by_net if netname[n] not in PLANE_NETS and len(pads_by_net[n]) > 1 and n not in EARLY]
 order.sort(key=lambda n: (0 if netname[n] in POWER_NETS else 1, bbox_hp(pads_by_net[n])))
-for net in order:
+for net in order + list(orphans):
     f = route_net(net)
     if f: fails[net] = f
 print(f'first pass: {sum(len(v) for v in fails.values())} unrouted pads on {len(fails)} nets ({time.time() - t_start:.0f}s)')
@@ -411,6 +425,7 @@ for L in (P.F_Cu, P.B_Cu):
     for (px, py) in ((X0 + 0.3, Y0 + 0.3), (X1 - 0.3, Y0 + 0.3), (X1 - 0.3, Y1 - 0.3), (X0 + 0.3, Y1 - 0.3)):
         o.Append(iu(px), iu(py))
     board.Add(z)
+for z in board.Zones(): z.SetIslandRemovalMode(P.ISLAND_REMOVAL_MODE_ALWAYS)
 P.ZONE_FILLER(board).Fill(board.Zones())
 P.SaveBoard(DST, board)
 print(f'saved {DST}: {ntr} tracks, {nvia} vias ({time.time() - t_start:.0f}s)')
