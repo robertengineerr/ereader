@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ereader")(type "KiCad")(uri "${KIPRJMOD}/ereader.kicad_sym")(options "")(descr "Project-specific symbols"))
+)
