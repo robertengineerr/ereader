@@ -30,7 +30,7 @@
   #define JOY_UP     4
   #define JOY_DWN    5
   #define SD_DET     6   // card-detect switch to GND (use INPUT_PULLUP)
-  #define BATT_ADC   1   // VBAT via 100K/100K divider -> multiply reading by 2
+  #define BATT_ADC   1   // VBAT via 470K/470K divider + 100nF -> multiply reading by 2
 #else
   #define EPD_DIN   46
   #define JOY_COM   35   // driven OUTPUT LOW as a virtual GND on the breadboard

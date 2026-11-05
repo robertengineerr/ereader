@@ -73,16 +73,19 @@ They only work on the breadboard because the default PlatformIO board config lea
 ## Power
 | Rail | Source | Consumers |
 |------|--------|-----------|
-| VBUS | USB-C (5 V), ESD-protected by USBLC6-2SC6 | MCP73831 charger, SS54 → VHI |
-| VBAT | 1-cell LiPo on JST PH (X1), 2-pin SMD | DMG3415U load switch → VHI, battery divider |
-| VHI | VBUS via SS54, or VBAT via DMG3415U when USB is absent | AP2112K-3.3 LDO input |
-| +3V3 | AP2112K-3.3 (600 mA) | ESP32-S3, display, SD, pull-ups |
+| VBUS | USB-C (5 V), ESD-protected by USBLC6-2SC6 + SMAJ5.0A TVS (D3) | MCP73831 charger, SS54 → VHI |
+| VBAT_RAW | 1-cell LiPo on JST PH (X1), 2-pin SMD | → F1 (1 A PTC) → Q4 (reverse-polarity P-FET) → VBAT |
+| VBAT | protected battery rail | MCP73831 output, DMG3415U load switch → VHI, battery divider |
+| VHI | VBUS via SS54, or VBAT via DMG3415U when USB is absent | RT9080-3.3 LDO input |
+| +3V3 | RT9080-33GJ5 (600 mA, ~2 µA Iq) | ESP32-S3, display, SD, pull-ups |
 
 - **Power switch SW10** (Nidec CAS-120A1) drives the LDO **EN**: ON = VHI, OFF = GND.
   When OFF the 3V3 rail is down, but the battery still charges from USB.
-- **Charging:** MCP73831, 200 mA (R4 = 5.1K). The orange LED (CHG0) is on while charging.
-- **Battery sense:** VBAT → 100K/100K → **GPIO1 (ADC1_CH0)**, with 100 nF filter.
-  V_bat = 2 × V_adc. The divider draws about 21 µA permanently.
+- **Charging:** MCP73831, 200 mA (R4 = 5.1K; 2K gives 500 mA, so pick it for your cell). The orange LED (CHG0) is on while charging.
+- **Battery protection:** F1 sits between the cell and everything else, and Q4 blocks a reversed cell.
+  Over-discharge cutoff is left to the cell's own protection PCB, so use a protected LiPo.
+- **Battery sense:** VBAT → 470K/470K → **GPIO1 (ADC1_CH0)**, with 100 nF filter.
+  V_bat = 2 × V_adc. The divider draws about 4.5 µA permanently. Sample slowly: the 100 nF cap feeds the ADC.
 
 ---
 

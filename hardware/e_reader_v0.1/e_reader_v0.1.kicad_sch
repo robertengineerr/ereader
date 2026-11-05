@@ -7044,6 +7044,162 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:D_Zener"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D_Zener"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Zener diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "D_Zener_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27)
+						(xy -1.27 1.27)
+						(xy -0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0)
+						(xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27)
+						(xy 1.27 1.27)
+						(xy -1.27 0)
+						(xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_Zener_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(rectangle
 		(start 367.03 149.86)
@@ -7301,12 +7457,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "032ab3a7-84e4-4df7-b3d0-9aa531691825")
-	)
-	(junction
-		(at 374.65 115.57)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "041ce797-c7b8-4860-88be-0cf2fdc97571")
 	)
 	(junction
 		(at 298.45 111.76)
@@ -9027,17 +9177,6 @@
 			(type solid)
 		)
 		(uuid "ee39bba8-873b-4071-a960-bb1d7ec38e74")
-	)
-	(wire
-		(pts
-			(xy 374.65 111.76)
-			(xy 374.65 115.57)
-		)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(uuid "f19d7b19-952f-456a-82d2-f2935ffce2c3")
 	)
 	(wire
 		(pts
@@ -10948,7 +11087,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 115.33 33.04 90)
 			(effects
 				(font
@@ -11099,7 +11238,7 @@
 				)
 			)
 		)
-		(property "Value" "100K"
+		(property "Value" "470K"
 			(at 381 160.02 0)
 			(effects
 				(font
@@ -11136,7 +11275,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25741"
+		(property "LCSC" "C25790"
 			(at 381 160.02 0)
 			(effects
 				(font
@@ -11145,7 +11284,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "0402WGF1003TCE"
+		(property "MPN" "0402WGF4703TCE"
 			(at 381 160.02 0)
 			(effects
 				(font
@@ -11296,93 +11435,6 @@
 			(project "e_reader_v0.1"
 				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
 					(reference "#PWR045")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:Polyfuse")
-		(at 279.4 45.72 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "287a5217-4b27-4268-af12-b67ad12dfbc2")
-		(property "Reference" "F1"
-			(at 279.4 39.37 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1A"
-			(at 279.4 41.91 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Fuse:Fuse_1206_3216Metric"
-			(at 284.48 44.45 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 279.4 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resettable fuse, polymeric positive temperature coefficient"
-			(at 279.4 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C7542957"
-			(at 279.4 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MPN" "LUTE 1206L100/24NR"
-			(at 279.4 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "b6a158b3-ca3c-49b0-b107-5010438cd693")
-		)
-		(pin "1"
-			(uuid "f66e7b3d-10ee-4a56-b402-c7d5b46bae6a")
-		)
-		(instances
-			(project ""
-				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
-					(reference "F1")
 					(unit 1)
 				)
 			)
@@ -12431,7 +12483,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 354.09 125.75 90)
 			(effects
 				(font
@@ -13177,7 +13229,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 397.27 119.4 90)
 			(effects
 				(font
@@ -13355,7 +13407,7 @@
 				)
 			)
 		)
-		(property "Value" "100K"
+		(property "Value" "470K"
 			(at 386.08 166.37 0)
 			(effects
 				(font
@@ -13392,7 +13444,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25741"
+		(property "LCSC" "C25790"
 			(at 386.08 166.37 0)
 			(effects
 				(font
@@ -13401,7 +13453,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "0402WGF1003TCE"
+		(property "MPN" "0402WGF4703TCE"
 			(at 386.08 166.37 0)
 			(effects
 				(font
@@ -13596,7 +13648,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Value" "AP2112/RT9080-3.3"
+		(property "Value" "RT9080-3.3"
 			(at 331.47 127 0)
 			(effects
 				(font
@@ -13632,7 +13684,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C51118"
+		(property "LCSC" "C841192"
 			(at 339.09 119.38 0)
 			(effects
 				(font
@@ -13641,7 +13693,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "AP2112K-3.3TRG1"
+		(property "MPN" "RT9080-33GJ5"
 			(at 339.09 119.38 0)
 			(effects
 				(font
@@ -14505,72 +14557,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBAT")
-		(at 374.65 109.22 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "958cc58d-8a03-4c1a-a003-b07adb243ef2")
-		(property "Reference" "#U$16"
-			(at 374.65 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VBAT"
-			(at 373.126 108.204 0)
-			(effects
-				(font
-					(size 1.27 1.0795)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Footprint" ""
-			(at 374.65 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 374.65 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 374.65 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b40003a7-1884-4bc3-9b3f-6dbe38b21646")
-		)
-		(instances
-			(project "e_reader_v0.1"
-				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
-					(reference "#U$16")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 142.24 55.88 0)
 		(unit 1)
@@ -15129,7 +15115,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 304.56 49.55 90)
 			(effects
 				(font
@@ -15461,7 +15447,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 98.82 177.82 90)
 			(effects
 				(font
@@ -15546,7 +15532,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 321.07 125.75 90)
 			(effects
 				(font
@@ -16043,7 +16029,7 @@
 				)
 			)
 		)
-		(property "Value" "10µF"
+		(property "Value" "10uF"
 			(at 153.43 60.98 90)
 			(effects
 				(font
@@ -16158,6 +16144,15 @@
 			)
 		)
 		(property "Description" "HEADER 1x9 MALE PINS 0.100” 180deg"
+			(at 176.53 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Assembly" "Hand-solder (THT 2.54mm header)"
 			(at 176.53 49.53 0)
 			(effects
 				(font
@@ -18027,7 +18022,7 @@
 				)
 			)
 		)
-		(property "Value" "5.1K"
+		(property "Value" "2.2K"
 			(at 237.49 50.8 0)
 			(effects
 				(font
@@ -18064,7 +18059,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25905"
+		(property "LCSC" "C25879"
 			(at 237.49 50.8 0)
 			(effects
 				(font
@@ -18073,7 +18068,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "0402WGF5101TCE"
+		(property "MPN" "0402WGF2201TCE"
 			(at 237.49 50.8 0)
 			(effects
 				(font
@@ -19321,7 +19316,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7µF"
+		(property "Value" "4.7uF"
 			(at 232.17 34.31 90)
 			(effects
 				(font
@@ -19521,6 +19516,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 210.82 246.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Assembly" "Hand-solder; not stocked at LCSC (DigiKey/Mouser: Nidec CAS-120A1)"
 			(at 210.82 246.38 0)
 			(effects
 				(font
@@ -20193,14 +20197,6 @@
 				)
 			)
 		)
-	)
-	(no_connect
-		(at 248.92 181.61)
-		(uuid "d05fa487-677a-4be3-a6b8-827715e3e2e6")
-	)
-	(no_connect
-		(at 248.92 184.15)
-		(uuid "e22492dd-237c-4035-9094-6946f3aa3c5d")
 	)
 	(text "A/B/C/D = UP/RIGHT/DOWN/LEFT as drawn;\nconfirm vs. mounting orientation\n(remap in firmware if rotated).\nPull-ups + RC debounce: INPUTS block."
 		(exclude_from_sim no)
@@ -20900,5 +20896,733 @@
 			(justify left bottom)
 		)
 		(uuid "f8abfa79-66c3-4074-8cf6-5fb3832788c9")
+	)
+	(wire
+		(pts
+			(xy 275.59 45.72)
+			(xy 283.21 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6aee01f1-e527-48f1-b4c8-60ddab16ac0c")
+	)
+	(label "VBAT_RAW"
+		(at 374.65 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6441dd31-e603-46fe-b1d2-0b6ea0b4c792")
+	)
+	(rectangle
+		(start 297.18 149.86)
+		(end 360.68 198.12)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "7368eb2b-2dfb-4469-854b-6fe8f61ad68c")
+	)
+	(text "BATTERY PROTECTION"
+		(exclude_from_sim no)
+		(at 300.18 154.86 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+			(justify left)
+		)
+		(uuid "6ad75872-dca7-422f-8ac1-a059cc4d0dad")
+	)
+	(symbol
+		(lib_id "Device:Polyfuse")
+		(at 316.23 167.64 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "32a00383-29f5-47cc-a4df-eb014faf01a4")
+		(property "Reference" "F1"
+			(at 316.23 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1A"
+			(at 316.23 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Fuse:Fuse_1206_3216Metric"
+			(at 316.23 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 316.23 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 316.23 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C7542957"
+			(at 316.23 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "LUTE 1206L100/24NR"
+			(at 316.23 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "63f88ec5-b966-4142-9273-7b682a904a33")
+		)
+		(pin "2"
+			(uuid "04b37d1a-fc43-46e9-aa82-104cd18719cc")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "F1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 312.42 167.64)
+			(xy 307.34 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9372fddd-8ae7-47b1-8f12-94f781675c99")
+	)
+	(label "VBAT_RAW"
+		(at 307.34 167.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1dc08c44-8cbd-455a-bd50-ac89b5c2cd17")
+	)
+	(symbol
+		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:MOSFET-P")
+		(at 330.2 172.72 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2ab67561-eba8-427d-a5e6-0f0293c4d678")
+		(property "Reference" "Q4"
+			(at 332.99 173.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "DMG3415U"
+			(at 332.99 170.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 330.2 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 330.2 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 330.2 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C96616"
+			(at 330.2 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "DMG3415U-7"
+			(at 330.2 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c3718c28-1963-4954-9a0b-3f4fc632a1fd")
+		)
+		(pin "2"
+			(uuid "15748c29-7974-4f19-8f75-5d6b998c7ea2")
+		)
+		(pin "3"
+			(uuid "71405836-fbda-4a20-8157-f031f544b96c")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "Q4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 320.04 167.64)
+			(xy 330.2 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d39ebb3-8173-4b5a-be95-88367011f502")
+	)
+	(wire
+		(pts
+			(xy 330.2 177.8)
+			(xy 330.2 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "471ce6dc-feca-4ef2-be42-0d04d30176f1")
+	)
+	(wire
+		(pts
+			(xy 330.2 180.34)
+			(xy 340.36 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30668c60-1926-4745-8394-ef318e797cfb")
+	)
+	(wire
+		(pts
+			(xy 340.36 180.34)
+			(xy 340.36 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f21ca8ec-8600-41c0-8483-52386dff1dac")
+	)
+	(symbol
+		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBAT")
+		(at 340.36 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "832a0e27-ebf1-4047-ab03-0e9f02ea50fa")
+		(property "Reference" "#U$43"
+			(at 340.36 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBAT"
+			(at 338.84 166.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 340.36 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 340.36 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 340.36 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6bba3dc0-b9da-4d01-8a7f-e76334645bec")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#U$43")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 325.12 175.26)
+			(xy 322.58 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b5c6177-a624-4b7d-8494-8b71864b614f")
+	)
+	(wire
+		(pts
+			(xy 322.58 175.26)
+			(xy 322.58 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdd5feca-603d-41b0-8010-3b32b6fbe19f")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 322.58 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "71c33e3d-a159-44e2-9ee8-20afd4a8d9c2")
+		(property "Reference" "#PWR63"
+			(at 322.58 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 322.58 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 322.58 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 322.58 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 322.58 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "73862957-2649-42ca-a802-212a013397bc")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#PWR63")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "Q4: reverse-polarity protection. Correct cell: body diode\nconducts, then Vgs = -Vbat turns the channel on (also lets\nthe charger push current back in). Reversed cell: Q4 off.\nF1 now protects the whole board from the cell."
+		(exclude_from_sim no)
+		(at 299.72 189.23 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a264eeb7-46df-4194-a650-38daf47abf76")
+	)
+	(wire
+		(pts
+			(xy 248.92 181.61)
+			(xy 251.46 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30cf7f2e-f483-4d8f-a480-c644f0d5b870")
+	)
+	(wire
+		(pts
+			(xy 248.92 184.15)
+			(xy 251.46 184.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9ed40bc-0802-4b0f-a8f2-7c6c6682de0a")
+	)
+	(wire
+		(pts
+			(xy 251.46 181.61)
+			(xy 251.46 184.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22c0c830-b614-475f-b7a6-9167c9e32321")
+	)
+	(wire
+		(pts
+			(xy 251.46 184.15)
+			(xy 251.46 194.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14bdc591-5f1c-47cd-b3bf-b1caf0887562")
+	)
+	(junction
+		(at 251.46 184.15)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b712c244-38f7-4140-82a6-7fd1b1ab35bd")
+	)
+	(junction
+		(at 251.46 194.31)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1c01134f-6365-4d68-9ce8-f4c655cf57dd")
+	)
+	(symbol
+		(lib_id "Device:D_Zener")
+		(at 340.36 76.2 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "75e14976-35a6-444c-b226-7c20589029bc")
+		(property "Reference" "D3"
+			(at 342.9 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SMAJ5.0A"
+			(at 337.82 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SMA"
+			(at 340.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 340.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 340.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C83329"
+			(at 340.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "Littelfuse SMAJ5.0A"
+			(at 340.36 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8902148d-c115-4fa9-8e45-dfedcff7e5f5")
+		)
+		(pin "2"
+			(uuid "5433ab2d-7282-48f4-8229-19932686b723")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 340.36 72.39)
+			(xy 340.36 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "259d2b9e-147f-464b-8161-5b33f3c7944c")
+	)
+	(symbol
+		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBUS")
+		(at 340.36 67.31 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bf7f82a8-b3d1-4380-a534-00668f22142a")
+		(property "Reference" "#U$44"
+			(at 340.36 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 338.84 66.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 340.36 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 340.36 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 340.36 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a6dd0404-8903-42ef-8cdb-893538cdf42a")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#U$44")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 340.36 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fde2c3ae-79b6-417d-81a3-8f0b30e77be7")
+		(property "Reference" "#PWR64"
+			(at 340.36 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 340.36 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 340.36 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 340.36 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 340.36 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9c2c2b56-8abb-46ac-bd31-3197c58fcb0d")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#PWR64")
+					(unit 1)
+				)
+			)
+		)
 	)
 )
