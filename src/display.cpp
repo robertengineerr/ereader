@@ -1,18 +1,12 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <GxEPD2_BW.h>
+#include "pins.h"
 #include <Fonts/FreeMonoBold12pt7b.h>
 #include "display.h"
 #include "sd_manager.h"
 
-// --- e-Paper pins (FSPI / SPI2) ---
-#define EPD_PWR    3
-#define EPD_BUSY  13
-#define EPD_RST   12
-#define EPD_DC    11
-#define EPD_CS    10
-#define EPD_CLK    9
-#define EPD_DIN   46  // MOSI
+// --- e-Paper on FSPI / SPI2 (pins in pins.h) ---
 
 static SPIClass epdSPI(FSPI);
 

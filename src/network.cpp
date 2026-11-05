@@ -4,6 +4,7 @@
 #include <WebServer.h>
 #include <SD.h>
 #include "network.h"
+#include "pins.h"
 #include "display.h"
 #include "secrets.h"
 #include "web_ui.h"
@@ -128,7 +129,7 @@ void runWifiMode() {
     exitRequested = true;
   });
 
-  while (!exitRequested && digitalRead(40) != LOW) {
+  while (!exitRequested && digitalRead(JOY_MID) != LOW) {
     server.handleClient();
     delay(1);
   }

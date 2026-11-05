@@ -1,14 +1,11 @@
 #include <Arduino.h>
+#include "pins.h"
 #include <SPI.h>
 #include <SD.h>
 #include "sd_manager.h"
 #include "display.h"   // for CHARS_PER_LINE, LINES_PER_PAGE
 
-// --- SD card pins (HSPI / SPI3) ---
-#define SD_CS    15
-#define SD_MOSI  16
-#define SD_SCK   17
-#define SD_MISO  18
+// --- SD card on HSPI / SPI3 (pins in pins.h) ---
 
 static SPIClass sdSPI(HSPI);
 static bool sdMounted = false;

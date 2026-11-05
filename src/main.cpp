@@ -2,17 +2,7 @@
 #include "display.h"
 #include "sd_manager.h"
 #include "network.h"
-
-// --- 5-way joystick ---
-// COM is wired to a GPIO configured OUTPUT LOW (virtual GND)
-#define JOY_COM  35
-#define JOY_UP   36
-#define JOY_DWN  37
-#define JOY_LFT  38
-#define JOY_RHT  39
-#define JOY_MID  40
-#define JOY_SET  41  // hold at boot to enter WiFi upload mode
-#define JOY_RST  42
+#include "pins.h"   // joystick / display / SD pins (breadboard vs -DBOARD_PCB)
 
 #define DEBOUNCE_MS 200
 
@@ -90,8 +80,10 @@ void setup() {
   Serial.begin(115200);
 
   // Joystick: COM acts as virtual GND so direction pins read LOW when pressed
-  pinMode(JOY_COM, OUTPUT);
-  digitalWrite(JOY_COM, LOW);
+  if (JOY_COM >= 0) {           // breadboard only: COM is a GPIO driven LOW
+    pinMode(JOY_COM, OUTPUT);
+    digitalWrite(JOY_COM, LOW);
+  }
   pinMode(JOY_UP,  INPUT_PULLUP);
   pinMode(JOY_DWN, INPUT_PULLUP);
   pinMode(JOY_LFT, INPUT_PULLUP);
@@ -106,11 +98,16 @@ void setup() {
   attachInterrupt(JOY_RHT, isr_right, FALLING);
   attachInterrupt(JOY_MID, isr_mid,   FALLING);
 
+  // Latch "SET held at boot" before the slow SD/display init. 10 ms covers
+  // the PCB's 5.1K x 1uF debounce RC (~5 ms) settling after power-up.
+  delay(10);
+  const bool wifiRequested = (digitalRead(JOY_SET) == LOW);
+
   initSD();
   initDisplay();
 
   // Hold SET at boot → WiFi upload mode
-  if (digitalRead(JOY_SET) == LOW) {
+  if (wifiRequested) {
     runWifiMode();
     returnToLibrary();
     return;
