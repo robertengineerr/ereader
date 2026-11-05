@@ -7200,6 +7200,113 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(rectangle
 		(start 367.03 149.86)
@@ -7657,10 +7764,6 @@
 		(uuid "ff53e938-9e8a-4258-90b0-622f384fc166")
 	)
 	(no_connect
-		(at 148.59 191.77)
-		(uuid "051bc32f-d959-477f-a468-6bf10ccd4022")
-	)
-	(no_connect
 		(at 148.59 212.09)
 		(uuid "0a4a16bd-df08-40d6-873b-ffe0f2e6d89e")
 	)
@@ -7695,10 +7798,6 @@
 	(no_connect
 		(at 148.59 250.19)
 		(uuid "c8e56e2e-7146-433c-bb3e-a964f0315547")
-	)
-	(no_connect
-		(at 148.59 194.31)
-		(uuid "cd27c0fb-e116-4939-8081-f4bd7a8c0544")
 	)
 	(no_connect
 		(at 57.15 257.81)
@@ -10993,7 +11092,7 @@
 			)
 		)
 		(pin "MP"
-			(uuid "64f3b8f2-f3ac-4650-b3c1-28aacfb3a6b5")
+			(uuid "c9b8a92d-e389-497b-a7bd-97922afd20b8")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -11645,55 +11744,55 @@
 			)
 		)
 		(pin "A4"
-			(uuid "8685742d-7fc2-4a12-b38d-d857139c1953")
+			(uuid "a2723b47-2723-4b35-887b-62ab41ccce9c")
 		)
 		(pin "A9"
-			(uuid "d0441f69-2f6d-4d51-96f4-d4cb9f5042ee")
+			(uuid "c594c426-dbef-4a78-91a3-1a118a93e3a0")
 		)
 		(pin "B4"
-			(uuid "36f27e83-6309-459d-b0c8-cbd966237975")
+			(uuid "96281ee5-76ba-469e-a99d-9a397b0ee5b7")
 		)
 		(pin "B9"
-			(uuid "19b23205-80a2-49e3-a39f-1955f23cfceb")
+			(uuid "437a859d-0fb2-491d-bdf5-22b11ff92822")
 		)
 		(pin "A6"
-			(uuid "a05734d2-ad3b-4064-8c37-654849b6457d")
+			(uuid "ab7ee4f9-de1c-460c-915c-d24a4c6ed7c1")
 		)
 		(pin "B6"
-			(uuid "6d50db57-fdad-4878-9811-5cf19fd2d053")
+			(uuid "33e7be6e-36fc-4710-8215-c8c5cddb13e3")
 		)
 		(pin "A7"
-			(uuid "db861d26-d9d5-450a-a9d7-78130398ac5d")
+			(uuid "f732527e-8336-4e99-975b-73dcd4b37ca1")
 		)
 		(pin "B7"
-			(uuid "8ff7af13-4fc6-41df-9cf9-f6a39e774458")
+			(uuid "81fda465-b16a-4ea5-a3ae-f256c9c8f5b2")
 		)
 		(pin "A5"
-			(uuid "415a4052-c279-40f4-a614-99c45b094a1f")
+			(uuid "749b5c26-4ddd-4de2-990d-a24a9088090a")
 		)
 		(pin "B5"
-			(uuid "bae5f1ce-0ecb-4dc9-8099-80cd09363d05")
+			(uuid "57218235-e1f9-43ec-8441-f6f077ccb807")
 		)
 		(pin "A8"
-			(uuid "d874948b-d469-49be-914c-0a6dc5a9d52b")
+			(uuid "7f1ba709-6837-4915-b6de-457a0f03b658")
 		)
 		(pin "B8"
-			(uuid "e949dbed-116c-44b9-a736-c46472f90612")
+			(uuid "58b815a7-58e5-4395-8fd4-7ecdfce681cc")
 		)
 		(pin "A1"
-			(uuid "392c5b6f-baaf-4af9-b674-9b642e46deab")
+			(uuid "3b317b11-2864-4c12-96e0-eacd9592363f")
 		)
 		(pin "S1"
-			(uuid "cca79561-daa1-4035-81dd-6bd52eeefaef")
+			(uuid "00293a06-eee3-4648-976d-25b20224a712")
 		)
 		(pin "A12"
-			(uuid "db3693a7-1e16-4876-9994-5582e31cc1d9")
+			(uuid "af307b36-8e2e-4d8d-980e-c74495f81499")
 		)
 		(pin "B1"
-			(uuid "109cbbb3-91f0-4d3e-8a0b-cf776710fb3f")
+			(uuid "41ca2080-2784-4f6c-ba0c-c5e132dbb1a6")
 		)
 		(pin "B12"
-			(uuid "92715d30-ed81-44f9-869d-fa91255704d8")
+			(uuid "c548c8ab-2e25-44e9-bec6-be90a6edf981")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -11959,7 +12058,7 @@
 				)
 			)
 		)
-		(property "Value" "100K"
+		(property "Value" "10K"
 			(at 298.45 124.46 0)
 			(effects
 				(font
@@ -11996,7 +12095,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25741"
+		(property "LCSC" "C25744"
 			(at 298.45 124.46 0)
 			(effects
 				(font
@@ -12005,7 +12104,7 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" "0402WGF1003TCE"
+		(property "MPN" "0402WGF1002TCE"
 			(at 298.45 124.46 0)
 			(effects
 				(font
@@ -12359,16 +12458,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "fa7cdd49-21a0-4aed-9770-8584f6a9e145")
+			(uuid "1d654608-acb8-438f-875e-2cc4d9a86135")
 		)
 		(pin "1"
-			(uuid "c827f6a3-7544-47fd-af7f-6f2e18189ae3")
+			(uuid "09f37c0c-3ea1-4ad9-ac63-90ca1367604c")
 		)
 		(pin "2"
-			(uuid "ba56e7ea-8caa-4124-a003-8695fd542a2e")
+			(uuid "5a089ff7-93d5-4f52-a479-abd581c1856b")
 		)
 		(pin "2"
-			(uuid "a17a4d1a-003e-469a-83a5-2b6695186c1f")
+			(uuid "2028e968-8b1d-420c-a886-967f39da2538")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -13370,16 +13469,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "5537e3b1-1f57-42f8-a691-6b0a8e57dedf")
+			(uuid "88917cce-d5a9-47ee-a494-266a8e2fb220")
 		)
 		(pin "1"
-			(uuid "44fdda81-6ffd-49b0-95db-cea2c8a042f3")
+			(uuid "51d1e849-530b-4bf2-b951-859dce8089cf")
 		)
 		(pin "2"
-			(uuid "7aebad92-b6d1-4775-925e-e7f62dd25aa7")
+			(uuid "f6d2fec1-8585-465c-9123-7c44a3cce00f")
 		)
 		(pin "2"
-			(uuid "2ed4f563-c35f-4d4a-abf7-81fcb8f4d6d7")
+			(uuid "70cceee5-22f8-44d3-a18a-7a8bac7cfa51")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -15845,10 +15944,10 @@
 			)
 		)
 		(pin "2"
-			(uuid "bd6ee3a3-ed24-45bb-a6d0-af9bdb4a361f")
+			(uuid "72e0dddc-d1f4-447f-bdd6-3f44be4e8b91")
 		)
 		(pin "1"
-			(uuid "a4561697-8f14-4373-b28a-5c2a00f5cf5f")
+			(uuid "a003be68-1d3a-4ffd-992c-cd5a53c27b63")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -16790,7 +16889,7 @@
 			)
 		)
 		(pin "MP"
-			(uuid "830052d5-fc40-4378-aa85-f867983bbbeb")
+			(uuid "150105e1-aa16-4e41-914c-a7eb20d1a688")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -16874,16 +16973,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "7cd235f1-2d5f-4465-a352-8d914ace6f21")
+			(uuid "8f4a8fad-edce-405f-8f6c-0f31a63ddf0a")
 		)
 		(pin "1"
-			(uuid "b25d150d-f3ae-424b-875e-2409a876d52f")
+			(uuid "d250151c-b32c-4850-aa35-b782a69b40a2")
 		)
 		(pin "2"
-			(uuid "709c27f4-84a9-40c9-acee-1aae83cdca77")
+			(uuid "f23a468d-520e-41ce-a4f5-4ba5f10d7ee8")
 		)
 		(pin "2"
-			(uuid "78e60a54-922e-47fe-bfd4-33c50db3c912")
+			(uuid "306bf98d-5eb8-4d24-a02e-35552d69b7f3")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -17392,10 +17491,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "7b8bcbff-f1e6-454f-99e7-d5528bef2a41")
+			(uuid "bc6f525e-a0ca-4318-9164-5f1726c0b93e")
 		)
 		(pin "2"
-			(uuid "49f3dc72-f08f-4fcc-9a1d-8a418f8ef819")
+			(uuid "c62fdf1e-9155-41d4-9bd5-e60465fab7a9")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -17894,16 +17993,16 @@
 			)
 		)
 		(pin "1"
-			(uuid "113649f6-cf19-4c82-95c8-5a704af3b2d0")
+			(uuid "e56883bb-daab-4dbf-9347-a4047c4b6327")
 		)
 		(pin "1"
-			(uuid "0c5c5e75-2cce-420e-a771-391e14f4a83f")
+			(uuid "015cf06c-93c9-4758-95cf-960c7325ebe5")
 		)
 		(pin "2"
-			(uuid "84028f3e-5a26-4908-a82e-14b30834b012")
+			(uuid "8bca9666-9cc0-4530-b4f6-945371f9dd94")
 		)
 		(pin "2"
-			(uuid "544db49e-7d32-44b5-8857-33dd354bd98d")
+			(uuid "d023a2fc-3937-4d45-a101-aed78fec8f26")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18107,7 +18206,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2069202b-2bc9-4df4-9e20-8d072c2c726b")
+		(uuid "25a203bb-c875-4b33-9a0e-bb391ec3a576")
 	)
 	(symbol
 		(lib_id "Connector:Micro_SD_Card_Det2")
@@ -18117,7 +18216,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "94d4c06f-6933-4489-b46d-383b246810d4")
+		(uuid "dd252649-fd83-4cbb-8cc0-972a893d55cc")
 		(property "Reference" "J1"
 			(at 73.66 50.8 0)
 			(effects
@@ -18180,37 +18279,37 @@
 			)
 		)
 		(pin "1"
-			(uuid "5b95c212-ac7a-440e-832a-763a671bed13")
+			(uuid "df642871-6bd0-4f3c-be51-fc3eb0c91775")
 		)
 		(pin "2"
-			(uuid "29510682-356e-42de-b67d-c3a256935141")
+			(uuid "d434e300-a10a-4be5-9c27-e9f8bce6eac3")
 		)
 		(pin "3"
-			(uuid "5ece247a-3234-49b1-a094-66e15344e498")
+			(uuid "96922df1-7d27-4a99-a2f8-dbce264df3cf")
 		)
 		(pin "4"
-			(uuid "a4896413-65d9-4d80-9b78-679221255bef")
+			(uuid "a13786ff-2bb8-4fc2-9d8c-e87f50bd2c26")
 		)
 		(pin "5"
-			(uuid "4a1d628c-df1a-4eed-ab2b-48c17b27c467")
+			(uuid "1066eb97-45de-4e79-81d6-2ca28d571121")
 		)
 		(pin "6"
-			(uuid "b79af1b6-cf97-4253-a8cf-b154df218a4e")
+			(uuid "f3f748b9-0582-4d27-8d05-34c76ff43f57")
 		)
 		(pin "7"
-			(uuid "d54cf49c-0d8c-41ed-867f-1104beb66d60")
+			(uuid "2289bf9d-3a5c-479e-8328-a60186f38847")
 		)
 		(pin "8"
-			(uuid "6465691b-0a0a-4a2c-91f8-0829c01012ec")
+			(uuid "de59b03e-e1ce-461d-aaad-1bfde0c7194d")
 		)
 		(pin "10"
-			(uuid "12052316-d1ae-4490-96dd-5827871a355e")
+			(uuid "1d903264-f372-445c-80c4-46799c4a51b2")
 		)
 		(pin "9"
-			(uuid "f129ed97-fd2a-44b1-88ea-dee2847675d7")
+			(uuid "c218f3f8-d5e6-46b8-852e-1ca4fe8c29ab")
 		)
 		(pin "11"
-			(uuid "16a84040-a2ff-4603-bba1-4ff6a868d01f")
+			(uuid "e4c0a877-9dd0-46ff-868d-aba5865044da")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18230,7 +18329,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "092f862a-5d0e-44e5-8f02-c0f9d85b50e2")
+		(uuid "28cd7b25-49fd-4050-9062-a473e9cd70be")
 	)
 	(global_label "SD_CS"
 		(at 59.69 60.96 180)
@@ -18240,7 +18339,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "9713f9e6-02bd-4c55-abed-5bc4137626de")
+		(uuid "5e96def7-afb6-449c-9d68-492fbaf8d920")
 	)
 	(wire
 		(pts
@@ -18251,7 +18350,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ec87183a-7fd7-4760-9ffe-f319cf409245")
+		(uuid "3cf42189-9da2-4882-a238-aefb8ae44044")
 	)
 	(global_label "SD_MOSI"
 		(at 59.69 63.5 180)
@@ -18261,7 +18360,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f827530a-c38a-4a99-a835-b9e02beaec41")
+		(uuid "9982bb83-f7be-4614-bfcd-bf9aefaa2afe")
 	)
 	(wire
 		(pts
@@ -18272,7 +18371,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "025be942-5a6e-456b-9667-344decb443a3")
+		(uuid "194c7292-a844-4e24-9ee1-a586776340c4")
 	)
 	(global_label "SD_SCK"
 		(at 59.69 68.58 180)
@@ -18282,7 +18381,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "1cb8d3f2-539b-48be-acd7-1729570616eb")
+		(uuid "30c019e5-5ad0-421f-b8e2-c41c29dec29e")
 	)
 	(wire
 		(pts
@@ -18293,7 +18392,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5727aef0-7bee-42e1-a73f-2879bc7dcf7e")
+		(uuid "ad5dd9f2-0cda-4220-b42f-56cf18fd6847")
 	)
 	(global_label "SD_MISO"
 		(at 59.69 73.66 180)
@@ -18303,7 +18402,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f2616871-a793-4574-b8f7-69db42c3d4a4")
+		(uuid "57837326-890a-4fe4-a327-c1858a433e66")
 	)
 	(wire
 		(pts
@@ -18314,7 +18413,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6a7691ae-2395-45c5-97d4-49999c4ab7c0")
+		(uuid "5b6fedf2-a3d4-4088-874f-89fb1754ed52")
 	)
 	(label "SD_DAT1"
 		(at 59.69 76.2 180)
@@ -18324,7 +18423,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f265715f-c3d3-449a-b50a-bf8498e0ed5a")
+		(uuid "65fd2a2a-46a9-4352-9e95-cd32e92140b1")
 	)
 	(wire
 		(pts
@@ -18335,7 +18434,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1f8e9994-8a6f-45c1-818b-c2728373bcb1")
+		(uuid "a8e0b142-a123-4a5c-9b4b-73c3eb6a597b")
 	)
 	(label "SD_DAT2"
 		(at 59.69 58.42 180)
@@ -18345,7 +18444,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "078b0087-7fdd-4dd6-ac9b-e6449016f573")
+		(uuid "f3d59524-e8f1-498f-90a8-3b21661e5e45")
 	)
 	(wire
 		(pts
@@ -18356,7 +18455,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "acc8fad5-e753-4ace-8e06-ed92cd276b45")
+		(uuid "1df688ea-0239-4950-99c3-78b59b8839b9")
 	)
 	(symbol
 		(lib_id "power:+3V3")
@@ -18366,7 +18465,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "7169ea18-2d99-44a6-bb34-a652d1321fc3")
+		(uuid "7eb495aa-df58-497c-bfb5-ad9030c5d0fb")
 		(property "Reference" "#PWR52"
 			(at 68.58 66.04 0)
 			(effects
@@ -18412,7 +18511,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "97d02455-0873-49dc-b57e-8d3f2816a997")
+			(uuid "60b1a5e7-9fc0-4d91-8235-814dcface06c")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18432,7 +18531,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "130d5406-f7f2-4df6-b4c5-37ca7d5ee9d6")
+		(uuid "cb07dd71-e7c7-465d-871b-5afb5ffebb59")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -18442,7 +18541,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "08fc590c-396e-487a-93f2-d4853737a400")
+		(uuid "614e732b-96a3-4239-bd8c-9971259dd886")
 		(property "Reference" "#PWR53"
 			(at 58.42 71.12 0)
 			(effects
@@ -18488,7 +18587,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "27fa8678-b257-4b74-8fff-029db4d4e2c7")
+			(uuid "014868ea-7655-4ae9-84c8-1922c1bdd675")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18507,7 +18606,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "9ec65b5a-4700-4d67-976b-6b3236e9bd52")
+		(uuid "90aca783-8a14-48e0-b2e4-b1ac2d1e93b2")
 		(property "Reference" "#PWR54"
 			(at 110.49 87.63 0)
 			(effects
@@ -18553,7 +18652,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "7303d4c2-588f-45fe-bed7-f3a19283ded3")
+			(uuid "21761380-b2bc-4f3d-a194-d2d9a768f309")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18573,7 +18672,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e8513961-7834-4d0a-808f-c7ee05a66750")
+		(uuid "eaded8f9-3e60-46ee-a9b0-20b978a05d0f")
 	)
 	(global_label "SD_DET"
 		(at 59.69 81.28 180)
@@ -18583,7 +18682,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "fd6d4711-04ac-478e-8a82-6cf529b5f575")
+		(uuid "faf845e8-2e19-4b75-b661-6bbdd97e1216")
 	)
 	(wire
 		(pts
@@ -18594,7 +18693,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f3e397c0-6b2e-4ec2-b94f-e891725ee679")
+		(uuid "8a8a316b-2e41-4bc6-9a7d-8f2174343b3d")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -18604,7 +18703,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "205db2ac-a8cb-496d-b8a9-81eba01e13fa")
+		(uuid "3cdf37d0-968c-4e62-9c9a-b844154f6783")
 		(property "Reference" "#PWR55"
 			(at 58.42 78.74 0)
 			(effects
@@ -18650,7 +18749,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "628fcb9d-14f3-4af6-ad62-408e8d35a0e0")
+			(uuid "30198970-f1d1-4a6e-9655-b34071d91fb5")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18669,7 +18768,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "ddc54399-1b2a-41ae-9898-70dda6d72dcb")
+		(uuid "8f85e642-2c5f-4e08-9359-ed3e02005851")
 		(property "Reference" "#PWR56"
 			(at 38.1 30.48 0)
 			(effects
@@ -18715,7 +18814,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "6119b73f-ab14-499d-bc5d-4917fa0be445")
+			(uuid "ca1ba753-0197-4349-93ed-4dc8d9134717")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18735,7 +18834,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c1aee211-8016-4ec8-a918-99885b7e65bd")
+		(uuid "7d1802f0-34ad-41da-a01f-6b3f25163697")
 	)
 	(wire
 		(pts
@@ -18746,7 +18845,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "da6fcbd6-409a-4abb-837b-5e7cc7b3163b")
+		(uuid "19718e56-9276-467c-a72e-d2bc0151a93a")
 	)
 	(wire
 		(pts
@@ -18757,7 +18856,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "73c5aa00-55a1-4f4c-9204-1ab706efcfcb")
+		(uuid "54db811d-ea95-4b7b-9eba-77e21f18f175")
 	)
 	(wire
 		(pts
@@ -18768,7 +18867,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a8dacec5-e561-4c36-a9c7-6d345d2c3607")
+		(uuid "b1898f83-903d-41a9-854c-9b4eafd3fbc9")
 	)
 	(wire
 		(pts
@@ -18779,7 +18878,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cf9148dc-d103-4b06-b91c-db453783fe58")
+		(uuid "441c8843-0562-41da-ba1a-8ac1aac38856")
 	)
 	(wire
 		(pts
@@ -18790,37 +18889,37 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "314be661-8338-4205-8b1e-855b3be17f21")
+		(uuid "8eba7e59-b22e-4667-9738-efa5af1b4387")
 	)
 	(junction
 		(at 38.1 29.21)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "a5421ea2-9ee0-4a6b-a989-1f3c21714dea")
+		(uuid "daa5de47-8844-49f7-a7f4-53f78065b580")
 	)
 	(junction
 		(at 38.1 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d6cb5eb3-fccb-415d-9373-d74288d7483e")
+		(uuid "32d16cf3-f002-4ae3-85fd-00032772334a")
 	)
 	(junction
 		(at 38.1 39.37)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "7f758134-c628-4071-a095-7347d505c7f8")
+		(uuid "8c5b1124-7a3e-41d3-803b-7b00c764e08a")
 	)
 	(junction
 		(at 38.1 44.45)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "484a99ed-6c7c-4298-931d-fb39ea73e2b4")
+		(uuid "687e8b67-bb86-41d0-82a5-4c0ae1d33f78")
 	)
 	(junction
 		(at 38.1 49.53)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "40907626-785f-4b84-8abe-515d8a9d1365")
+		(uuid "52490070-d0fc-49ac-ae2d-a02ccd9d8256")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
@@ -18830,7 +18929,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "74f21b7d-65aa-417a-8812-718eaa143616")
+		(uuid "5a3b8f50-86ea-41f6-a37a-520500a982f7")
 		(property "Reference" "R1"
 			(at 48.26 26.67 0)
 			(effects
@@ -18893,10 +18992,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "6068cc83-898d-43a9-be18-2f4e5efc63e9")
+			(uuid "4e5b6c58-d782-4d69-9417-53e94604dbde")
 		)
 		(pin "2"
-			(uuid "70dbfa4d-5b3c-432d-8042-ffe7f1184796")
+			(uuid "f73ba0e2-0806-402d-9d3c-e7fe7d6eafd4")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -18916,7 +19015,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "08d2e325-036e-4ec4-9ee2-96cb4a6f85c4")
+		(uuid "acdded0a-0152-4f2f-8a4b-b6d66559c4e3")
 	)
 	(label "SD_DAT2"
 		(at 53.34 29.21 0)
@@ -18926,7 +19025,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7fac1778-fcdb-4220-abfb-75036560d80b")
+		(uuid "01845729-110e-4b00-8c83-b56034a0a655")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
@@ -18936,7 +19035,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d448b44a-ef4c-43e6-8043-e9195a76b9d0")
+		(uuid "e7f51336-37a6-4bae-88e6-5beb02d76d77")
 		(property "Reference" "R2"
 			(at 48.26 31.75 0)
 			(effects
@@ -18999,10 +19098,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "eb4fcf84-27f0-43d2-bc9a-13e32ac1ee18")
+			(uuid "cbf7d0b6-24a7-44a7-8277-e348c2c73ab6")
 		)
 		(pin "2"
-			(uuid "69dd35bf-4f98-4ea1-af71-3505c3243c29")
+			(uuid "564249af-bdc8-4109-b931-35ff15854bc2")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19022,7 +19121,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ed2a92fd-4d38-4b85-a244-92e21be20f6f")
+		(uuid "42c8a3c4-39ef-435e-9a6e-7e08754d61a4")
 	)
 	(label "SD_DAT1"
 		(at 53.34 34.29 0)
@@ -19032,7 +19131,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "74c9f938-b2ef-4e74-8485-be39ba9790c8")
+		(uuid "7ed2c5eb-4f1c-4ad8-8c10-0071e8b495b3")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
@@ -19042,7 +19141,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "adc8d9f7-2a60-432d-b29a-b295b2c2b0a9")
+		(uuid "fce7cfa6-793d-4fed-bad1-33adfa6e7abe")
 		(property "Reference" "R19"
 			(at 48.26 36.83 0)
 			(effects
@@ -19105,10 +19204,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "5b7c2b85-4405-4b98-8d0a-7f75572aea1a")
+			(uuid "5b1a4a3d-099d-494b-bf30-fb0063e7c371")
 		)
 		(pin "2"
-			(uuid "fa495f05-1b44-482d-a760-0688edcece62")
+			(uuid "0018fbba-b865-4f38-997f-61de2ffa96a1")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19128,7 +19227,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f5274543-92b7-4203-b55f-2cff76bec152")
+		(uuid "3edbef5e-b7b3-446f-a9ec-ee160d17daf0")
 	)
 	(global_label "SD_MISO"
 		(at 53.34 39.37 0)
@@ -19138,7 +19237,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "6ee5de1e-f459-4a61-b941-4586d02a9b48")
+		(uuid "08424a75-7490-46ce-8e07-1c3fc9bf11eb")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
@@ -19148,7 +19247,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "6b66638c-43f1-4b52-9e8e-23bc268817c8")
+		(uuid "6a9fb6ac-5992-438e-88e4-dcf95e306494")
 		(property "Reference" "R20"
 			(at 48.26 41.91 0)
 			(effects
@@ -19211,10 +19310,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "dc470a27-5138-47cb-8cde-740b364535df")
+			(uuid "2afe817c-2fe0-446c-adde-504d45f8468b")
 		)
 		(pin "2"
-			(uuid "eecf9ba6-fdc3-4467-b163-898edde2dee6")
+			(uuid "8d2096bd-d68f-4238-a0a6-cfeff6237c2d")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19234,7 +19333,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "849dcfe4-b580-47a4-bff3-198b61afcf42")
+		(uuid "beaace27-6ce4-4376-bcde-09f195cc4f4c")
 	)
 	(global_label "SD_CS"
 		(at 53.34 44.45 0)
@@ -19244,7 +19343,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "07f0075f-41e2-4422-8a2e-c729a250dd08")
+		(uuid "40659073-0d72-4218-a7db-7c5fb693eb03")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
@@ -19254,7 +19353,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "032915c6-b522-44b9-ab91-df382b8326a3")
+		(uuid "82ff4a92-3d90-463f-ad0a-cb011e00daf6")
 		(property "Reference" "R21"
 			(at 48.26 46.99 0)
 			(effects
@@ -19317,10 +19416,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "1497325d-a9da-4d22-a070-101967f9257a")
+			(uuid "316a4f37-a2df-4934-912f-b842f7434f61")
 		)
 		(pin "2"
-			(uuid "fa2f798f-93ca-45f6-b40e-9e33924b8e87")
+			(uuid "133c555d-90ae-42c2-8f68-0af658c38460")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19340,7 +19439,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1020784b-df0f-404d-b968-fab0ade09f3f")
+		(uuid "af1d4787-21a9-4c40-832a-6137c914eab6")
 	)
 	(global_label "SD_MOSI"
 		(at 53.34 49.53 0)
@@ -19350,7 +19449,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "068a733c-5225-43c0-b310-1694f6deced7")
+		(uuid "7585dbe2-44ab-4f0f-ab6c-38367d218611")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
@@ -19360,7 +19459,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "19c6d38e-fac9-48d2-b565-8377e37682aa")
+		(uuid "628c8b5b-6601-4a36-9eb9-bff93d7daea0")
 		(property "Reference" "R22"
 			(at 48.26 52.07 0)
 			(effects
@@ -19423,10 +19522,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "860d6dfe-52ba-42e7-9d62-f2afb74adcda")
+			(uuid "ce5fe64b-4c28-4ec1-a557-7a8c74b9ba27")
 		)
 		(pin "2"
-			(uuid "7f4db9fe-98c3-41ba-9727-dc3052bdef70")
+			(uuid "8ac86d39-1140-4ba1-9db6-bbd0aaa3eded")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19446,7 +19545,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3b0826a8-842b-4540-8da7-4ca6d489e07d")
+		(uuid "7946588b-f239-4113-a7cb-7eaabe86f3cd")
 	)
 	(global_label "SD_DET"
 		(at 53.34 54.61 0)
@@ -19456,7 +19555,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "6d94f043-b1c2-4119-9caa-5b268c1eac9b")
+		(uuid "9c170535-a373-4678-81d0-ce495eee1bd9")
 	)
 	(wire
 		(pts
@@ -19467,7 +19566,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "48d48555-d49b-463a-b799-163927b09afa")
+		(uuid "53e59fc3-a026-4605-b05f-a52eeb4e0d0c")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBUS")
@@ -19477,7 +19576,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1226fa2e-8232-4b7a-8b40-c8f58715f3a1")
+		(uuid "1a43165a-e772-4db4-9d94-eb5a1ac1dfe8")
 		(property "Reference" "#U$40"
 			(at 219.71 27.94 0)
 			(effects
@@ -19523,7 +19622,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "5edb4bf0-4e6f-46a4-83e9-8bc4d223db53")
+			(uuid "f772a8cd-1b26-4e2d-a4ca-4d79036bc577")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19543,7 +19642,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3d37ab6c-1d46-4361-8dc8-da6131c1e90f")
+		(uuid "d22753b8-eedc-4cf9-97a0-feb115d596e8")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:CAP_CERAMIC0603_NO")
@@ -19553,7 +19652,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "630c896b-48a2-492f-9682-a728945bc676")
+		(uuid "ad5f912a-fd19-45b9-a549-6ae0e4e5bb44")
 		(property "Reference" "C22"
 			(at 227.58 34.31 90)
 			(effects
@@ -19616,10 +19715,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e5d51b03-5835-452c-a586-3bf20299d476")
+			(uuid "15918b58-d53b-42d7-a70c-dfbd85ff3950")
 		)
 		(pin "2"
-			(uuid "7b713c27-3460-4c99-9a98-f5efc1ba7d11")
+			(uuid "91ed5aeb-f284-498e-9822-65d168c89c73")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19638,7 +19737,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "52f7208e-2460-4464-8f90-adbe2aeb23bf")
+		(uuid "5d087c8d-2261-40a6-863c-5ea4ef51b54a")
 		(property "Reference" "#PWR57"
 			(at 229.87 44.45 0)
 			(effects
@@ -19684,7 +19783,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "83bb325a-dc89-4788-bc32-705f9bd085d9")
+			(uuid "4524bd6d-a66f-4cfa-b14a-a6b7595dbc0c")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19697,7 +19796,7 @@
 	)
 	(rectangle
 		(start 185.42 223.52)
-		(end 236.22 275.59)
+		(end 236.22 281.94)
 		(stroke
 			(width 0)
 			(type default)
@@ -19705,7 +19804,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "c891000a-b321-4e8b-a865-2bd1deb439ee")
+		(uuid "44e93f37-aee8-441f-b5be-b34cafd696c0")
 	)
 	(text "POWER SWITCH"
 		(exclude_from_sim no)
@@ -19716,7 +19815,7 @@
 			)
 			(justify left)
 		)
-		(uuid "73a56f23-7f10-41d8-a8f4-2e0315620671")
+		(uuid "e4d3c25f-cf1d-4fc9-b302-569ee9aa50f2")
 	)
 	(symbol
 		(lib_id "Switch:SW_Nidec_CAS-120A1")
@@ -19726,7 +19825,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "63c0578f-a7c0-45d8-8eaa-37571ee168e2")
+		(uuid "4c716aa5-8f77-4792-87fd-194ef25649b1")
 		(property "Reference" "SW10"
 			(at 210.82 250.7 0)
 			(effects
@@ -19789,13 +19888,13 @@
 			)
 		)
 		(pin "2"
-			(uuid "e8a2095d-a5ab-4db3-aa44-f2b1245d51a3")
+			(uuid "cd588f96-46d1-49aa-98e9-4b89ea3c08f8")
 		)
 		(pin "3"
-			(uuid "d53c2086-1f49-47f3-aa7f-d1113776a719")
+			(uuid "f303b42c-80e9-4428-9072-081a6dbc7817")
 		)
 		(pin "1"
-			(uuid "6898d017-3ae5-4a60-a73f-804f03ee08b6")
+			(uuid "9645b63b-d684-40ab-afe4-bc46e6d4859e")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19806,17 +19905,6 @@
 			)
 		)
 	)
-	(wire
-		(pts
-			(xy 215.9 246.38)
-			(xy 226.06 246.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d411fc8d-910c-45bb-89ed-338bd8498808")
-	)
 	(label "EN"
 		(at 226.06 246.38 0)
 		(effects
@@ -19825,7 +19913,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5642329e-176f-472f-ac8d-e94736abb6a5")
+		(uuid "e36a13db-360e-469c-87a5-6cf0ca58ae70")
 	)
 	(wire
 		(pts
@@ -19836,7 +19924,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b592f1f0-b2d8-49db-a70e-d5c5dc09147d")
+		(uuid "2a1b04c4-340f-4850-a16a-651867e392bc")
 	)
 	(label "VHI"
 		(at 195.58 243.84 180)
@@ -19846,7 +19934,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "3f488eae-b3c7-493e-87c8-6a923314ee95")
+		(uuid "0d5f9e50-6351-42d3-be46-c47118d9917f")
 	)
 	(wire
 		(pts
@@ -19857,7 +19945,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e86cb2fe-6dea-4ade-baae-df5932e53452")
+		(uuid "01782507-054c-4495-9f6b-e4905ec39bc5")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -19867,7 +19955,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d3d0936f-ae5d-4849-bc62-e1206c1c94e0")
+		(uuid "2d4918c3-edcf-494e-b5bf-693235c9ca4c")
 		(property "Reference" "#PWR58"
 			(at 205.74 260.35 0)
 			(effects
@@ -19913,7 +20001,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ecec294a-c41a-4e37-a75b-1d99460ac6d7")
+			(uuid "11248939-5346-4343-bba3-607ace18c9e0")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -19926,14 +20014,14 @@
 	)
 	(text "ON  = EN tied to VHI (3V3 regulator on)\nOFF = EN tied to GND (regulator off,\n      charging still works on USB)"
 		(exclude_from_sim no)
-		(at 188 262 0)
+		(at 188 266 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "660c510b-a776-4b32-bdd6-d226eb03934d")
+		(uuid "02481f52-1c62-4da4-a2d3-8c02a2ee8701")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:CAP_CERAMIC0603_NO")
@@ -19943,7 +20031,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b0ececc8-da04-4e31-b9e7-aa435a2b000a")
+		(uuid "66035b0b-6cda-455e-bcf7-88212c1e20c7")
 		(property "Reference" "C23"
 			(at 393.95 179.09 90)
 			(effects
@@ -20006,10 +20094,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "bea0e3bb-ac9c-4ae9-8acd-b7bc49f6892e")
+			(uuid "27d133c5-df30-4ed1-bae3-fa4b20a39610")
 		)
 		(pin "2"
-			(uuid "3bc8942a-1bd1-42f3-8a95-53ace50401b9")
+			(uuid "540cc9ec-cc3a-44bb-9562-64b0cb17e634")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20028,7 +20116,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "948f5e8b-1841-4074-bcb4-7ddb8bd7bab1")
+		(uuid "16963842-5c5f-4035-9fda-ac9b971453da")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -20038,7 +20126,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "aa1d442a-3e5c-45b2-b995-c8f45a6e1a11")
+		(uuid "7c99e5f9-ce38-4123-95ba-5d2bc2d309eb")
 		(property "Reference" "#PWR59"
 			(at 396.24 189.23 0)
 			(effects
@@ -20084,7 +20172,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "4872ccc6-6c31-41fa-bcc1-eab754fdb068")
+			(uuid "04074935-e9a0-4884-8d4a-853459827335")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20097,15 +20185,15 @@
 	)
 	(no_connect
 		(at 57.15 260.35)
-		(uuid "cf8b79dc-f34c-4af0-a373-2db6d0a32371")
+		(uuid "38ee0fa4-37c4-474e-9aa1-9f053f7e5e12")
 	)
 	(no_connect
 		(at 57.15 262.89)
-		(uuid "ac18eeb2-3dcb-47ed-9272-ad167193474e")
+		(uuid "31434b05-53d4-4f66-aea3-e68dbe0690ec")
 	)
 	(no_connect
 		(at 148.59 257.81)
-		(uuid "a07a97f4-07a4-48a7-8efb-8bd1646bae3e")
+		(uuid "f6068774-3ba3-4113-969d-fbe0210d98bf")
 	)
 	(global_label "JS_UP"
 		(at 148.59 217.17 0)
@@ -20115,7 +20203,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c9b1985f-7d86-4cf2-809a-9c3226ada86b")
+		(uuid "6c6f1748-ffc1-4411-b4ee-6fb091a1bfe4")
 	)
 	(global_label "JS_DOWN"
 		(at 148.59 219.71 0)
@@ -20125,7 +20213,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f545098b-4389-4025-a457-899641949472")
+		(uuid "361e48f6-66f4-4961-b36c-94606867dff9")
 	)
 	(global_label "SD_DET"
 		(at 148.59 222.25 0)
@@ -20135,7 +20223,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "009490b4-4fdc-422b-a4ff-0a97115be3b6")
+		(uuid "8fb911de-2b3b-4203-8cfe-84209c6dc464")
 	)
 	(rectangle
 		(start 185.42 160.02)
@@ -20147,7 +20235,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "f5af93ae-16f5-425c-81b1-9cc240cd3690")
+		(uuid "84492d68-4654-4f9a-98cb-34153fc3ac55")
 	)
 	(text "5-WAY JOYSTICK"
 		(exclude_from_sim no)
@@ -20158,7 +20246,7 @@
 			)
 			(justify left)
 		)
-		(uuid "37fb8802-a2a6-4693-ba59-970bc59755b5")
+		(uuid "fb55f1c2-f44f-445d-9485-079140618e15")
 	)
 	(symbol
 		(lib_id "ereader:SKRHABE010")
@@ -20168,7 +20256,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "91f3eef7-0ba2-442e-98f2-f6e7cfa364c4")
+		(uuid "812b2631-04de-42b1-a32d-0842b4fdb123")
 		(property "Reference" "SW3"
 			(at 241.3 173.99 0)
 			(effects
@@ -20231,28 +20319,28 @@
 			)
 		)
 		(pin "1"
-			(uuid "0ed0347d-895a-452f-9f52-6127529c4755")
+			(uuid "44ca367b-aa08-4566-bf04-49eefa64299f")
 		)
 		(pin "6"
-			(uuid "da934de0-19c0-457d-8447-adc3927a06e5")
+			(uuid "4b926b9c-6a01-40bb-800e-02d83c0a456a")
 		)
 		(pin "3"
-			(uuid "226f33f5-d44f-4fdb-861e-111c333ded2c")
+			(uuid "15ac9978-16cc-49be-97f2-5f4ee0978b4a")
 		)
 		(pin "4"
-			(uuid "630b251c-a48a-4ee9-a42b-a7dfbe89f996")
+			(uuid "a54d52fa-ff21-41e7-b03c-885a942ffd89")
 		)
 		(pin "2"
-			(uuid "3542582b-3681-4db7-982d-d7a24f3183a1")
+			(uuid "81134ff3-e828-4b70-bf32-bfe9d9ce6da5")
 		)
 		(pin "5"
-			(uuid "d2a5c4d1-64a1-4079-a75b-4c7ae9366850")
+			(uuid "9a98d816-816c-494c-a8b5-9fc960741354")
 		)
 		(pin "7"
-			(uuid "91330146-b998-4c2e-a556-8598c1079a4a")
+			(uuid "6d0d653e-cf07-4761-abca-14634d3ab5e6")
 		)
 		(pin "8"
-			(uuid "2b322dec-5f95-44cd-ba0e-43115e3f6591")
+			(uuid "ac48be3c-004a-4c58-883b-f81c0de1f480")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20272,7 +20360,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "58c5995d-e7f9-4e41-9eee-9ed61462e3f2")
+		(uuid "133e3126-da87-49a1-a29d-4f6110051006")
 	)
 	(global_label "JS_UP"
 		(at 226.06 181.61 180)
@@ -20282,7 +20370,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "2ddd3d7c-e779-4566-8f51-9ae5d2b9d158")
+		(uuid "11d4937a-7ce5-426d-9c35-30e3ab9e6404")
 	)
 	(wire
 		(pts
@@ -20293,7 +20381,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f00f8f72-905f-4af4-bccc-719870b9bf6f")
+		(uuid "a3e899bf-ba43-4ad0-9676-79eede6bac13")
 	)
 	(global_label "JS_RIGHT"
 		(at 226.06 184.15 180)
@@ -20303,7 +20391,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "2c2e361b-fe1a-4b48-a64b-2b3d2385f3df")
+		(uuid "ac3ad400-1020-4718-bd15-245dcaf06a53")
 	)
 	(wire
 		(pts
@@ -20314,7 +20402,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "309c3374-9afd-42fc-804c-65689e831365")
+		(uuid "9c651c8d-0e34-447a-acae-aeb9b304e8d3")
 	)
 	(global_label "JS_DOWN"
 		(at 226.06 186.69 180)
@@ -20324,7 +20412,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "49f0c451-9299-42dd-8988-cd6f2effc748")
+		(uuid "ca9b1207-670c-4095-9487-b491311321c3")
 	)
 	(wire
 		(pts
@@ -20335,7 +20423,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "47c5ccfb-3a27-4601-a653-b40eaa1e273b")
+		(uuid "3537277b-a48b-4941-bcef-4940b28e4f32")
 	)
 	(global_label "JS_LEFT"
 		(at 226.06 189.23 180)
@@ -20345,7 +20433,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "bc4dfebf-7f32-4101-8d3d-8337138d3998")
+		(uuid "14e9726f-974b-4808-839c-f87673eed304")
 	)
 	(wire
 		(pts
@@ -20356,7 +20444,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fcb2e982-598b-4462-8edd-3c32700c635a")
+		(uuid "2af7abc0-f842-4f83-9397-e208730047e0")
 	)
 	(global_label "JS_MID"
 		(at 226.06 191.77 180)
@@ -20366,7 +20454,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "03af0fcb-73a5-4ce7-a5e2-edd7806bf7d4")
+		(uuid "61b6f4b7-ce6e-4c2e-bf20-6be3621ed70d")
 	)
 	(wire
 		(pts
@@ -20377,7 +20465,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "764fa46a-4388-4773-a9e9-5184d9fa0b83")
+		(uuid "a1fb8375-4f3f-481f-b378-0ac46fe67870")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -20387,7 +20475,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "103fdfee-4f57-40ae-84a8-bfb595920858")
+		(uuid "6447c184-919d-44d1-a6f5-68db46e82095")
 		(property "Reference" "#PWR60"
 			(at 251.46 200.66 0)
 			(effects
@@ -20433,7 +20521,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "8fa11f44-cddc-4c6c-9be6-1d59dceafb0a")
+			(uuid "0a6511b0-5de8-44f2-bd5f-9ed9007b50f0")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20453,22 +20541,22 @@
 			)
 			(justify left)
 		)
-		(uuid "d188047b-2b99-4fec-a3ea-fc1eb2152e20")
+		(uuid "04263b30-723b-493a-8239-f8723c4a2f32")
 	)
 	(text "Pull-up + RC debounce per line. JS_UP..JS_MID -> 5-way joystick SW3; SW8 = SET, SW9 = RST"
 		(exclude_from_sim no)
-		(at 80.01 141 0)
+		(at 80.01 143.76 0)
 		(effects
 			(font
-				(size 1.27 1.27)
+				(size 1 1)
 			)
 			(justify left)
 		)
-		(uuid "e1e2de5c-4717-47da-9e17-3d9a86489452")
+		(uuid "63879239-f379-4625-b2af-c6ac7bf6d19b")
 	)
 	(no_connect
 		(at 349.25 121.92)
-		(uuid "467f9af9-5af9-4fca-91ed-2928ed03b4fd")
+		(uuid "0d0474ec-e573-4d0d-ad61-a2ad3deeb113")
 	)
 	(rectangle
 		(start 240.03 223.52)
@@ -20480,7 +20568,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "ae616958-3468-453b-8dbd-3083eb8b8187")
+		(uuid "1a96725a-4ce9-4fb9-86ad-4868a88b9d45")
 	)
 	(text "POWER FLAGS"
 		(exclude_from_sim no)
@@ -20491,7 +20579,7 @@
 			)
 			(justify left)
 		)
-		(uuid "92bb9e72-7c52-424a-a571-aae4a84381d1")
+		(uuid "cbedd7a5-45ee-4e0e-b610-42fd8d3a64c4")
 	)
 	(wire
 		(pts
@@ -20502,7 +20590,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c9d3976b-53a8-4b88-afa8-90642524d8b4")
+		(uuid "e5d152e7-23e3-45e1-8032-97ff581c8dc1")
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
@@ -20512,7 +20600,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "cf93955f-ddd2-4d09-8dd4-bf5e234e3a75")
+		(uuid "81c19216-c7f1-4471-b04f-c4095dc6acd2")
 		(property "Reference" "#FLG1"
 			(at 246.38 236.85 0)
 			(effects
@@ -20558,7 +20646,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "1a6bd2fb-d0cb-4f5a-b198-9f41bac76555")
+			(uuid "f742530a-3095-402a-8aed-6fa559b7aaef")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20577,7 +20665,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3de162dc-07ae-4868-af2e-9aebb29a9f63")
+		(uuid "7b86dc07-f47e-444b-b515-1578c8fa4d14")
 		(property "Reference" "#PWR61"
 			(at 246.38 255.27 0)
 			(effects
@@ -20623,7 +20711,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "f75d5d34-3bfd-452c-bf91-d86338ca099f")
+			(uuid "88bd475a-ec97-4326-a804-9f10022527ec")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20643,7 +20731,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "01ce149a-a54f-4479-b00f-e0770625077e")
+		(uuid "b4a3dfe2-f75a-47d3-9c8a-a99aac6022f4")
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
@@ -20653,7 +20741,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5e048ae9-6a3d-4a86-a563-98aa9ea291c7")
+		(uuid "aa946163-4e39-4636-acdd-4f34375f9ca9")
 		(property "Reference" "#FLG2"
 			(at 256.54 236.85 0)
 			(effects
@@ -20699,7 +20787,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "3b5b3747-c0db-4fe7-a84d-93fe8cd5885c")
+			(uuid "c3fea374-a0af-4d15-b8dd-7fbd5ef4773d")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20718,7 +20806,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "fdd28033-43d7-4c74-9cb1-6a0fbf5f08ef")
+		(uuid "50005dfb-0840-4c52-add4-685e38c7d501")
 		(property "Reference" "#PWR62"
 			(at 256.54 252.73 0)
 			(effects
@@ -20764,7 +20852,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "6197f832-bcd9-4696-a60b-7bfa3f28c4e0")
+			(uuid "40244c70-edfb-4f98-84a5-9778cb71e169")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20784,7 +20872,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b0c0f2c3-0480-4306-a49f-a4a2fbe05eca")
+		(uuid "5d67c675-c2e6-492e-8b32-41c17fe8d3a3")
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
@@ -20794,7 +20882,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8db4b278-c890-4e3d-be58-efa478ece8d9")
+		(uuid "3947939a-ba5b-431f-9509-bc70a5a27ee5")
 		(property "Reference" "#FLG3"
 			(at 266.7 236.85 0)
 			(effects
@@ -20840,7 +20928,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "fed9a7bb-16ff-43a0-86cf-ef5e07c84d21")
+			(uuid "1fd6d168-50b5-4712-803b-605527fa52ce")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20859,7 +20947,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0914e173-2daa-4161-96ab-98f9735c7873")
+		(uuid "b40d80f1-11a5-46b3-8ee8-dce5454d4aa8")
 		(property "Reference" "#U$41"
 			(at 266.7 246.38 0)
 			(effects
@@ -20905,7 +20993,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "8d21f78a-963d-4d64-99ea-13016c724afb")
+			(uuid "025432e8-2b01-48f1-a982-d4b404f7d719")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -20925,7 +21013,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ce85aa3f-7937-441e-9e2b-46132e553452")
+		(uuid "b20fb783-c61f-49e2-8ff0-b0e3ab37ec58")
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
@@ -20935,7 +21023,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1d0860df-0884-40c1-aaa5-5977626d294b")
+		(uuid "286befae-0668-40c7-af6a-670b68d072ea")
 		(property "Reference" "#FLG4"
 			(at 276.86 236.85 0)
 			(effects
@@ -20981,7 +21069,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "e40bc652-7e3c-4c27-a8a2-7f75c59dc822")
+			(uuid "cb1f6590-d892-43e6-8343-17a9a50a3b47")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21000,7 +21088,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4ef3e803-38fa-419d-96d3-8732c64b0102")
+		(uuid "e35e6e5c-b088-480c-94e0-0d47dd9cd8ad")
 		(property "Reference" "#U$42"
 			(at 276.86 246.38 0)
 			(effects
@@ -21046,7 +21134,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "80c14892-fc12-4065-aa3e-6211a269c86d")
+			(uuid "f34a785e-a29e-433a-91cd-26ee77e82dd0")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21066,7 +21154,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f70d178b-ce15-47e7-91fe-4e402d493820")
+		(uuid "f54427ed-ced9-46cd-9d71-48db21db3b0a")
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
@@ -21076,7 +21164,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "37f4b02b-7639-4f44-a33b-3ea1e1af16a2")
+		(uuid "4e8550e4-16e8-4eec-a810-bfced5d6c32c")
 		(property "Reference" "#FLG5"
 			(at 287.02 236.85 0)
 			(effects
@@ -21122,7 +21210,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "03cd16e6-cf52-4e6a-9f9b-95c7bd78fbc0")
+			(uuid "a72aa420-a5bc-4350-8b4f-cde927524496")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21141,7 +21229,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "a0bec9fd-7048-4987-bfc6-e63a5ab4758b")
+		(uuid "567559f7-fafb-4bcb-9e73-580683b078ea")
 	)
 	(wire
 		(pts
@@ -21152,7 +21240,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "37f870e8-7407-4cec-b096-3105cc770b7e")
+		(uuid "b12f3168-7fcd-4144-92d5-1ea11af8d9eb")
 	)
 	(label "VBAT_RAW"
 		(at 374.65 115.57 0)
@@ -21162,7 +21250,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "a20932a6-c1cd-4a72-b403-d1140d857431")
+		(uuid "383fc028-0146-4dc6-8438-77bcc8766f72")
 	)
 	(rectangle
 		(start 297.18 149.86)
@@ -21174,7 +21262,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "81e5777d-a007-4635-bc64-80999c8abbd3")
+		(uuid "dba1ce61-af29-475b-a793-46b3fa588bc5")
 	)
 	(text "BATTERY PROTECTION"
 		(exclude_from_sim no)
@@ -21185,7 +21273,7 @@
 			)
 			(justify left)
 		)
-		(uuid "6ecc9812-e94f-40d2-8e4b-62846e6a478e")
+		(uuid "0c60254a-6fc9-4ef4-ac86-a4bebd6ac2c4")
 	)
 	(symbol
 		(lib_id "Device:Polyfuse")
@@ -21195,7 +21283,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8161574c-04e0-4419-ad78-8f0e1427206b")
+		(uuid "b0d27109-63ba-44a9-b066-fed5744aa50e")
 		(property "Reference" "F1"
 			(at 316.23 170.18 0)
 			(effects
@@ -21258,10 +21346,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "609ad180-cd4e-4d8f-8b3d-b5bac9f66ef2")
+			(uuid "1c26ed7b-3ec5-4584-81ae-c5593c5512cc")
 		)
 		(pin "2"
-			(uuid "19028b57-d260-487c-beb0-83d3beb7e3a1")
+			(uuid "39a6bfe6-5be5-4cfc-8198-419cb89ae584")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21281,7 +21369,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "757e5653-fbb2-4007-8647-dfa7521f550d")
+		(uuid "2dfea0ba-3fae-43db-8ce2-bf769601a371")
 	)
 	(label "VBAT_RAW"
 		(at 307.34 167.64 180)
@@ -21291,7 +21379,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "6252c909-9bc7-48c2-934c-5eccff4cd829")
+		(uuid "a18f45ee-4d41-45f1-a0ab-7c236dc2dd82")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:MOSFET-P")
@@ -21302,7 +21390,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "efc59675-5202-43f4-aa9f-adb5337b2a90")
+		(uuid "696d1ecd-9010-40cf-a764-5b4e07b19a23")
 		(property "Reference" "Q4"
 			(at 332.99 173.1 0)
 			(effects
@@ -21365,13 +21453,13 @@
 			)
 		)
 		(pin "1"
-			(uuid "847fad54-9c34-4e92-a7ad-7b3b1291001b")
+			(uuid "69c63c48-55bc-41fa-a010-f433aabbba92")
 		)
 		(pin "2"
-			(uuid "78d51c92-3da4-473c-afeb-19ff03d34659")
+			(uuid "b9d2465b-9567-4a23-bfe0-7a6f7f30ca95")
 		)
 		(pin "3"
-			(uuid "faa22c91-fac8-4409-8cb9-72d6d329bb87")
+			(uuid "fd892e2c-a063-4184-afa9-e423d03a199b")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21391,7 +21479,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4f41612c-f64d-4237-871f-fbbfb7e3cd8c")
+		(uuid "3dbfa0d9-dd45-49e6-b83c-595613962ed3")
 	)
 	(wire
 		(pts
@@ -21402,7 +21490,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c091a644-4f0a-411c-b2ac-be2f48b635d3")
+		(uuid "23dee5e2-d311-4d2a-a860-31780555ecbd")
 	)
 	(wire
 		(pts
@@ -21413,7 +21501,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4ed331cd-4d3a-4747-a961-22fd9bbc7a25")
+		(uuid "26a81abd-c940-41af-96dc-43a71dea51b8")
 	)
 	(wire
 		(pts
@@ -21424,7 +21512,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "eff91e5d-f47f-44aa-9440-0208166ddf7e")
+		(uuid "fdbdff3e-7059-4fbd-b0a9-ee22dcb5ed9a")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBAT")
@@ -21434,7 +21522,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "1dd0aa2d-2b9e-47d4-874f-8291ae5127ec")
+		(uuid "8596118b-3d78-4085-83fb-df40e76cd191")
 		(property "Reference" "#U$43"
 			(at 340.36 167.64 0)
 			(effects
@@ -21480,7 +21568,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "85d144a5-8c58-4b50-a432-d294edef368b")
+			(uuid "aa8fa04f-da03-4ae8-bf35-d2b576f2bb2f")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21500,7 +21588,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "97c55087-1f7b-43e0-a64e-73494204088a")
+		(uuid "20a221e4-9fc1-43eb-b668-b503f5e4e137")
 	)
 	(wire
 		(pts
@@ -21511,7 +21599,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "aad56bd3-6f22-45c8-a05c-0be9f2224924")
+		(uuid "dcd72a68-b45a-414b-ab1c-7403b9dec34c")
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -21521,7 +21609,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4d500b24-5758-49ba-a98e-b2b6d180cfde")
+		(uuid "a854233e-46e6-4c57-8f92-7ef988426867")
 		(property "Reference" "#PWR63"
 			(at 322.58 184.15 0)
 			(effects
@@ -21567,7 +21655,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "556cae5a-462d-4894-9481-6eb254aff4f5")
+			(uuid "53672d1d-e4cd-40cd-982a-e5dd253ee8ad")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21587,7 +21675,7 @@
 			)
 			(justify left)
 		)
-		(uuid "b8b41f15-3380-486c-a1bb-7fb0ac954b19")
+		(uuid "8c441a0b-bc35-41a6-a898-48722d232890")
 	)
 	(wire
 		(pts
@@ -21598,7 +21686,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1aa2dc7e-81a3-4e68-8422-66fb7820eee8")
+		(uuid "3de788e0-569a-496e-aa93-4f028867cb07")
 	)
 	(wire
 		(pts
@@ -21609,7 +21697,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4e943781-8c2a-4d66-bc44-497e05d796cf")
+		(uuid "14235901-5032-4042-a068-2a586cac6271")
 	)
 	(wire
 		(pts
@@ -21620,7 +21708,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "60a1ea82-27d5-453d-a583-2c1d6840e4dc")
+		(uuid "4f4f1448-a105-4e34-8d2e-33d7a15ebcce")
 	)
 	(wire
 		(pts
@@ -21631,19 +21719,19 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "26cd97da-1b13-4ba6-a02b-c5d051a48b05")
+		(uuid "c7a06254-a333-48fe-b4c9-a83581a052f2")
 	)
 	(junction
 		(at 251.46 184.15)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "6dc01883-6d8f-4937-9337-868ab8ab377d")
+		(uuid "c43990b4-5136-4ba3-8fa1-72cd3b97f637")
 	)
 	(junction
 		(at 251.46 194.31)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "f31a169d-e2dc-436e-8166-56bcc8d9bc92")
+		(uuid "0e6763dd-bdde-4587-9886-9094c9e61cae")
 	)
 	(symbol
 		(lib_id "Device:D_Zener")
@@ -21653,7 +21741,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4f811a62-6ec4-4e4c-bf06-4d88733c05b6")
+		(uuid "43369797-b7db-43ca-9f49-c09069942d8b")
 		(property "Reference" "D3"
 			(at 342.9 76.2 0)
 			(effects
@@ -21716,10 +21804,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "8c8f620b-eefe-4fba-a66a-48a7fea64c06")
+			(uuid "00f30629-a5cc-47f8-ab12-8d8350292317")
 		)
 		(pin "2"
-			(uuid "63342996-745e-44c9-96c5-bae2a1253a2a")
+			(uuid "b1e8fb8d-b65b-40de-9f9d-0ab7504c9451")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21739,7 +21827,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7499eb48-2e06-4da5-8a04-8123b2e8b973")
+		(uuid "d1a91184-2ecb-44fd-899c-7a36d6d19dd4")
 	)
 	(symbol
 		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBUS")
@@ -21749,7 +21837,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "3982f075-2e2c-4e55-bd06-4ae9b4b31f22")
+		(uuid "2fc18240-292d-430a-b0e5-dc21b87f4d3c")
 		(property "Reference" "#U$44"
 			(at 340.36 67.31 0)
 			(effects
@@ -21795,7 +21883,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "9c3a650b-82b2-49d9-b7ce-5a59602d988f")
+			(uuid "954a3603-71c4-4560-8187-4fca5480a09d")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21814,7 +21902,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "220aa194-c956-488c-98bf-62ba5579bc68")
+		(uuid "6c6230a3-627f-4dfb-8290-d458c3945662")
 		(property "Reference" "#PWR64"
 			(at 340.36 86.36 0)
 			(effects
@@ -21860,7 +21948,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "02551299-2b40-44b1-b37f-ed63aad40be8")
+			(uuid "7abc21d7-8414-42e1-9a38-cfef2a9992c1")
 		)
 		(instances
 			(project "e_reader_v0.1"
@@ -21873,13 +21961,944 @@
 	)
 	(text "SW10 = SW_SPDT_321: pin 2 (B) is the COMMON.\nPin 1 (C) and pin 3 (A) are the throws."
 		(exclude_from_sim no)
-		(at 188 270.5 0)
+		(at 188 274.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "a2c78091-960b-4dbd-9ad1-1180ec15c180")
+		(uuid "1c1cf561-a0fe-46b7-83fb-ace55e87f19c")
+	)
+	(symbol
+		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:RESISTOR_0603_NOOUT")
+		(at 223.52 252.73 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7797cfe9-a3c7-4157-8b6c-053005e5399c")
+		(property "Reference" "R7"
+			(at 220.98 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1M"
+			(at 223.52 252.73 0)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(thickness 0.2032)
+					(bold yes)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 223.52 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 223.52 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 223.52 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C26083"
+			(at 223.52 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "0402WGF1004TCE"
+			(at 223.52 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e615f946-4f2b-452d-8fe5-c63806220518")
+		)
+		(pin "2"
+			(uuid "8a4d5c5f-588a-4edd-92c8-993ffba50dcf")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 215.9 246.38)
+			(xy 223.52 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fd47e27-c376-4104-9970-0596da42ec11")
+	)
+	(wire
+		(pts
+			(xy 223.52 246.38)
+			(xy 226.06 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dbf14ab3-ac8c-4c50-a769-f7a17cddb9fa")
+	)
+	(wire
+		(pts
+			(xy 223.52 247.65)
+			(xy 223.52 246.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "681ffd3b-f21e-4afc-bdb1-c59d7a8dae42")
+	)
+	(junction
+		(at 223.52 246.38)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cd53d962-229f-41ae-8780-871b42337015")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 223.52 257.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7fc45b3d-d3d4-48c4-b062-f71d75fa91d8")
+		(property "Reference" "#PWR65"
+			(at 223.52 264.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 223.52 261.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 223.52 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 223.52 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 223.52 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2b3ab9ab-05c7-4465-b532-77da78cc1d74")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#PWR65")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(rectangle
+		(start 297.18 200.66)
+		(end 360.68 248.92)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "1f285c6e-0ace-4505-806a-9170f65a6a48")
+	)
+	(text "TEST POINTS"
+		(exclude_from_sim no)
+		(at 300.18 205.66 0)
+		(effects
+			(font
+				(size 1.778 1.778)
+			)
+			(justify left)
+		)
+		(uuid "fed1df20-e877-46bc-82c4-18a8d36ee610")
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 304.8 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "b1ddaa68-11d1-4e85-b2d7-65f03da1430d")
+		(property "Reference" "TP1"
+			(at 304.8 211.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VBAT"
+			(at 304.8 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 304.8 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 304.8 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 304.8 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0f6d424a-4ca4-42d9-8670-af5c013d8290")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 304.8 218.44)
+			(xy 304.8 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffee40e5-826c-48f4-9d68-5983a2453a6e")
+	)
+	(symbol
+		(lib_id "Adafruit ESP32-S3 8MB No PSRAM-eagle-import:VBAT")
+		(at 304.8 226.06 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "80607b0b-6a2d-4500-9fb1-4b48ca5cfa27")
+		(property "Reference" "#U$45"
+			(at 304.8 226.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBAT"
+			(at 306.32 227.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 304.8 226.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 304.8 226.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 304.8 226.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9a318fa3-d9b2-4f15-8f57-27ac833dd74a")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#U$45")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 314.96 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "f43e3c5c-f0c6-454a-be94-9d262e713b62")
+		(property "Reference" "TP2"
+			(at 314.96 211.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VHI"
+			(at 314.96 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 314.96 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 314.96 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 314.96 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5074d0b0-e60d-48a4-aab7-e23ab048e508")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 314.96 218.44)
+			(xy 314.96 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9d219df-6b71-4805-b2cc-7211c54ebac1")
+	)
+	(label "VHI"
+		(at 314.96 223.52 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "838a3938-4771-49e7-9743-3b552e2f7b2c")
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 325.12 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "fae15f54-2c0d-43ff-8d79-5d9264f63edf")
+		(property "Reference" "TP3"
+			(at 325.12 211.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "3V3"
+			(at 325.12 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 325.12 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 325.12 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6894f15a-8dd9-4537-a07f-dcbd3add630e")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 325.12 218.44)
+			(xy 325.12 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba0cf331-1037-4e2d-8aea-d77a479ea113")
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 325.12 223.52 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6455671e-03fd-492e-8f21-10c8715ef30e")
+		(property "Reference" "#PWR66"
+			(at 325.12 219.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 325.12 227.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 325.12 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 325.12 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 325.12 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a2d33fbf-70f5-46f9-b7a8-97a5e275fa2e")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#PWR66")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 335.28 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "4c2e6a40-4e2d-4222-9b7f-ba3741967837")
+		(property "Reference" "TP4"
+			(at 335.28 211.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 335.28 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 335.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 335.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 335.28 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "737003d8-2120-46f6-95bb-2d65b9889f49")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "TP4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 335.28 218.44)
+			(xy 335.28 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "72178f52-630a-4d4f-a4a2-e1adcb8e0f40")
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 335.28 223.52 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "16be2ae9-5f48-4833-8aa6-e72c57eddabe")
+		(property "Reference" "#PWR67"
+			(at 335.28 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 335.28 227.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 335.28 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 335.28 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 335.28 223.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a9a7a8cf-bfbd-4fc1-bb28-7844cbf9bfff")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "#PWR67")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 345.44 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "9f89aac9-017b-400f-82fd-1279f2dbf25a")
+		(property "Reference" "TP5"
+			(at 345.44 211.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TXD0"
+			(at 345.44 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 345.44 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 345.44 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 345.44 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "44e0a759-8c73-48a6-9cde-a9255c6b4791")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 345.44 218.44)
+			(xy 345.44 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cedf715d-e238-445f-9fcf-86e8df5451e8")
+	)
+	(global_label "U0TXD"
+		(at 345.44 223.52 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "81f0b96d-55fd-41ac-9e84-80bc5638ab73")
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 355.6 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "0b8f382d-2678-4516-8a13-fabbce635691")
+		(property "Reference" "TP6"
+			(at 355.6 211.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RXD0"
+			(at 355.6 213.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 355.6 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 355.6 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 355.6 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "520f7fdf-6093-415c-b906-eaea0a836400")
+		)
+		(instances
+			(project "e_reader_v0.1"
+				(path "/5029d149-994a-4077-a92c-45d997bfd86c"
+					(reference "TP6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 355.6 218.44)
+			(xy 355.6 223.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1171426b-8a20-43c6-85c9-c1bdffd169be")
+	)
+	(global_label "U0RXD"
+		(at 355.6 223.52 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d1ce6664-9c76-4693-84d5-461c0c27f98f")
+	)
+	(global_label "U0TXD"
+		(at 148.59 191.77 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3fcb52a8-4d31-44b0-bef8-88b5c158a5c3")
+	)
+	(global_label "U0RXD"
+		(at 148.59 194.31 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e55471ac-c04b-4300-b591-c76a75eeeead")
+	)
+	(text "Pads only (not assembled). TXD0/RXD0 = GPIO43/44 UART0\nfallback console; native USB-CDC is the primary port."
+		(exclude_from_sim no)
+		(at 299.72 238 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9cb73dbf-7f5d-4f0a-86a7-b6185d4a897d")
+	)
+	(text "X1: pin 1 = GND (-), pin 2 = BATT+. Check cell leads!"
+		(exclude_from_sim no)
+		(at 299.72 160 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8147b830-5241-4a52-87f2-b6a01f8e2f03")
 	)
 )

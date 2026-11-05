@@ -10,48 +10,33 @@ The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/
 
 ## Hardware
 
-| Component | Part |
+| Component | Part (PCB rev 0.2.0) |
 |---|---|
-| MCU | ESP32-S3-DevKitC-1 (N16R8, 16MB flash, 8MB PSRAM) |
-| Display | Waveshare 7.5" V2 e-ink (800×480) |
-| Storage | MicroSD socket, SPI, FAT32 |
-| Input | 7× tactile buttons |
-| Battery | 3.7V LiPo via JST-PH, MCP73831 charger |
-| Power | USB-C (charging + programming), AP2112 3.3V LDO |
+| MCU | ESP32-S3-WROOM-1-N16R8 (16 MB flash, 8 MB octal PSRAM) |
+| Display | Waveshare 7.5" V2 e-ink (800×480) via driver HAT on a 9-pin header |
+| Storage | microSD (Molex 104031-0811), SPI, FAT32, card detect |
+| Input | Alps SKRHABE010 5-way joystick, plus SET / RST / BOOT / RESET buttons |
+| Battery | 1-cell protected LiPo via JST-PH, MCP73831 charger, PTC + reverse-polarity FET |
+| Power | USB-C (charging + native USB programming), RT9080 3.3 V LDO (~2 µA Iq), slide switch on LDO enable |
+
+The BOM, with an LCSC number for every assembled part, is in
+[`hardware/e_reader_v0.1/e_reader_v0.1_bom.csv`](hardware/e_reader_v0.1/e_reader_v0.1_bom.csv).
+The design-review log is in [`hardware/REVIEW.md`](hardware/REVIEW.md).
 
 ### Wiring
 
-**Display (FSPI / SPI2)**
-| Signal | GPIO | Notes |
-|---|---|---|
-| PWR | 3 | Drive HIGH to power display |
-| CS | 10 | |
-| CLK | 9 | |
-| DIN (MOSI) | 46 | |
-| DC | 11 | |
-| RST | 12 | |
-| BUSY | 13 | |
+Full pin tables for the breadboard and the PCB are in [`hardware/connections.md`](hardware/connections.md).
+The firmware takes its pins from [`src/pins.h`](src/pins.h): the default build uses the breadboard map,
+and `pio run -e pcb` uses the PCB map.
 
-**SD Card (HSPI / SPI3)**
-| Signal | GPIO |
-|---|---|
-| CS | 15 |
-| MOSI | 16 |
-| SCK | 17 |
-| MISO | 18 |
-
-> Use a 3.3V-native SD socket (no onboard LDO). DAT1 and DAT2 must be pulled to 3.3V via 10k resistors.
-
-**Buttons**
-| Button | GPIO | Notes |
-|---|---|---|
-| UP | 36 | INPUT_PULLUP, FALLING interrupt |
-| DOWN | 37 | INPUT_PULLUP, FALLING interrupt |
-| LEFT | 38 | INPUT_PULLUP, FALLING interrupt |
-| RIGHT | 39 | INPUT_PULLUP, FALLING interrupt |
-| MID | 40 | INPUT_PULLUP, FALLING interrupt |
-| SET | 41 | Hold at boot → WiFi mode |
-| RST | 42 | Reserved |
+The PCB pins that differ from the breadboard are:
+| Signal | Breadboard | PCB | Why |
+|---|---|---|---|
+| Joystick UP / DOWN | GPIO36 / 37 | GPIO4 / 5 | GPIO35–37 are used by the N16R8's octal PSRAM |
+| Joystick COM | GPIO35 driven LOW | GND | |
+| Display DIN | GPIO46 | GPIO14 | GPIO46 is a boot strapping pin |
+| SD card detect | — | GPIO6 | |
+| Battery voltage | — | GPIO1 (×2 divider) | |
 
 ## Building
 
@@ -63,7 +48,8 @@ The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/
 ```
 3. Build and flash:
 ```bash
-pio run --target upload
+pio run --target upload            # breadboard (DevKitC-1)
+pio run -e pcb --target upload     # custom PCB
 ```
 
 ## Usage
@@ -119,8 +105,9 @@ hardware/
 - [x] WiFi upload with multi-format support
 - [x] mDNS (`ereader.local`)
 - [x] Hardware schematic v0.1
+- [x] Schematic rev 0.2.0: power fixes, 5-way joystick, BOM with LCSC numbers (3 review rounds)
 - [ ] PCB layout and fabrication (JLCPCB)
-- [ ] LiPo battery + charging circuit (MCP73831 + AP2112)
+- [x] LiPo battery + charging circuit (MCP73831 + RT9080) in schematic
 - [ ] Persist reading position (LittleFS)
 - [ ] EPUB native rendering
 - [ ] 3D printed enclosure

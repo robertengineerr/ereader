@@ -76,10 +76,11 @@ They only work on the breadboard because the default PlatformIO board config lea
 | VBUS | USB-C (5 V), ESD-protected by USBLC6-2SC6 + SMAJ5.0A TVS (D3) | MCP73831 charger, SS54 → VHI |
 | VBAT_RAW | 1-cell LiPo on JST PH (X1), 2-pin SMD | → F1 (1 A PTC) → Q4 (reverse-polarity P-FET) → VBAT |
 | VBAT | protected battery rail | MCP73831 output, DMG3415U load switch → VHI, battery divider |
-| VHI | VBUS via SS54, or VBAT via DMG3415U when USB is absent | RT9080-3.3 LDO input |
+| VHI | VBUS via SS54, or VBAT via DMG3415U (Q3, gate pulled down by R12 10K) when USB is absent | RT9080-3.3 LDO input |
 | +3V3 | RT9080-33GJ5 (600 mA, ~2 µA Iq) | ESP32-S3, display, SD, pull-ups |
 
-- **Power switch SW10** (Nidec CAS-120A1) drives the LDO **EN**: ON = VHI, OFF = GND.
+- **Power switch SW10** (Nidec CAS-120A1) drives the LDO **EN**: ON = VHI, OFF = GND. R7 (1M) pulls EN down
+  while the slider is moving. Pin 2 is the switch common.
   When OFF the 3V3 rail is down, but the battery still charges from USB.
 - **Charging:** MCP73831, 200 mA (R4 = 5.1K; 2K gives 500 mA, so pick it for your cell). The orange LED (CHG0) is on while charging.
 - **Battery protection:** F1 sits between the cell and everything else, and Q4 blocks a reversed cell.
@@ -89,9 +90,14 @@ They only work on the breadboard because the default PlatformIO board config lea
 
 ---
 
+## Test pads (PCB, not assembled)
+TP1 VBAT, TP2 VHI, TP3 3V3, TP4 GND, TP5 TXD0 (GPIO43), TP6 RXD0 (GPIO44). UART0 is a fallback console;
+the primary console is native USB-CDC.
+
 ## Free GPIOs (PCB)
-GPIO2, GPIO7, GPIO8, GPIO21, GPIO43/44 (U0TXD/U0RXD), GPIO45 (strapping), GPIO47, GPIO48.
+GPIO2, GPIO7, GPIO8, GPIO21, GPIO45 (strapping), GPIO47, GPIO48.
 Do not use GPIO35–37 (octal PSRAM).
+Note: GPIO39–42 (joystick RIGHT/MID, SET, RST) are the external JTAG pins. Use the built-in USB-JTAG for debugging.
 
 ## WiFi
 Onboard PCB antenna on the WROOM-1. SSID/password in `src/secrets.h` (not committed). mDNS: `ereader.local`.
