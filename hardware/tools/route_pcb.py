@@ -19,7 +19,9 @@ VIA_SIG, VIA_PWR = (0.6, 0.3), (0.8, 0.4) # (diameter, drill)
 VIA_COST, BOTTOM_COST = 18.0, 1.15        # cost of a via (in grid steps) / bottom-layer step multiplier
 PLANE_NETS = {'GND': 'In1', '+3V3': 'In2'}
 POWER_NETS = {'GND', '+3V3', 'VBUS', 'VBAT', '/VBAT_RAW', '/VHI', 'Net-(Q4-D)'}
-BASE = W_SIG / 2 + CLR                    # every copper item is inflated by this
+MARG = 0.05                               # safety margin for grid discretisation
+HOLE_CLR, HOLE2HOLE = 0.25, 0.5           # copper-to-hole and drill-to-drill rules
+BASE = W_SIG / 2 + CLR + MARG             # every copper item is inflated by this
 
 board = P.LoadBoard(SRC)
 mm = P.ToMM
@@ -32,6 +34,7 @@ LAYERS = [P.F_Cu, P.B_Cu]
 own = np.zeros((2, NY, NX), np.int32)     # 0 free, >0 net code owning the (inflated) copper, -1 blocked for all
 core = np.zeros((2, NY, NX), np.int32)    # net code of real copper (pads + routed)
 padcore = np.zeros((NY, NX), bool)        # any pad copper (no vias here)
+viablock = np.zeros((NY, NX), bool)       # too close to an existing drill hole
 xs = X0 + np.arange(NX) * G
 ys = Y0 + np.arange(NY) * G
 
@@ -82,6 +85,7 @@ for fp in board.GetFootprints():
         net = pad.GetNetCode()
         pb = pad.GetBoundingBox()
         r = BASE + (CLR_PWR - CLR if pad.GetNetname() in POWER_NETS else 0)
+        if pad.GetAttribute() == P.PAD_ATTRIB_NPTH: r = W_PWR / 2 + HOLE_CLR + MARG
         i0, i1, j0, j1 = window(mm(pb.GetLeft()) - r - G, mm(pb.GetTop()) - r - G, mm(pb.GetRight()) + r + G, mm(pb.GetBottom()) + r + G)
         for li, L in enumerate(LAYERS):
             if not pad.IsOnLayer(L) and not pad.HasHole(): continue
@@ -98,6 +102,10 @@ for fp in board.GetFootprints():
             R[i0:i1, j0:j1] = ring | cor; C[i0:i1, j0:j1] = cor
             claim(li, R, C, net if pad.GetAttribute() != P.PAD_ATTRIB_NPTH else -1)
             if cor.any(): padcore[i0:i1, j0:j1] |= cor
+            if pad.HasHole():
+                hx, hy = mm(pad.GetPosition().x), mm(pad.GetPosition().y); rr = mm(max(pad.GetDrillSize().x, pad.GetDrillSize().y)) / 2 + VIA_PWR[1] / 2 + HOLE2HOLE + G
+                a0, a1, b0, b1 = window(hx - rr, hy - rr, hx + rr, hy + rr)
+                viablock[a0:a1, b0:b1] |= np.hypot(XX[a0:a1, b0:b1] - hx, YY[a0:a1, b0:b1] - hy) <= rr
         if net > 0 and pad.GetAttribute() != P.PAD_ATTRIB_NPTH:
             pads_by_net.setdefault(net, []).append(pad)
 
@@ -119,7 +127,7 @@ def dilate(mask, r):
 
 def mark_track(li, a, b, halfw, net, clr):
     xa, ya = a; xb, yb = b
-    r = halfw + clr + W_SIG / 2
+    r = halfw + clr + W_SIG / 2 + MARG
     i0, i1, j0, j1 = window(min(xa, xb) - r - G, min(ya, yb) - r - G, max(xa, xb) + r + G, max(ya, yb) + r + G)
     X = XX[i0:i1, j0:j1]; Y = YY[i0:i1, j0:j1]
     dx, dy = xb - xa, yb - ya; L2 = dx * dx + dy * dy
@@ -130,6 +138,9 @@ def mark_track(li, a, b, halfw, net, clr):
     claim(li, R, C, net)
 def mark_via(x, y, dia, net, clr):
     for li in (0, 1): mark_track(li, (x, y), (x, y), dia / 2, net, clr)
+    rr = VIA_PWR[1] / 2 + VIA_PWR[1] / 2 + HOLE2HOLE + G
+    i0, i1, j0, j1 = window(x - rr, y - rr, x + rr, y + rr)
+    viablock[i0:i1, j0:j1] |= np.hypot(XX[i0:i1, j0:j1] - x, YY[i0:i1, j0:j1] - y) <= rr
 
 tracks, vias = [], []
 def add_track(li, a, b, w, net):
@@ -149,10 +160,11 @@ def net_params(name):
 def masks_for(net, name):
     w, clr, via = net_params(name)
     ok0 = (own[0] == 0) | (own[0] == net); ok1 = (own[1] == 0) | (own[1] == net)
-    extra = (w / 2 + clr) - BASE                    # extra margin beyond the BASE inflation
+    extra = (w / 2 + clr) - (W_SIG / 2 + CLR)        # extra margin beyond the BASE inflation
+    if extra > 0: extra += G
     t0, t1 = erode(ok0, extra), erode(ok1, extra)
-    vr = (via[0] / 2 + clr) - BASE
-    v = erode(ok0, vr) & erode(ok1, vr) & ~dilate(padcore, via[0] / 2 + 0.05) & ~keep
+    vr = (via[0] / 2 + clr) - (W_SIG / 2 + CLR) + G
+    v = erode(ok0, vr) & erode(ok1, vr) & ~dilate(padcore, via[0] / 2 + 0.1) & ~keep & ~viablock
     return t0, t1, v
 
 # ---------------------------------------------------------------- A* search
@@ -298,8 +310,7 @@ print('NFAIL:', len(fails))
 # ---------------------------------------------------------------- 3. GND pour on F.Cu / B.Cu, then fill all zones
 for L in (P.F_Cu, P.B_Cu):
     z = P.ZONE(board); z.SetLayer(L); z.SetNet(board.FindNet('GND')); z.SetLocalClearance(iu(0.25))
-    z.SetMinThickness(iu(0.2)); z.SetPadConnection(P.ZONE_CONNECTION_THERMAL)
-    z.SetThermalReliefGap(iu(0.3)); z.SetThermalReliefSpokeWidth(iu(0.4)); z.SetAssignedPriority(0)
+    z.SetMinThickness(iu(0.2)); z.SetPadConnection(P.ZONE_CONNECTION_FULL); z.SetAssignedPriority(0)
     o = z.Outline(); o.NewOutline()
     for (px, py) in ((X0 + 0.3, Y0 + 0.3), (X1 - 0.3, Y0 + 0.3), (X1 - 0.3, Y1 - 0.3), (X0 + 0.3, Y1 - 0.3)):
         o.Append(iu(px), iu(py))
