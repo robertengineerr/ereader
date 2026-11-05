@@ -6,6 +6,8 @@ An open-source e-reader built on the ESP32-S3. Bare-metal C++ firmware, web-base
 
 [![View Schematic](https://img.shields.io/badge/KiCanvas-View%20Schematic-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_sch)
 
+[![View Layout](https://img.shields.io/badge/KiCanvas-View%20Layout-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_pcb)
+
 The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/). Pin reference is in [`hardware/connections.md`](hardware/connections.md).
 
 ## Hardware
