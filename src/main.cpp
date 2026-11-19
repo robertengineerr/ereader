@@ -136,6 +136,8 @@ void loop() {
   bool left  = ev_left;  ev_left  = false;
   bool right = ev_right; ev_right = false;
   bool mid   = ev_mid;   ev_mid   = false;
+  Serial.printf("btn:%s%s%s%s%s\n", up ? " UP" : "", down ? " DOWN" : "",
+                left ? " LEFT" : "", right ? " RIGHT" : "", mid ? " MID" : "");
 
   int totalItems;
 
