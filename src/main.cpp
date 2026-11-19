@@ -77,7 +77,12 @@ static void enterLibrary() {
 // ---------------------------------------------------------------------------
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(115200);   // USB-CDC: the baud number is ignored, any value works
+#ifdef BOARD_PCB
+  // Native USB re-enumerates on every reset, so give the serial monitor up to
+  // 3 s to reconnect before printing; otherwise the boot log is lost.
+  for (unsigned long t0 = millis(); !Serial && millis() - t0 < 3000; ) delay(10);
+#endif
 
   // Joystick: COM acts as virtual GND so direction pins read LOW when pressed
   if (JOY_COM >= 0) {           // breadboard only: COM is a GPIO driven LOW
