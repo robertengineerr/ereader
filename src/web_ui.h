@@ -254,7 +254,10 @@ const char* HTML_PAGE = R"rawhtml(
             const text = await convertToText(file);
             file = new File([text], uploadName, { type: 'text/plain' });
           } catch(e) {
-            showStatus('Failed to convert ' + file.name + ': ' + e.message, false);
+            const hint = e.name === 'NotReadableError'
+              ? 'your browser could not read this file. Copy it to the Desktop (not iCloud or Apple Books) and use Choose files.'
+              : e.message;
+            showStatus('Failed to convert ' + file.name + ': ' + hint, false);
             continue;
           }
         }

@@ -25,6 +25,12 @@ The PCB has no USB-UART bridge and no auto-reset circuit, so the first flash is 
 Interface: **FSPI (SPI2)**, 4 MHz, MSBFIRST, SPI_MODE0. Portrait orientation (setRotation(1)).
 On the PCB the HAT plugs into the 9-pin 2.54 mm SMD header J2 with individual Dupont leads.
 
+> **Watch the last two pins.** The Waveshare HAT's connector is labelled `... DIN, GND, VCC`, but J2 is
+> `... DIN, VCC, GND`, so copying the HAT's order puts the panel's power on backwards. That drags +3V3 down
+> to about 1.4 V and the ESP32 never shows up on USB. Pin 1 (PWR) is the end of J2 nearest the ESP32.
+> With Waveshare's standard cable colours, J2 pins 1→9 are: brown, purple, white, green, orange, yellow, blue, red, black.
+> Only plug or unplug the display with USB disconnected; hot-plugging can latch up the ESP32 until it is power-cycled.
+
 | Display pin | J2 pin | Breadboard GPIO | PCB GPIO | Notes |
 |-------------|--------|-----------------|----------|-------|
 | PWR         | 1 | GPIO3  | GPIO3  | OUTPUT HIGH to power the panel |
@@ -109,3 +115,17 @@ Note: GPIO39–42 (joystick RIGHT/MID, SET, RST) are the external JTAG pins. Use
 
 ## WiFi
 Onboard PCB antenna on the WROOM-1. SSID/password in `src/secrets.h` (not committed). mDNS: `ereader.local`.
+
+---
+
+## Bring-up log (first board)
+| Stage | Result |
+|---|---|
+| Resistances, unpowered | TP3–TP4 13.5k, TP2–TP4 141k, TP1–TP4 ~170k; no shorts |
+| Rails on USB | VHI 4.9 V; 3V3 3.3 V with SW10 left (ON), 0 V right |
+| ESP32 | Flashed over native USB; chip reports 8 MB PSRAM; firmware boots |
+| microSD | 128 GB card mounted; books opened |
+| Joystick | Navigation and page turns work |
+| Display | Works once VCC/GND were wired the right way round (see the J2 note above) |
+| WiFi | Connected; uploaded a book through ereader.local |
+| Battery | not tested yet |

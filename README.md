@@ -2,13 +2,46 @@
 
 An open-source e-reader built on the ESP32-S3. Bare-metal C++ firmware, web-based book management, physical controls. Designed for FOSS developers to build on top of solid hardware.
 
-## Schematic
+<p align="center">
+  <img src="docs/images/working_demo.jpg" width="48%" alt="Custom PCB driving the 7.5-inch e-paper display, showing the library screen">
+  <img src="docs/images/board_top.jpg" width="48%" alt="Assembled rev 0.2.0 board, top side">
+</p>
+
+## Design files
+
+View the schematic and the 4-layer layout in your browser, no KiCad needed:
 
 [![View Schematic](https://img.shields.io/badge/KiCanvas-View%20Schematic-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_sch)
 
 [![View Layout](https://img.shields.io/badge/KiCanvas-View%20Layout-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_pcb)
 
 The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/). Pin reference is in [`hardware/connections.md`](hardware/connections.md).
+
+## Status
+
+**PCB rev 0.2.0 is built and working.** Boards were fabricated and fully assembled by JLCPCB, then brought up by hand:
+
+| Stage | Result |
+|---|---|
+| Power-off resistance checks | No shorts (3V3–GND 13.5 kΩ, VHI–GND 141 kΩ) |
+| Power rails on USB | VHI 4.9 V; 3V3 3.30 V with the power switch on, 0 V off |
+| ESP32-S3 | Flashed over native USB-C; 8 MB PSRAM detected; firmware boots |
+| microSD | 128 GB card mounted; books open and paginate |
+| Joystick + buttons | Navigation, page turns, SET-at-boot WiFi mode |
+| E-paper display | Full refresh 3.7 s, partial page turn 1.6 s |
+| WiFi | Connects; books uploaded through `ereader.local` |
+| Battery | Not tested yet |
+
+The one bring-up fault was wiring, not the board: the HAT's connector ends `…DIN, GND, VCC` while J2 ends
+`…DIN, VCC, GND`, so a straight copy powered the display backwards and pulled 3V3 down to 1.4 V.
+The correct J2 wiring is in [`hardware/connections.md`](hardware/connections.md).
+
+<p align="center">
+  <img src="docs/images/board_wired.jpg" width="32%" alt="Board on USB with the display header wired">
+  <img src="docs/images/bringup_notes.jpg" width="32%" alt="Bring-up notes: resistance and rail measurements">
+  <img src="docs/images/breadboard_prototype.jpg" width="32%" alt="Original breadboard prototype on an ESP32-S3 DevKitC">
+</p>
+<p align="center"><em>Board on USB with the display wired · bring-up measurements · the original breadboard prototype</em></p>
 
 ## Hardware
 
@@ -24,6 +57,12 @@ The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/
 The BOM, with an LCSC number for every assembled part, is in
 [`hardware/e_reader_v0.1/e_reader_v0.1_bom.csv`](hardware/e_reader_v0.1/e_reader_v0.1_bom.csv).
 The design-review log is in [`hardware/REVIEW.md`](hardware/REVIEW.md).
+
+**How the board was made.** The schematic started as a hand-drawn v0.1 and was corrected to rev 0.2.0 over several
+review rounds. The 4-layer layout (68 × 50 mm; In1 GND plane, In2 3V3 plane) was generated with AI-assisted
+Python scripts on KiCad's pcbnew API, in [`hardware/tools/`](hardware/tools/): a placement script, a grid
+A* router with rip-up and reroute, and a script that corrects JLCPCB's part rotations and offsets in the CPL.
+The result is DRC clean with no unconnected nets.
 
 ### Wiring
 
@@ -95,8 +134,13 @@ src/
   secrets.h         # WiFi credentials (not in repo — create your own)
 
 hardware/
-  connections.md              # full pin reference for KiCad
-  e_reader_v0.1/              # KiCad project (schematic + PCB)
+  connections.md              # full pin reference, first-flash steps, bring-up log
+  REVIEW.md                   # design-review rounds and findings
+  e_reader_v0.1/              # KiCad project (schematic + PCB), fab/ has Gerbers, BOM, CPL
+  tools/                      # Python placement, routing and CPL-correction scripts
+  enclosure/                  # CadQuery enclosure (STEP for Onshape, STL for printing)
+
+docs/images/                  # photos of the board and bring-up
 ```
 
 ## Roadmap
@@ -109,11 +153,13 @@ hardware/
 - [x] Hardware schematic v0.1
 - [x] Schematic rev 0.2.0: power fixes, 5-way joystick, BOM with LCSC numbers (3 review rounds)
 - [x] PCB layout (4-layer, routed, DRC clean) and JLCPCB fab files in `hardware/e_reader_v0.1/fab/`
-- [ ] Fabrication and bring-up
+- [x] Fabrication and bring-up (everything except the battery verified)
 - [x] LiPo battery + charging circuit (MCP73831 + RT9080) in schematic
 - [ ] Persist reading position (LittleFS)
 - [ ] EPUB native rendering
-- [ ] 3D printed enclosure
+- [ ] 3D printed enclosure (designed in `hardware/enclosure/`, not printed yet)
+- [ ] Battery bring-up and on-screen battery level
+- [ ] Rev 0.3 layout by hand
 
 ## License
 

@@ -136,3 +136,19 @@ with `fab/jlcpcb_bom.csv` and `fab/jlcpcb_cpl.csv`.
 - The SMD display header J2 is weaker than through-hole. Add strain relief or glue if leads are swapped often.
 - USB D+/D- are not length-matched (fine at 12 Mbit/s). The ESP32 EPAD thermal vias are open (standard footprint).
 - JLCPCB should solder the USB-C shell tabs; confirm in the quote.
+
+## Post-order re-verification (as-ordered files, commit 67a72e7)
+Re-run from scratch on the committed files:
+- ERC 0 errors; DRC with schematic parity 0 unconnected, 0 electrical errors (16 silkscreen warnings).
+- Gerbers and drill files regenerate identically from the board; the zip matches the folder; BOM and CPL list the same 65 parts.
+- **Pad-by-pad placement check:** each part's JLCPCB footprint was placed at its CPL position and rotation. All 247 leads land
+  on the intended pad, every connected pad has a lead, and JLCPCB's pin names match our nets (U2, U3, Q3, Q4, D2, D3, CHG0, J1, SW3, SW10).
+- Antenna keep-out is free of tracks, vias, pads and pour on all four layers. Power tracks are all 0.30 mm.
+
+**Found, low risk:** the KMR221**G** buttons (SW1, SW2, SW8, SW9) have a fifth ground/shield tab that our 4-pad footprint
+has no pad for. It will sit unsoldered on solder mask. Under SW1/SW8/SW9 there is only GND copper. Under SW2 (RESET) the tab
+lies over the masked /RESET and U0TXD tracks. If a board ever sits stuck in reset, bend that tab up.
+For the next revision use `SW_Push_1P1T-SH_NO_CK_KMR2xxG` with the tab pad on GND.
+
+**Still unverified:** the firmware has not been compiled (PlatformIO is not reachable from this environment), and the battery
+lead polarity must be checked against X1 (pad 2, the one nearer the USB-C, is +).
