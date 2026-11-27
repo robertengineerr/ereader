@@ -7,6 +7,16 @@ An open-source e-reader built on the ESP32-S3. Bare-metal C++ firmware, web-base
   <img src="docs/images/board_top.jpg" width="48%" alt="Assembled rev 0.2.0 board, top side">
 </p>
 
+## Design files
+
+View the schematic and the 4-layer layout in your browser, no KiCad needed:
+
+[![View Schematic](https://img.shields.io/badge/KiCanvas-View%20Schematic-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_sch)
+
+[![View Layout](https://img.shields.io/badge/KiCanvas-View%20Layout-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_pcb)
+
+The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/). Pin reference is in [`hardware/connections.md`](hardware/connections.md).
+
 ## Status
 
 **PCB rev 0.2.0 is built and working.** Boards were fabricated and fully assembled by JLCPCB, then brought up by hand:
@@ -32,14 +42,6 @@ The correct J2 wiring is in [`hardware/connections.md`](hardware/connections.md)
   <img src="docs/images/breadboard_prototype.jpg" width="32%" alt="Original breadboard prototype on an ESP32-S3 DevKitC">
 </p>
 <p align="center"><em>Board on USB with the display wired · bring-up measurements · the original breadboard prototype</em></p>
-
-## Schematic
-
-[![View Schematic](https://img.shields.io/badge/KiCanvas-View%20Schematic-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_sch)
-
-[![View Layout](https://img.shields.io/badge/KiCanvas-View%20Layout-blue)](https://kicanvas.org/?github=https://github.com/robertengineerr/ereader/blob/main/hardware/e_reader_v0.1/e_reader_v0.1.kicad_pcb)
-
-The full KiCad project is in [`hardware/e_reader_v0.1/`](hardware/e_reader_v0.1/). Pin reference is in [`hardware/connections.md`](hardware/connections.md).
 
 ## Hardware
 

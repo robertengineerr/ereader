@@ -74,6 +74,21 @@ void showBootScreen() {
 //         index count        -> "Settings" (always last)
 // ---------------------------------------------------------------------------
 
+// Fit a book name on one library row: drop ".txt" and cut long names with "...".
+// FreeMonoBold12pt7b is monospaced at 14 px per character.
+static void fitLabel(const char* in, char* out, size_t outSize) {
+  const int maxChars = (DISPLAY_W - 2 * MARGIN) / 14;
+  size_t n = strlen(in);
+  if (n > 4 && strcasecmp(in + n - 4, ".txt") == 0) n -= 4;
+  if ((int)n > maxChars) {
+    n = maxChars - 3;
+    while (n > 0 && in[n - 1] == ' ') n--;   // no space before the dots
+    snprintf(out, outSize, "%.*s...", (int)n, in);
+  } else {
+    snprintf(out, outSize, "%.*s", (int)n, in);
+  }
+}
+
 void showLibraryScreen(char names[][MAX_NAME_LEN], int count, int selected, int scroll) {
   int totalItems = count + 1;
 
@@ -85,6 +100,7 @@ void showLibraryScreen(char names[][MAX_NAME_LEN], int count, int selected, int 
 
     display.setTextColor(GxEPD_BLACK);
     display.setCursor(MARGIN, MARGIN + LINE_HEIGHT);
+    display.setTextWrap(false);   // a long label must never spill onto the next row
     display.print("Library");
     display.drawFastHLine(0, MARGIN + LINE_HEIGHT + 2, DISPLAY_W, GxEPD_BLACK);
 
@@ -101,8 +117,10 @@ void showLibraryScreen(char names[][MAX_NAME_LEN], int count, int selected, int 
       } else {
         display.setTextColor(GxEPD_BLACK);
       }
+      char fitted[MAX_NAME_LEN];
+      fitLabel(label, fitted, sizeof(fitted));
       display.setCursor(MARGIN, cursorY);
-      display.print(label);
+      display.print(fitted);
     }
 
     display.setTextColor(GxEPD_BLACK);
